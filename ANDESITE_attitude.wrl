@@ -1,0 +1,178 @@
+#VRML V2.0 utf8
+
+PROTO Triad [
+  exposedField SFInt32 negativeAxes 0
+  exposedField SFVec3f scale 1 1 1
+  exposedField SFRotation rotation 0 0 1 0
+  exposedField SFVec3f position 0 0 0
+]
+{
+  Transform {
+    translation IS position
+    scale IS scale
+    rotation IS rotation
+    children Switch {
+      whichChoice IS negativeAxes
+      choice [
+        Shape {
+          geometry IndexedLineSet {
+            coordIndex [
+              0, 1, -1, 
+              0, 2, -1, 
+              0, 3, -1 
+            ]
+            colorPerVertex FALSE
+            colorIndex [
+              0, 1, 2 
+            ]
+            coord Coordinate {
+              point [
+                0 0 0,
+                1 0 0,
+                0 1 0,
+                0 0 1 
+              ]
+            }
+            color Color {
+              color [
+                1 0 0,
+                0 1 0,
+                0 0 1 
+              ]
+            }
+          }
+        }
+        Shape {
+          geometry IndexedLineSet {
+            coordIndex [
+              0, 1, -1, 
+              2, 3, -1, 
+              4, 5, -1 
+            ]
+            colorPerVertex FALSE
+            colorIndex [
+              0, 1, 2 
+            ]
+            coord Coordinate {
+              point [
+                -1 0 0,
+                1 0 0,
+                0 -1 0,
+                0 1 0,
+                0 0 -1,
+                0 0 1 
+              ]
+            }
+            color Color {
+              color [
+                1 0 0,
+                0 1 0,
+                0 0 1 
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+DEF ANDESITE Transform {
+  translation 15 0 0
+  children Group {
+    children [
+      DEF Front Transform {
+        translation 3 0 0
+        scale 0.1 2 1
+        children Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor 0 0.2 0.2
+            }
+          }
+          geometry Box {
+          }
+        }
+      }
+      DEF SolarPanel2 Transform {
+        translation 0 -3 -1
+        scale 3 1 0.1
+        children Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor 0 0 0.4
+            }
+          }
+          geometry Box {
+          }
+        }
+      }
+      DEF SolarPanel1 Transform {
+        translation 0 3 -1
+        scale 3 1 0.1
+        children Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor 0 0 0.4
+            }
+          }
+          geometry Box {
+          }
+        }
+      }
+      DEF SolarPanelTop Transform {
+        scale 3 2 0.01
+        center 0 0 -1.01
+        children Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor 0 0 0.2
+            }
+          }
+          geometry Box {
+          }
+        }
+      }
+      DEF Body Transform {
+        scale 3 2 1
+        children Shape {
+          appearance Appearance {
+            material Material {
+            }
+          }
+          geometry Box {
+          }
+        }
+      }
+    ]
+  }
+}
+DEF Earth Transform {
+  children Shape {
+    appearance Appearance {
+      material Material {
+        diffuseColor 0.2 0.4 0
+      }
+    }
+    geometry Sphere {
+      radius 5
+    }
+  }
+}
+DEF Sun Transform {
+  translation 25 0 0
+  children Shape {
+    appearance Appearance {
+      material Material {
+        diffuseColor 1 1 0
+      }
+    }
+    geometry Sphere {
+    }
+  }
+}
+DEF ECI Transform {
+  scale 10 10 10
+  children Triad {
+  }
+}
