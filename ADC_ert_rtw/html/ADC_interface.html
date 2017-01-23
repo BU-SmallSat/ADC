@@ -115,7 +115,7 @@ Header file
 
 </table>
 <p>
-Function: <a href="ADC_c.html#fcn_ADC_step">ADC_step</a>
+Function: <a href="ADC_c.html#fcn_ADC_custom">ADC_custom</a>
 </p>
 <table width="100%" class="AltRow" cellspacing="0">
 <tr class="even">
@@ -124,7 +124,7 @@ Prototype
 </td>
 <td width="75%" align="left" valign="top">
 <b>
-void ADC_step(void)
+void ADC_custom(real_T arg_Magnetic_Measure[3], real_T arg_Euler_Angle_Measure[3], real_T arg_Sun_Measure[3], real_T arg_epoch[6], real_T arg_lla[3], real_T arg_v_[3], real_T&nbsp;*arg_S_flag, real_T arg_Magnetic_Dipole_Moment[3], real_T arg_q_est1[4])
 </b>
 
 </td>
@@ -153,7 +153,172 @@ Must be called periodically, every 0.1 seconds
 Arguments
 </td>
 <td width="75%" align="left" valign="top">
-None
+<span title="Click to shrink or expand table" onclick="rtwTableShrink(this)">[-]</span><table class="AltRow FirstColumn" cellspacing="0">
+<tr class="heading">
+<th align="left" valign="top">
+<b>
+#
+</b>
+
+</th>
+<th align="left" valign="top">
+<b>
+Name
+</b>
+
+</th>
+<th align="left" valign="top">
+<b>
+Data Type
+</b>
+
+</th>
+<th align="left" valign="top">
+<b>
+Description
+</b>
+
+</th>
+
+</tr>
+<tr class="even">
+<td align="right" valign="top">
+1
+</td>
+<td align="left" valign="top">
+arg_Magnetic_Measure
+</td>
+<td align="left" valign="top">
+real_T
+</td>
+<td align="left" valign="top">
+<a href="matlab:coder.internal.code2model('ADC:1')" name="code2model" class="code2model">&lt;Root&gt;/Magnetic Measure</a>
+</td>
+
+</tr>
+<tr class="odd">
+<td align="right" valign="top">
+2
+</td>
+<td align="left" valign="top">
+arg_Euler_Angle_Measure
+</td>
+<td align="left" valign="top">
+real_T
+</td>
+<td align="left" valign="top">
+<a href="matlab:coder.internal.code2model('ADC:2')" name="code2model" class="code2model">&lt;Root&gt;/Euler Angle Measure</a>
+</td>
+
+</tr>
+<tr class="even">
+<td align="right" valign="top">
+3
+</td>
+<td align="left" valign="top">
+arg_Sun_Measure
+</td>
+<td align="left" valign="top">
+real_T
+</td>
+<td align="left" valign="top">
+<a href="matlab:coder.internal.code2model('ADC:3')" name="code2model" class="code2model">&lt;Root&gt;/Sun Measure</a>
+</td>
+
+</tr>
+<tr class="odd">
+<td align="right" valign="top">
+4
+</td>
+<td align="left" valign="top">
+arg_epoch
+</td>
+<td align="left" valign="top">
+real_T
+</td>
+<td align="left" valign="top">
+<a href="matlab:coder.internal.code2model('ADC:4')" name="code2model" class="code2model">&lt;Root&gt;/epoch</a>
+</td>
+
+</tr>
+<tr class="even">
+<td align="right" valign="top">
+5
+</td>
+<td align="left" valign="top">
+arg_lla
+</td>
+<td align="left" valign="top">
+real_T
+</td>
+<td align="left" valign="top">
+<a href="matlab:coder.internal.code2model('ADC:5')" name="code2model" class="code2model">&lt;Root&gt;/lla</a>
+</td>
+
+</tr>
+<tr class="odd">
+<td align="right" valign="top">
+6
+</td>
+<td align="left" valign="top">
+arg_v_
+</td>
+<td align="left" valign="top">
+real_T
+</td>
+<td align="left" valign="top">
+<a href="matlab:coder.internal.code2model('ADC:6')" name="code2model" class="code2model">&lt;Root&gt;/v </a>
+</td>
+
+</tr>
+<tr class="even">
+<td align="right" valign="top">
+7
+</td>
+<td align="left" valign="top">
+arg_S_flag
+</td>
+<td align="left" valign="top">
+real_T&nbsp;*
+</td>
+<td align="left" valign="top">
+<a href="matlab:coder.internal.code2model('ADC:7')" name="code2model" class="code2model">&lt;Root&gt;/S_flag</a>
+</td>
+
+</tr>
+<tr class="odd">
+<td align="right" valign="top">
+8
+</td>
+<td align="left" valign="top">
+arg_Magnetic_Dipole_Moment
+</td>
+<td align="left" valign="top">
+real_T
+</td>
+<td align="left" valign="top">
+<a href="matlab:coder.internal.code2model('ADC:93')" name="code2model" class="code2model">&lt;Root&gt;/Magnetic Dipole Moment</a>
+</td>
+
+</tr>
+<tr class="even">
+<td align="right" valign="top">
+9
+</td>
+<td align="left" valign="top">
+arg_q_est1
+</td>
+<td align="left" valign="top">
+real_T
+</td>
+<td align="left" valign="top">
+<a href="matlab:coder.internal.code2model('ADC:105')" name="code2model" class="code2model">&lt;Root&gt;/q_est1</a>
+</td>
+
+</tr>
+
+</table>
+
 </td>
 
 </tr>
@@ -279,7 +444,10 @@ Dimension
 <a href="matlab:coder.internal.code2model('ADC:1')" name="code2model" class="code2model">&lt;Root&gt;/Magnetic Measure</a>
 </td>
 <td width="26%" align="left" valign="top">
-ADC_U.B_meas
+<i>
+Defined externally
+</i>
+
 </td>
 <td width="21%" align="left" valign="top">
 real_T
@@ -294,7 +462,10 @@ real_T
 <a href="matlab:coder.internal.code2model('ADC:2')" name="code2model" class="code2model">&lt;Root&gt;/Euler Angle Measure</a>
 </td>
 <td width="26%" align="left" valign="top">
-ADC_U.w_meas
+<i>
+Defined externally
+</i>
+
 </td>
 <td width="21%" align="left" valign="top">
 real_T
@@ -309,7 +480,10 @@ real_T
 <a href="matlab:coder.internal.code2model('ADC:3')" name="code2model" class="code2model">&lt;Root&gt;/Sun Measure</a>
 </td>
 <td width="26%" align="left" valign="top">
-ADC_U.S_meas
+<i>
+Defined externally
+</i>
+
 </td>
 <td width="21%" align="left" valign="top">
 real_T
@@ -324,7 +498,10 @@ real_T
 <a href="matlab:coder.internal.code2model('ADC:4')" name="code2model" class="code2model">&lt;Root&gt;/epoch</a>
 </td>
 <td width="26%" align="left" valign="top">
-ADC_U.epoch
+<i>
+Defined externally
+</i>
+
 </td>
 <td width="21%" align="left" valign="top">
 real_T
@@ -336,10 +513,13 @@ real_T
 </tr>
 <tr class="even">
 <td width="42%" align="left" valign="top">
-<a href="matlab:coder.internal.code2model('ADC:5')" name="code2model" class="code2model">&lt;Root&gt;/r</a>
+<a href="matlab:coder.internal.code2model('ADC:5')" name="code2model" class="code2model">&lt;Root&gt;/lla</a>
 </td>
 <td width="26%" align="left" valign="top">
-ADC_U.r
+<i>
+Defined externally
+</i>
+
 </td>
 <td width="21%" align="left" valign="top">
 real_T
@@ -354,7 +534,10 @@ real_T
 <a href="matlab:coder.internal.code2model('ADC:6')" name="code2model" class="code2model">&lt;Root&gt;/v </a>
 </td>
 <td width="26%" align="left" valign="top">
-ADC_U.v
+<i>
+Defined externally
+</i>
+
 </td>
 <td width="21%" align="left" valign="top">
 real_T
@@ -369,7 +552,10 @@ real_T
 <a href="matlab:coder.internal.code2model('ADC:7')" name="code2model" class="code2model">&lt;Root&gt;/S_flag</a>
 </td>
 <td width="26%" align="left" valign="top">
-ADC_U.S_flag
+<i>
+Defined externally
+</i>
+
 </td>
 <td width="21%" align="left" valign="top">
 real_T
@@ -420,13 +606,34 @@ Dimension
 <a href="matlab:coder.internal.code2model('ADC:93')" name="code2model" class="code2model">&lt;Root&gt;/Magnetic Dipole Moment</a>
 </td>
 <td width="26%" align="left" valign="top">
-ADC_Y.MagneticDipoleMoment
+<i>
+Defined externally
+</i>
+
 </td>
 <td width="21%" align="left" valign="top">
 real_T
 </td>
 <td width="10%" align="right" valign="top">
 [3]
+</td>
+
+</tr>
+<tr class="odd">
+<td width="42%" align="left" valign="top">
+<a href="matlab:coder.internal.code2model('ADC:105')" name="code2model" class="code2model">&lt;Root&gt;/q_est1</a>
+</td>
+<td width="26%" align="left" valign="top">
+<i>
+Defined externally
+</i>
+
+</td>
+<td width="21%" align="left" valign="top">
+real_T
+</td>
+<td width="10%" align="right" valign="top">
+[4]
 </td>
 
 </tr>
@@ -483,7 +690,7 @@ real_T
 </tr>
 <tr class="odd">
 <td width="42%" align="left" valign="top">
-<a href="matlab:coder.internal.code2model('ADC:20')" name="code2model" class="code2model">&lt;S4&gt;/Discrete Derivative</a>
+<a href="matlab:coder.internal.code2model('ADC:20')" name="code2model" class="code2model">&lt;S5&gt;/Discrete Derivative</a>
 </td>
 <td width="26%" align="left" valign="top">
 ADC_P.DiscreteDerivative_ICPrevScaledInput
@@ -513,7 +720,7 @@ real_T
 </tr>
 <tr class="odd">
 <td width="42%" align="left" valign="top">
-<a href="matlab:coder.internal.code2model('ADC:20:4')" name="code2model" class="code2model">&lt;S6&gt;/TSamp</a>
+<a href="matlab:coder.internal.code2model('ADC:20:4')" name="code2model" class="code2model">&lt;S7&gt;/TSamp</a>
 </td>
 <td width="26%" align="left" valign="top">
 ADC_P.TSamp_WtEt
@@ -528,7 +735,7 @@ real_T
 </tr>
 <tr class="even">
 <td width="42%" align="left" valign="top">
-<a href="matlab:coder.internal.code2model('ADC:21')" name="code2model" class="code2model">&lt;S4&gt;/Gain</a>
+<a href="matlab:coder.internal.code2model('ADC:21')" name="code2model" class="code2model">&lt;S5&gt;/Gain</a>
 </td>
 <td width="26%" align="left" valign="top">
 ADC_P.Gain_Gain
@@ -543,7 +750,7 @@ real_T
 </tr>
 <tr class="odd">
 <td width="42%" align="left" valign="top">
-<a href="matlab:coder.internal.code2model('ADC:28')" name="code2model" class="code2model">&lt;S4&gt;/voltage</a>
+<a href="matlab:coder.internal.code2model('ADC:28')" name="code2model" class="code2model">&lt;S5&gt;/voltage</a>
 </td>
 <td width="26%" align="left" valign="top">
 ADC_P.voltage_Value
@@ -558,7 +765,7 @@ real_T
 </tr>
 <tr class="even">
 <td width="42%" align="left" valign="top">
-<a href="matlab:coder.internal.code2model('ADC:69:400')" name="code2model" class="code2model">&lt;S16&gt;/X0</a>
+<a href="matlab:coder.internal.code2model('ADC:69:400')" name="code2model" class="code2model">&lt;S17&gt;/X0</a>
 </td>
 <td width="26%" align="left" valign="top">
 ADC_P.X0_Value
@@ -573,7 +780,7 @@ real_T
 </tr>
 <tr class="odd">
 <td width="42%" align="left" valign="top">
-<a href="matlab:coder.internal.code2model('ADC:42')" name="code2model" class="code2model">&lt;S5&gt;/voltage</a>
+<a href="matlab:coder.internal.code2model('ADC:42')" name="code2model" class="code2model">&lt;S6&gt;/voltage</a>
 </td>
 <td width="26%" align="left" valign="top">
 ADC_P.voltage_Value_b
@@ -588,7 +795,7 @@ real_T
 </tr>
 <tr class="even">
 <td width="42%" align="left" valign="top">
-<a href="matlab:coder.internal.code2model('ADC:40')" name="code2model" class="code2model">&lt;S5&gt;/Switch</a>
+<a href="matlab:coder.internal.code2model('ADC:40')" name="code2model" class="code2model">&lt;S6&gt;/Switch</a>
 </td>
 <td width="26%" align="left" valign="top">
 ADC_P.Switch_Threshold
@@ -603,21 +810,6 @@ real_T
 </tr>
 <tr class="odd">
 <td width="42%" align="left" valign="top">
-<a href="matlab:coder.internal.code2model('ADC:41')" name="code2model" class="code2model">&lt;S5&gt;/Switch2</a>
-</td>
-<td width="26%" align="left" valign="top">
-ADC_P.Switch2_Threshold
-</td>
-<td width="21%" align="left" valign="top">
-real_T
-</td>
-<td width="10%" align="right" valign="top">
-1
-</td>
-
-</tr>
-<tr class="even">
-<td width="42%" align="left" valign="top">
 <a href="matlab:coder.internal.code2model('ADC:75')" name="code2model" class="code2model">&lt;S2&gt;/Memory1</a>
 </td>
 <td width="26%" align="left" valign="top">
@@ -631,9 +823,24 @@ real_T
 </td>
 
 </tr>
+<tr class="even">
+<td width="42%" align="left" valign="top">
+<a href="matlab:coder.internal.code2model('ADC:41')" name="code2model" class="code2model">&lt;S6&gt;/Switch2</a>
+</td>
+<td width="26%" align="left" valign="top">
+ADC_P.Switch2_Threshold
+</td>
+<td width="21%" align="left" valign="top">
+real_T
+</td>
+<td width="10%" align="right" valign="top">
+1
+</td>
+
+</tr>
 <tr class="odd">
 <td width="42%" align="left" valign="top">
-<a href="matlab:coder.internal.code2model('ADC:69:6356')" name="code2model" class="code2model">&lt;S16&gt;/A</a>
+<a href="matlab:coder.internal.code2model('ADC:69:6356')" name="code2model" class="code2model">&lt;S17&gt;/A</a>
 </td>
 <td width="26%" align="left" valign="top">
 ADC_P.A_Value
@@ -648,7 +855,7 @@ real_T
 </tr>
 <tr class="even">
 <td width="42%" align="left" valign="top">
-<a href="matlab:coder.internal.code2model('ADC:69:6357')" name="code2model" class="code2model">&lt;S16&gt;/B</a>
+<a href="matlab:coder.internal.code2model('ADC:69:6357')" name="code2model" class="code2model">&lt;S17&gt;/B</a>
 </td>
 <td width="26%" align="left" valign="top">
 ADC_P.B_Value
@@ -663,7 +870,7 @@ real_T
 </tr>
 <tr class="odd">
 <td width="42%" align="left" valign="top">
-<a href="matlab:coder.internal.code2model('ADC:69:6358')" name="code2model" class="code2model">&lt;S16&gt;/C</a>
+<a href="matlab:coder.internal.code2model('ADC:69:6358')" name="code2model" class="code2model">&lt;S17&gt;/C</a>
 </td>
 <td width="26%" align="left" valign="top">
 ADC_P.C_Value
@@ -678,7 +885,7 @@ real_T
 </tr>
 <tr class="even">
 <td width="42%" align="left" valign="top">
-<a href="matlab:coder.internal.code2model('ADC:69:6355:613')" name="code2model" class="code2model">&lt;S21&gt;/KalmanGainL</a>
+<a href="matlab:coder.internal.code2model('ADC:69:6355:613')" name="code2model" class="code2model">&lt;S22&gt;/KalmanGainL</a>
 </td>
 <td width="26%" align="left" valign="top">
 ADC_P.KalmanGainL_Value
@@ -693,7 +900,7 @@ real_T
 </tr>
 <tr class="odd">
 <td width="42%" align="left" valign="top">
-<a href="matlab:coder.internal.code2model('ADC:69:6359')" name="code2model" class="code2model">&lt;S16&gt;/D</a>
+<a href="matlab:coder.internal.code2model('ADC:69:6359')" name="code2model" class="code2model">&lt;S17&gt;/D</a>
 </td>
 <td width="26%" align="left" valign="top">
 ADC_P.D_Value
@@ -723,7 +930,7 @@ real_T
 </tr>
 <tr class="odd">
 <td width="42%" align="left" valign="top">
-<a href="matlab:coder.internal.code2model('ADC:69:296')" name="code2model" class="code2model">&lt;S16&gt;/Enable</a>
+<a href="matlab:coder.internal.code2model('ADC:69:296')" name="code2model" class="code2model">&lt;S17&gt;/Enable</a>
 </td>
 <td width="26%" align="left" valign="top">
 ADC_P.Enable_Value

@@ -2,12 +2,12 @@
 ## Makefile generated for Simulink model 'ADC'. 
 ## 
 ## Makefile     : ADC.mk
-## Generated on : Mon Sep 26 12:26:57 2016
-## MATLAB Coder version: 2.8 (R2015a)
+## Generated on : Wed Jan 18 14:58:33 2017
+## MATLAB Coder version: 3.1 (R2016a)
 ## 
 ## Build Info:
 ## 
-## Final product: $(RELATIVE_PATH_TO_ANCHOR)/ADC
+## Final product: $(RELATIVE_PATH_TO_ANCHOR)/ADC.elf
 ## Product type : executable
 ## Build type   : Top-Level Standalone Executable
 ## 
@@ -24,82 +24,104 @@
 
 PRODUCT_NAME              = ADC
 MAKEFILE                  = ADC.mk
-COMPUTER                  = GLNXA64
-MATLAB_ROOT               = /usr/local/MATLAB/R2015a
-MATLAB_BIN                = /usr/local/MATLAB/R2015a/bin
-MATLAB_ARCH_BIN           = /usr/local/MATLAB/R2015a/bin/glnxa64
+COMPUTER                  = PCWIN64
+MATLAB_ROOT               = C:/PROGRA~1/MATLAB/R2016a
+MATLAB_BIN                = C:/PROGRA~1/MATLAB/R2016a/bin
+MATLAB_ARCH_BIN           = C:/PROGRA~1/MATLAB/R2016a/bin/win64
 MASTER_ANCHOR_DIR         = 
-START_DIR                 = /home/jbparham/Desktop/HardwareCompatible
-ARCH                      = glnxa64
+START_DIR                 = C:/Projects/HardwareCompatible
+ARCH                      = win64
 SOLVER                    = 
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 0
 TGT_FCN_LIB               = None
 MODELREF_LINK_RSPFILE_NAME = ADC_ref.rsp
 RELATIVE_PATH_TO_ANCHOR   = ..
-ANSI_OPTS                 = -ansi -pedantic -Wno-long-long -fwrapv
-CPP_ANSI_OPTS             = -std=c++98 -pedantic -Wno-long-long -fwrapv
 
 ###########################################################################
 ## TOOLCHAIN SPECIFICATIONS
 ###########################################################################
 
-# Toolchain Name:          GNU gcc/g++ v4.4.x | gmake (64-bit Linux)
-# Supported Version(s):    4.4.x
-# ToolchainInfo Version:   R2015a
+# Toolchain Name:          Linaro Toolchain v4.8 | gmake (64-bit Windows)
+# Supported Version(s):    
+# ToolchainInfo Version:   R2016a
 # Specification Revision:  1.0
 # 
+
+DERIVED_SRCS = $(subst .o,.dep,$(OBJS))
+
+build:
+
+%.dep:
+
+
+
+-include codertarget_assembly_flags.mk
+-include ../codertarget_assembly_flags.mk
+-include *.dep
+
+
 #-------------------------------------------
 # Macros assumed to be defined elsewhere
 #-------------------------------------------
 
-# ANSI_OPTS
-# CPP_ANSI_OPTS
+# TARGET_LOAD_CMD_ARGS
+# TARGET_PKG_INSTALLDIR
+# LINARO_TOOLCHAIN_4_8
 
 #-----------
 # MACROS
 #-----------
 
-WARN_FLAGS         = -Wall -W -Wwrite-strings -Winline -Wstrict-prototypes -Wnested-externs -Wpointer-arith -Wcast-align
-WARN_FLAGS_MAX     = $(WARN_FLAGS) -Wcast-qual -Wshadow
-CPP_WARN_FLAGS     = -Wall -W -Wwrite-strings -Winline -Wpointer-arith -Wcast-align
-CPP_WARN_FLAGS_MAX = $(CPP_WARN_FLAGS) -Wcast-qual -Wshadow
+SHELL                 = %SystemRoot%/system32/cmd.exe
+CCOUTPUTFLAG          = --output_file=
+LDOUTPUTFLAG          = --output_file=
 
 TOOLCHAIN_SRCS = 
 TOOLCHAIN_INCS = 
-TOOLCHAIN_LIBS = 
+TOOLCHAIN_LIBS = -lm -lm
 
 #------------------------
 # BUILD TOOL COMMANDS
 #------------------------
 
-# C Compiler: GNU C Compiler
-CC = gcc
+# Assembler: Linaro Toolchain4.8 Assembler
+AS_PATH = $(LINARO_TOOLCHAIN_4_8)
+AS = $(AS_PATH)/arm-linux-gnueabihf-as
 
-# Linker: GNU Linker
-LD = gcc
+# C Compiler: Linaro Toolchain4.8 C Compiler
+CC_PATH = $(LINARO_TOOLCHAIN_4_8)
+CC = $(CC_PATH)/arm-linux-gnueabihf-gcc
 
-# C++ Compiler: GNU C++ Compiler
-CPP = g++
+# Linker: Linaro Toolchain4.8 Linker
+LD_PATH = $(LINARO_TOOLCHAIN_4_8)
+LD = $(LD_PATH)/arm-linux-gnueabihf-gcc
 
-# C++ Linker: GNU C++ Linker
-CPP_LD = g++
+# C++ Compiler: Linaro Toolchain4.8 C++ Compiler
+CPP_PATH = $(LINARO_TOOLCHAIN_4_8)
+CPP = $(CPP_PATH)/arm-linux-gnueabihf-g++
 
-# Archiver: GNU Archiver
-AR = ar
+# C++ Linker: Linaro Toolchain4.8 C++ Linker
+CPP_LD_PATH = $(LINARO_TOOLCHAIN_4_8)
+CPP_LD = $(CPP_LD_PATH)/arm-linux-gnueabihf-g++
+
+# Archiver: Linaro Toolchain4.8 Archiver
+AR_PATH = $(LINARO_TOOLCHAIN_4_8)
+AR = $(AR_PATH)/arm-linux-gnueabihf-ar
 
 # MEX Tool: MEX Tool
 MEX_PATH = $(MATLAB_BIN)
 MEX = $(MEX_PATH)/mex
 
 # Download: Download
-DOWNLOAD =
+DOWNLOAD_PATH = $(TARGET_PKG_INSTALLDIR)
+DOWNLOAD = $(DOWNLOAD_PATH)/ssh_download.bat
 
 # Execute: Execute
 EXECUTE = $(PRODUCT)
 
 # Builder: GMAKE Utility
-MAKE_PATH = %MATLAB%/bin/glnxa64
+MAKE_PATH = %MATLAB%\bin\win64
 MAKE = $(MAKE_PATH)/gmake
 
 
@@ -107,6 +129,8 @@ MAKE = $(MAKE_PATH)/gmake
 # Directives/Utilities
 #-------------------------
 
+ASDEBUG             = -g
+AS_OUTPUT_FLAG      = -o
 CDEBUG              = -g
 C_OUTPUT_FLAG       = -o
 LDDEBUG             = -g
@@ -118,52 +142,57 @@ OUTPUT_FLAG         = -o
 ARDEBUG             =
 STATICLIB_OUTPUT_FLAG =
 MEX_DEBUG           = -g
-RM                  = @rm -f
+RM                  = @del /F
 ECHO                = @echo
-MV                  = @mv
+MV                  = @move
 RUN                 =
 
 #----------------------------------------
 # "Faster Builds" Build Configuration
 #----------------------------------------
 
-ARFLAGS              = ruvs
-CFLAGS               = -c $(ANSI_OPTS) -fPIC \
+ARFLAGS              = -ruvs
+ASFLAGS              = -c \
+                       $(ASFLAGS_ADDITIONAL) \
+                       $(INCLUDES)
+CFLAGS               = -c \
+                       -MMD -MP -MF"$(@:%.o=%.dep)" -MT"$@"  \
                        -O0
-CPPFLAGS             = -c $(CPP_ANSI_OPTS) -fPIC \
-                       -O0
-CPP_LDFLAGS          = -Wl,-rpath,"$(MATLAB_ARCH_BIN)",-L"$(MATLAB_ARCH_BIN)"
-CPP_SHAREDLIB_LDFLAGS  = -shared -Wl,-rpath,"$(MATLAB_ARCH_BIN)",-L"$(MATLAB_ARCH_BIN)" -Wl,--no-undefined
-DOWNLOAD_FLAGS       =
+CPPFLAGS             = -c \
+                       -MMD -MP -MF"$(@:%.o=%.dep)" -MT"$@"  \
+                       -O2
+CPP_LDFLAGS          = -lm -lrt -lpthread -ldl
+CPP_SHAREDLIB_LDFLAGS  = -shared  \
+                         -lm -lrt -lpthread -ldl
+DOWNLOAD_FLAGS       = $(TARGET_LOAD_CMD_ARGS) $(PRODUCT)
 EXECUTE_FLAGS        =
-LDFLAGS              = -Wl,-rpath,"$(MATLAB_ARCH_BIN)",-L"$(MATLAB_ARCH_BIN)"
-MEX_CFLAGS           = -MATLAB_ARCH=$(ARCH) $(INCLUDES) \
-                         \
-                       COPTIMFLAGS="$(ANSI_OPTS)  \
-                       -O0 \
-                        $(DEFINES)" \
-                         \
-                       -silent
-MEX_LDFLAGS          = LDFLAGS=='$$LDFLAGS'
+LDFLAGS              = -lm -lrt -lpthread -ldl
+MEX_CFLAGS           =
+MEX_LDFLAGS          =
 MAKE_FLAGS           = -f $(MAKEFILE)
-SHAREDLIB_LDFLAGS    = -shared -Wl,-rpath,"$(MATLAB_ARCH_BIN)",-L"$(MATLAB_ARCH_BIN)" -Wl,--no-undefined
+SHAREDLIB_LDFLAGS    = -shared  \
+                       -lm -lrt -lpthread -ldl
 
 #--------------------
 # File extensions
 #--------------------
 
+OBJ_EXT             = .s.o
+ASM_EXT             = .s
+C_DEP               = .c.dep
 H_EXT               = .h
-OBJ_EXT             = .o
+COBJ_EXT            = .c.o
 C_EXT               = .c
-EXE_EXT             =
+EXE_EXT             = .elf
 SHAREDLIB_EXT       = .so
+CXX_DEP             = .cpp.dep
 HPP_EXT             = .hpp
-OBJ_EXT             = .o
+CPPOBJ_EXT          = .pp.o
 CPP_EXT             = .cpp
 EXE_EXT             =
 SHAREDLIB_EXT       = .so
-STATICLIB_EXT       = .a
-MEX_EXT             = .mexa64
+STATICLIB_EXT       = .lib
+MEX_EXT             = .mexw64
 MAKE_EXT            = .mk
 
 
@@ -171,7 +200,7 @@ MAKE_EXT            = .mk
 ## OUTPUT INFO
 ###########################################################################
 
-PRODUCT = $(RELATIVE_PATH_TO_ANCHOR)/ADC
+PRODUCT = $(RELATIVE_PATH_TO_ANCHOR)/ADC.elf
 PRODUCT_TYPE = "executable"
 BUILD_TYPE = "Top-Level Standalone Executable"
 
@@ -179,7 +208,7 @@ BUILD_TYPE = "Top-Level Standalone Executable"
 ## INCLUDE PATHS
 ###########################################################################
 
-INCLUDES_BUILDINFO = -I$(START_DIR)/ADC_ert_rtw -I$(START_DIR) -I$(MATLAB_ROOT)/extern/include -I$(MATLAB_ROOT)/simulink/include -I$(MATLAB_ROOT)/rtw/c/src -I$(MATLAB_ROOT)/rtw/c/src/ext_mode/common -I$(MATLAB_ROOT)/rtw/c/ert -I$(MATLAB_ROOT)/toolbox/dsp/include -I$(MATLAB_ROOT)/toolbox/dsp/extern/src/export/include/src -I$(MATLAB_ROOT)/toolbox/dsp/extern/src/export/include -I$(MATLAB_ROOT)/toolbox/shared/dsp/vision/matlab/include
+INCLUDES_BUILDINFO = -I$(MATLAB_ROOT)/simulink/include/sf_runtime -I$(START_DIR)/ADC_ert_rtw -I$(START_DIR) -I$(MATLAB_ROOT)/extern/include -I$(MATLAB_ROOT)/simulink/include -I$(MATLAB_ROOT)/rtw/c/src -I$(MATLAB_ROOT)/rtw/c/src/ext_mode/common -I$(MATLAB_ROOT)/rtw/c/ert -I$(MATLAB_ROOT)/toolbox/dsp/include -I$(MATLAB_ROOT)/toolbox/dsp/extern/src/export/include/src -I$(MATLAB_ROOT)/toolbox/dsp/extern/src/export/include -I$(MATLAB_ROOT)/toolbox/shared/dsp/vision/matlab/include -IC:/MATLAB/SupportPackages/R2016a/toolbox/target/supportpackages/beaglebone/registry/../include -IC:/MATLAB/SupportPackages/R2016a/toolbox/target/supportpackages/arm_cortex_a/blocks/sfcn/include -IC:/MATLAB/SupportPackages/R2016a/toolbox/target/supportpackages/arm_cortex_a/include -I$(MATLAB_ROOT)/toolbox/target/codertarget/rtos/inc
 
 INCLUDES = $(INCLUDES_BUILDINFO)
 
@@ -187,27 +216,31 @@ INCLUDES = $(INCLUDES_BUILDINFO)
 ## DEFINES
 ###########################################################################
 
+DEFINES_ = -DMODEL=ADC -DNUMST=2 -DNCSTATES=6 -DHAVESTDIO -DONESTEPFCN=1 -DTERMFCN=1 -DMAT_FILE=0 -DMULTI_INSTANCE_CODE=0 -DINTEGER_CODE=0 -DMT=0 -DCLASSIC_INTERFACE=0 -DALLOCATIONFCN=0 -DTID01EQ=1 -D__MW_TARGET_USE_HARDWARE_RESOURCES_H__ -DARM_PROJECT -DRT -DSTACK_SIZE=64
 DEFINES_BUILD_ARGS = -DONESTEPFCN=1 -DTERMFCN=1 -DMAT_FILE=0 -DMULTI_INSTANCE_CODE=0 -DINTEGER_CODE=0 -DMT=0 -DCLASSIC_INTERFACE=0 -DALLOCATIONFCN=0
 DEFINES_OPTS = -DTID01EQ=1
-DEFINES_STANDARD = -DMODEL=ADC -DNUMST=2 -DNCSTATES=6 -DHAVESTDIO -DUNIX
+DEFINES_SKIPFORSIL = -DARM_PROJECT -DRT -DSTACK_SIZE=64
+DEFINES_STANDARD = -DMODEL=ADC -DNUMST=2 -DNCSTATES=6 -DHAVESTDIO
 
-DEFINES = $(DEFINES_BUILD_ARGS) $(DEFINES_OPTS) $(DEFINES_STANDARD)
+DEFINES = $(DEFINES_) $(DEFINES_BUILD_ARGS) $(DEFINES_OPTS) $(DEFINES_SKIPFORSIL) $(DEFINES_STANDARD)
 
 ###########################################################################
 ## SOURCE FILES
 ###########################################################################
 
-SRCS = $(START_DIR)/ADC_ert_rtw/ADC.c $(START_DIR)/ADC_ert_rtw/ADC_data.c $(START_DIR)/ADC_ert_rtw/ert_main.c $(START_DIR)/ADC_ert_rtw/rtGetInf.c $(START_DIR)/ADC_ert_rtw/rtGetNaN.c $(START_DIR)/ADC_ert_rtw/rt_nonfinite.c
+SRCS = $(START_DIR)/ADC_ert_rtw/ADC.c $(START_DIR)/ADC_ert_rtw/ADC_capi.c $(START_DIR)/ADC_ert_rtw/ADC_data.c $(START_DIR)/ADC_ert_rtw/rtGetInf.c $(START_DIR)/ADC_ert_rtw/rtGetNaN.c $(START_DIR)/ADC_ert_rtw/rt_nonfinite.c $(MATLAB_ROOT)/toolbox/target/codertarget/rtos/src/linuxinitialize.c
 
-ALL_SRCS = $(SRCS)
+MAIN_SRC = $(START_DIR)/ADC_ert_rtw/ert_main.c
+
+ALL_SRCS = $(SRCS) $(MAIN_SRC)
 
 ###########################################################################
 ## OBJECTS
 ###########################################################################
 
-OBJS = ADC.o ADC_data.o rtGetInf.o rtGetNaN.o rt_nonfinite.o
+OBJS = ADC.c.o ADC_capi.c.o ADC_data.c.o rtGetInf.c.o rtGetNaN.c.o rt_nonfinite.c.o linuxinitialize.c.o
 
-MAIN_OBJ = ert_main.o
+MAIN_OBJ = ert_main.c.o
 
 ALL_OBJS = $(OBJS) $(MAIN_OBJ)
 
@@ -227,7 +260,7 @@ LIBS =
 ## SYSTEM LIBRARIES
 ###########################################################################
 
-SYSTEM_LIBS = -lm
+SYSTEM_LIBS = 
 
 ###########################################################################
 ## ADDITIONAL TOOLCHAIN FLAGS
@@ -237,17 +270,51 @@ SYSTEM_LIBS = -lm
 # C Compiler
 #---------------
 
+CFLAGS_SKIPFORSIL = -march=armv7-a -mfloat-abi=hard -mfpu=neon -mtune=cortex-a8 --sysroot="C:\MATLAB\SupportPackages\R2016a\toolbox\target\supportpackages\beaglebone\libc"
 CFLAGS_BASIC = $(DEFINES) $(INCLUDES)
 
-CFLAGS += $(CFLAGS_BASIC)
+CFLAGS += $(CFLAGS_SKIPFORSIL) $(CFLAGS_BASIC)
 
 #-----------------
 # C++ Compiler
 #-----------------
 
+CPPFLAGS_SKIPFORSIL = -march=armv7-a -mfloat-abi=hard -mfpu=neon -mtune=cortex-a8 --sysroot="C:\MATLAB\SupportPackages\R2016a\toolbox\target\supportpackages\beaglebone\libc"
 CPPFLAGS_BASIC = $(DEFINES) $(INCLUDES)
 
-CPPFLAGS += $(CPPFLAGS_BASIC)
+CPPFLAGS += $(CPPFLAGS_SKIPFORSIL) $(CPPFLAGS_BASIC)
+
+#---------------
+# C++ Linker
+#---------------
+
+CPP_LDFLAGS_SKIPFORSIL = -march=armv7-a -mfloat-abi=hard -mfpu=neon -mtune=cortex-a8 --sysroot="C:\MATLAB\SupportPackages\R2016a\toolbox\target\supportpackages\beaglebone\libc"
+
+CPP_LDFLAGS += $(CPP_LDFLAGS_SKIPFORSIL)
+
+#------------------------------
+# C++ Shared Library Linker
+#------------------------------
+
+CPP_SHAREDLIB_LDFLAGS_SKIPFORSIL = -march=armv7-a -mfloat-abi=hard -mfpu=neon -mtune=cortex-a8 --sysroot="C:\MATLAB\SupportPackages\R2016a\toolbox\target\supportpackages\beaglebone\libc"
+
+CPP_SHAREDLIB_LDFLAGS += $(CPP_SHAREDLIB_LDFLAGS_SKIPFORSIL)
+
+#-----------
+# Linker
+#-----------
+
+LDFLAGS_SKIPFORSIL = -march=armv7-a -mfloat-abi=hard -mfpu=neon -mtune=cortex-a8 --sysroot="C:\MATLAB\SupportPackages\R2016a\toolbox\target\supportpackages\beaglebone\libc"
+
+LDFLAGS += $(LDFLAGS_SKIPFORSIL)
+
+#--------------------------
+# Shared Library Linker
+#--------------------------
+
+SHAREDLIB_LDFLAGS_SKIPFORSIL = -march=armv7-a -mfloat-abi=hard -mfpu=neon -mtune=cortex-a8 --sysroot="C:\MATLAB\SupportPackages\R2016a\toolbox\target\supportpackages\beaglebone\libc"
+
+SHAREDLIB_LDFLAGS += $(SHAREDLIB_LDFLAGS_SKIPFORSIL)
 
 ###########################################################################
 ## PHONY TARGETS
@@ -271,6 +338,9 @@ prebuild :
 
 
 download : build
+	@echo "### Invoking postbuild tool "Download" ..."
+	$(DOWNLOAD) $(DOWNLOAD_FLAGS)
+	@echo "### Done invoking postbuild tool."
 
 
 execute : download
@@ -301,52 +371,80 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS) $(MAIN_OBJ)
 # SOURCE-TO-OBJECT
 #---------------------
 
-%.o : %.c
+%.c.o : %.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-%.o : %.cpp
+%.s.o : %.s
+	$(AS) $(ASFLAGS) -o "$@" "$<"
+
+
+%.pp.o : %.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : $(RELATIVE_PATH_TO_ANCHOR)/%.c
+%.c.o : $(RELATIVE_PATH_TO_ANCHOR)/%.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-%.o : $(RELATIVE_PATH_TO_ANCHOR)/%.cpp
+%.s.o : $(RELATIVE_PATH_TO_ANCHOR)/%.s
+	$(AS) $(ASFLAGS) -o "$@" "$<"
+
+
+%.pp.o : $(RELATIVE_PATH_TO_ANCHOR)/%.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : $(MATLAB_ROOT)/rtw/c/src/%.c
+%.c.o : $(START_DIR)/ADC_ert_rtw/%.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-%.o : $(MATLAB_ROOT)/rtw/c/src/%.cpp
+%.s.o : $(START_DIR)/ADC_ert_rtw/%.s
+	$(AS) $(ASFLAGS) -o "$@" "$<"
+
+
+%.pp.o : $(START_DIR)/ADC_ert_rtw/%.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : $(MATLAB_ROOT)/simulink/src/%.c
+%.c.o : $(START_DIR)/%.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-%.o : $(MATLAB_ROOT)/simulink/src/%.cpp
+%.s.o : $(START_DIR)/%.s
+	$(AS) $(ASFLAGS) -o "$@" "$<"
+
+
+%.pp.o : $(START_DIR)/%.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : $(START_DIR)/%.c
+%.c.o : $(MATLAB_ROOT)/rtw/c/src/%.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-%.o : $(START_DIR)/%.cpp
+%.s.o : $(MATLAB_ROOT)/rtw/c/src/%.s
+	$(AS) $(ASFLAGS) -o "$@" "$<"
+
+
+%.pp.o : $(MATLAB_ROOT)/rtw/c/src/%.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : $(START_DIR)/ADC_ert_rtw/%.c
+%.c.o : $(MATLAB_ROOT)/simulink/src/%.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-%.o : $(START_DIR)/ADC_ert_rtw/%.cpp
+%.s.o : $(MATLAB_ROOT)/simulink/src/%.s
+	$(AS) $(ASFLAGS) -o "$@" "$<"
+
+
+%.pp.o : $(MATLAB_ROOT)/simulink/src/%.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+linuxinitialize.c.o : $(MATLAB_ROOT)/toolbox/target/codertarget/rtos/src/linuxinitialize.c
+	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
 ###########################################################################
@@ -372,6 +470,7 @@ info :
 	@echo "### MODELREF_LIBS = $(MODELREF_LIBS)"
 	@echo "### SYSTEM_LIBS = $(SYSTEM_LIBS)"
 	@echo "### TOOLCHAIN_LIBS = $(TOOLCHAIN_LIBS)"
+	@echo "### ASFLAGS = $(ASFLAGS)"
 	@echo "### CFLAGS = $(CFLAGS)"
 	@echo "### LDFLAGS = $(LDFLAGS)"
 	@echo "### SHAREDLIB_LDFLAGS = $(SHAREDLIB_LDFLAGS)"
@@ -388,8 +487,11 @@ info :
 
 clean : 
 	$(ECHO) "### Deleting all derived files..."
-	$(RM) $(PRODUCT)
-	$(RM) $(ALL_OBJS)
+	$(RM) $(subst /,\,$(PRODUCT))
+	$(RM) $(subst /,\,$(ALL_OBJS))
+	$(RM) *.c.dep
+	$(RM) *.cpp.dep
+	$(RM) *Object
 	$(ECHO) "### Deleted all derived files."
 
 

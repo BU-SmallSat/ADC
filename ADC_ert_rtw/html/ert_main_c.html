@@ -29,17 +29,17 @@
 <tr name="9" id="9">
 <td>9</td><td><span class="ct"> *</span></td></tr>
 <tr name="10" id="10">
-<td>10</td><td><span class="ct"> * Model version                  : 1.1151</span></td></tr>
+<td>10</td><td><span class="ct"> * Model version                  : 1.1170</span></td></tr>
 <tr name="11" id="11">
-<td>11</td><td><span class="ct"> * Simulink Coder version         : 8.8 (R2015a) 09-Feb-2015</span></td></tr>
+<td>11</td><td><span class="ct"> * Simulink Coder version         : 8.10 (R2016a) 10-Feb-2016</span></td></tr>
 <tr name="12" id="12">
-<td>12</td><td><span class="ct"> * C/C++ source code generated on : Fri Oct 28 16:14:12 2016</span></td></tr>
+<td>12</td><td><span class="ct"> * C/C++ source code generated on : Wed Jan 18 14:57:52 2017</span></td></tr>
 <tr name="13" id="13">
 <td>13</td><td><span class="ct"> *</span></td></tr>
 <tr name="14" id="14">
 <td>14</td><td><span class="ct"> * Target selection: ert.tlc</span></td></tr>
 <tr name="15" id="15">
-<td>15</td><td><span class="ct"> * Embedded hardware selection: 32-bit Generic</span></td></tr>
+<td>15</td><td><span class="ct"> * Embedded hardware selection: ARM Compatible-&gt;ARM Cortex</span></td></tr>
 <tr name="16" id="16">
 <td>16</td><td><span class="ct"> * Emulation hardware selection:</span></td></tr>
 <tr name="17" id="17">
@@ -53,171 +53,233 @@
 <tr name="21" id="21">
 <td>21</td><td></td></tr>
 <tr name="22" id="22">
-<td>22</td><td><span class="pp">#include &lt;stddef.h&gt;</span></td></tr>
+<td>22</td><td><span class="pp">#include &lt;stdio.h&gt;</span></td></tr>
 <tr name="23" id="23">
-<td>23</td><td><span class="pp">#include &lt;stdio.h&gt;</span>                     <span class="ct">/* This ert_main.c example uses printf/fflush */</span></td></tr>
+<td>23</td><td><span class="pp">#include &lt;stdlib.h&gt;</span></td></tr>
 <tr name="24" id="24">
-<td>24</td><td><span class="pp">#include "ADC.h"</span>                       <span class="ct">/* Model's header file */</span></td></tr>
+<td>24</td><td><span class="pp">#include "ADC.h"</span></td></tr>
 <tr name="25" id="25">
-<td>25</td><td><span class="pp">#include "rtwtypes.h"</span></td></tr>
+<td>25</td><td><span class="pp">#include "ADC_private.h"</span></td></tr>
 <tr name="26" id="26">
-<td>26</td><td></td></tr>
+<td>26</td><td><span class="pp">#include "rtwtypes.h"</span></td></tr>
 <tr name="27" id="27">
-<td>27</td><td><span class="ct">/*</span></td></tr>
+<td>27</td><td><span class="pp">#include "limits.h"</span></td></tr>
 <tr name="28" id="28">
-<td>28</td><td><span class="ct"> * Associating rt_OneStep with a real-time clock or interrupt service routine</span></td></tr>
+<td>28</td><td><span class="pp">#include "rt_nonfinite.h"</span></td></tr>
 <tr name="29" id="29">
-<td>29</td><td><span class="ct"> * is what makes the generated code "real-time".  The function rt_OneStep is</span></td></tr>
+<td>29</td><td><span class="pp">#include "linuxinitialize.h"</span></td></tr>
 <tr name="30" id="30">
-<td>30</td><td><span class="ct"> * always associated with the base rate of the model.  Subrates are managed</span></td></tr>
+<td>30</td><td></td></tr>
 <tr name="31" id="31">
-<td>31</td><td><span class="ct"> * by the base rate from inside the generated code.  Enabling/disabling</span></td></tr>
+<td>31</td><td><span class="ct">/* '<a class="ct blk" blk_line="31">&lt;Root&gt;/Magnetic Measure</a>' */</span></td></tr>
 <tr name="32" id="32">
-<td>32</td><td><span class="ct"> * interrupts and floating point context switches are target specific.  This</span></td></tr>
+<td>32</td><td><span class="kw">static</span> <a id="32c8" class="tk">real_T</a> <a id="32c15" class="tk">arg_Magnetic_Measure</a>[3] = <span class="br">{</span> 0.0, 0.0, 0.0 <span class="br">}</span>;</td></tr>
 <tr name="33" id="33">
-<td>33</td><td><span class="ct"> * example code indicates where these should take place relative to executing</span></td></tr>
+<td>33</td><td></td></tr>
 <tr name="34" id="34">
-<td>34</td><td><span class="ct"> * the generated code step function.  Overrun behavior should be tailored to</span></td></tr>
+<td>34</td><td><span class="ct">/* '<a class="ct blk" blk_line="34">&lt;Root&gt;/Euler Angle Measure</a>' */</span></td></tr>
 <tr name="35" id="35">
-<td>35</td><td><span class="ct"> * your application needs.  This example simply sets an error status in the</span></td></tr>
+<td>35</td><td><span class="kw">static</span> <a id="35c8" class="tk">real_T</a> <a id="35c15" class="tk">arg_Euler_Angle_Measure</a>[3] = <span class="br">{</span> 0.0, 0.0, 0.0 <span class="br">}</span>;</td></tr>
 <tr name="36" id="36">
-<td>36</td><td><span class="ct"> * real-time model and returns from rt_OneStep.</span></td></tr>
+<td>36</td><td></td></tr>
 <tr name="37" id="37">
-<td>37</td><td><span class="ct"> */</span></td></tr>
+<td>37</td><td><span class="ct">/* '<a class="ct blk" blk_line="37">&lt;Root&gt;/Sun Measure</a>' */</span></td></tr>
 <tr name="38" id="38">
-<td>38</td><td><span class="kw">void</span> <a id="38c6" class="tk">rt_OneStep</a>(<span class="kw">void</span>);</td></tr>
+<td>38</td><td><span class="kw">static</span> <a id="38c8" class="tk">real_T</a> <a id="38c15" class="tk">arg_Sun_Measure</a>[3] = <span class="br">{</span> 0.0, 0.0, 0.0 <span class="br">}</span>;</td></tr>
 <tr name="39" id="39">
-<td>39</td><td><span class="kw">void</span> <a id="39c6" class="tk">rt_OneStep</a>(<span class="kw">void</span>)</td></tr>
+<td>39</td><td></td></tr>
 <tr name="40" id="40">
-<td>40</td><td><span class="br">{</span></td></tr>
+<td>40</td><td><span class="ct">/* '<a class="ct blk" blk_line="40">&lt;Root&gt;/epoch</a>' */</span></td></tr>
 <tr name="41" id="41">
-<td>41</td><td>  <span class="kw">static</span> <a id="41c10" class="tk">boolean_T</a> <a id="41c20" class="tk">OverrunFlag</a> = false;</td></tr>
+<td>41</td><td><span class="kw">static</span> <a id="41c8" class="tk">real_T</a> <a id="41c15" class="tk">arg_epoch</a>[6] = <span class="br">{</span> 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 <span class="br">}</span>;</td></tr>
 <tr name="42" id="42">
 <td>42</td><td></td></tr>
 <tr name="43" id="43">
-<td>43</td><td>  <span class="ct">/* Disable interrupts here */</span></td></tr>
+<td>43</td><td><span class="ct">/* '<a class="ct blk" blk_line="43">&lt;Root&gt;/lla</a>' */</span></td></tr>
 <tr name="44" id="44">
-<td>44</td><td></td></tr>
+<td>44</td><td><span class="kw">static</span> <a id="44c8" class="tk">real_T</a> <a id="44c15" class="tk">arg_lla</a>[3] = <span class="br">{</span> 0.0, 0.0, 0.0 <span class="br">}</span>;</td></tr>
 <tr name="45" id="45">
-<td>45</td><td>  <span class="ct">/* Check for overrun */</span></td></tr>
+<td>45</td><td></td></tr>
 <tr name="46" id="46">
-<td>46</td><td>  <span class="kw">if</span> (<a id="46c7" class="tk">OverrunFlag</a>) <span class="br">{</span></td></tr>
+<td>46</td><td><span class="ct">/* '<a class="ct blk" blk_line="46">&lt;Root&gt;/v </a>' */</span></td></tr>
 <tr name="47" id="47">
-<td>47</td><td>    <a id="47c5" class="tk">rtmSetErrorStatus</a>(<a id="47c23" class="tk">ADC_M</a>, "Overrun");</td></tr>
+<td>47</td><td><span class="kw">static</span> <a id="47c8" class="tk">real_T</a> <a id="47c15" class="tk">arg_v_</a>[3] = <span class="br">{</span> 0.0, 0.0, 0.0 <span class="br">}</span>;</td></tr>
 <tr name="48" id="48">
-<td>48</td><td>    <span class="kw">return</span>;</td></tr>
+<td>48</td><td></td></tr>
 <tr name="49" id="49">
-<td>49</td><td>  <span class="br">}</span></td></tr>
+<td>49</td><td><span class="ct">/* '<a class="ct blk" blk_line="49">&lt;Root&gt;/S_flag</a>' */</span></td></tr>
 <tr name="50" id="50">
-<td>50</td><td></td></tr>
+<td>50</td><td><span class="kw">static</span> <a id="50c8" class="tk">real_T</a> <a id="50c15" class="tk">local_arg_S_flag</a> = 0.0;</td></tr>
 <tr name="51" id="51">
-<td>51</td><td>  <a id="51c3" class="tk">OverrunFlag</a> = true;</td></tr>
+<td>51</td><td><span class="kw">static</span> <a id="51c8" class="tk">real_T</a> <a id="51c15" class="tk">*</a> <a id="51c17" class="tk">arg_S_flag</a> = <a id="51c30" class="tk">&amp;</a><a id="51c31" class="tk">local_arg_S_flag</a>;</td></tr>
 <tr name="52" id="52">
 <td>52</td><td></td></tr>
 <tr name="53" id="53">
-<td>53</td><td>  <span class="ct">/* Save FPU context here (if necessary) */</span></td></tr>
+<td>53</td><td><span class="ct">/* '<a class="ct blk" blk_line="53">&lt;Root&gt;/Magnetic Dipole Moment</a>' */</span></td></tr>
 <tr name="54" id="54">
-<td>54</td><td>  <span class="ct">/* Re-enable timer or interrupt here */</span></td></tr>
+<td>54</td><td><span class="kw">static</span> <a id="54c8" class="tk">real_T</a> <a id="54c15" class="tk">arg_Magnetic_Dipole_Moment</a>[3];</td></tr>
 <tr name="55" id="55">
-<td>55</td><td>  <span class="ct">/* Set model inputs here */</span></td></tr>
+<td>55</td><td></td></tr>
 <tr name="56" id="56">
-<td>56</td><td></td></tr>
+<td>56</td><td><span class="ct">/* '<a class="ct blk" blk_line="56">&lt;Root&gt;/q_est1</a>' */</span></td></tr>
 <tr name="57" id="57">
-<td>57</td><td>  <span class="ct">/* Step the model for base rate */</span></td></tr>
+<td>57</td><td><span class="kw">static</span> <a id="57c8" class="tk">real_T</a> <a id="57c15" class="tk">arg_q_est1</a>[4];</td></tr>
 <tr name="58" id="58">
-<td>58</td><td>  <a id="58c3" class="tk">ADC_step</a>();</td></tr>
+<td>58</td><td></td></tr>
 <tr name="59" id="59">
-<td>59</td><td></td></tr>
+<td>59</td><td><span class="ct">/* Function prototype declaration*/</span></td></tr>
 <tr name="60" id="60">
-<td>60</td><td>  <span class="ct">/* Get model outputs here */</span></td></tr>
+<td>60</td><td><span class="kw">void</span> <a id="60c6" class="tk">exitTask</a>(<span class="kw">int</span> <a id="60c19" class="tk">sig</a>);</td></tr>
 <tr name="61" id="61">
-<td>61</td><td></td></tr>
+<td>61</td><td><span class="kw">void</span> <a id="61c6" class="tk">terminateTask</a>(<span class="kw">void</span> <a id="61c25" class="tk">*</a><a id="61c26" class="tk">arg</a>);</td></tr>
 <tr name="62" id="62">
-<td>62</td><td>  <span class="ct">/* Indicate task complete */</span></td></tr>
+<td>62</td><td><span class="kw">void</span> <a id="62c6" class="tk">baseRateTask</a>(<span class="kw">void</span> <a id="62c24" class="tk">*</a><a id="62c25" class="tk">arg</a>);</td></tr>
 <tr name="63" id="63">
-<td>63</td><td>  <a id="63c3" class="tk">OverrunFlag</a> = false;</td></tr>
+<td>63</td><td><span class="kw">void</span> <a id="63c6" class="tk">subrateTask</a>(<span class="kw">void</span> <a id="63c23" class="tk">*</a><a id="63c24" class="tk">arg</a>);</td></tr>
 <tr name="64" id="64">
-<td>64</td><td></td></tr>
+<td>64</td><td><span class="kw">volatile</span> <a id="64c10" class="tk">boolean_T</a> <a id="64c20" class="tk">runModel</a> = true;</td></tr>
 <tr name="65" id="65">
-<td>65</td><td>  <span class="ct">/* Disable interrupts here */</span></td></tr>
+<td>65</td><td><a id="65c1" class="tk">sem_t</a> <a id="65c7" class="tk">stopSem</a>;</td></tr>
 <tr name="66" id="66">
-<td>66</td><td>  <span class="ct">/* Restore FPU context here (if necessary) */</span></td></tr>
+<td>66</td><td><a id="66c1" class="tk">sem_t</a> <a id="66c7" class="tk">baserateTaskSem</a>;</td></tr>
 <tr name="67" id="67">
-<td>67</td><td>  <span class="ct">/* Enable interrupts here */</span></td></tr>
+<td>67</td><td><a id="67c1" class="tk">pthread_t</a> <a id="67c11" class="tk">schedulerThread</a>;</td></tr>
 <tr name="68" id="68">
-<td>68</td><td><span class="br">}</span></td></tr>
+<td>68</td><td><a id="68c1" class="tk">pthread_t</a> <a id="68c11" class="tk">baseRateThread</a>;</td></tr>
 <tr name="69" id="69">
-<td>69</td><td></td></tr>
+<td>69</td><td><span class="kw">unsigned</span> <span class="kw">long</span> <a id="69c15" class="tk">threadJoinStatus</a>[8];</td></tr>
 <tr name="70" id="70">
-<td>70</td><td><span class="ct">/*</span></td></tr>
+<td>70</td><td><span class="kw">int</span> <a id="70c5" class="tk">terminatingmodel</a> = 0;</td></tr>
 <tr name="71" id="71">
-<td>71</td><td><span class="ct"> * The example "main" function illustrates what is required by your</span></td></tr>
+<td>71</td><td><span class="kw">void</span> <a id="71c6" class="tk">baseRateTask</a>(<span class="kw">void</span> <a id="71c24" class="tk">*</a><a id="71c25" class="tk">arg</a>)</td></tr>
 <tr name="72" id="72">
-<td>72</td><td><span class="ct"> * application code to initialize, execute, and terminate the generated code.</span></td></tr>
+<td>72</td><td><span class="br">{</span></td></tr>
 <tr name="73" id="73">
-<td>73</td><td><span class="ct"> * Attaching rt_OneStep to a real-time clock is target specific.  This example</span></td></tr>
+<td>73</td><td>  <a id="73c3" class="tk">runModel</a> = (<a id="73c15" class="tk">rtmGetErrorStatus</a>(<a id="73c33" class="tk">ADC_M</a>) <a id="73c40" class="tk">==</a> (<a id="73c44" class="tk">NULL</a>)) <a id="73c51" class="tk">&amp;&amp;</a> <a id="73c54" class="tk">!</a><a id="73c55" class="tk">rtmGetStopRequested</a>(<a id="73c75" class="tk">ADC_M</a>);</td></tr>
 <tr name="74" id="74">
-<td>74</td><td><span class="ct"> * illustates how you do this relative to initializing the model.</span></td></tr>
+<td>74</td><td>  <span class="kw">while</span> (<a id="74c10" class="tk">runModel</a>) <span class="br">{</span></td></tr>
 <tr name="75" id="75">
-<td>75</td><td><span class="ct"> */</span></td></tr>
+<td>75</td><td>    <a id="75c5" class="tk">sem_wait</a>(<a id="75c14" class="tk">&amp;</a><a id="75c15" class="tk">baserateTaskSem</a>);</td></tr>
 <tr name="76" id="76">
-<td>76</td><td><a id="76c1" class="tk">int_T</a> <a id="76c7" class="tk">main</a>(<a id="76c12" class="tk">int_T</a> <a id="76c18" class="tk">argc</a>, <span class="kw">const</span> <span class="kw">char</span> *<a id="76c36" class="tk">argv</a>[])</td></tr>
+<td>76</td><td>    <a id="76c5" class="tk">ADC_custom</a>(<a id="76c16" class="tk">arg_Magnetic_Measure</a>, <a id="76c38" class="tk">arg_Euler_Angle_Measure</a>, <a id="76c63" class="tk">arg_Sun_Measure</a>,</td></tr>
 <tr name="77" id="77">
-<td>77</td><td><span class="br">{</span></td></tr>
+<td>77</td><td>               <a id="77c16" class="tk">arg_epoch</a>, <a id="77c27" class="tk">arg_lla</a>, <a id="77c36" class="tk">arg_v_</a>, <a id="77c44" class="tk">&amp;</a><a id="77c45" class="tk">arg_S_flag</a>,</td></tr>
 <tr name="78" id="78">
-<td>78</td><td>  <span class="ct">/* Unused arguments */</span></td></tr>
+<td>78</td><td>               <a id="78c16" class="tk">arg_Magnetic_Dipole_Moment</a>, <a id="78c44" class="tk">arg_q_est1</a>);</td></tr>
 <tr name="79" id="79">
-<td>79</td><td>  (<span class="kw">void</span>)(<a id="79c10" class="tk">argc</a>);</td></tr>
+<td>79</td><td></td></tr>
 <tr name="80" id="80">
-<td>80</td><td>  (<span class="kw">void</span>)(<a id="80c10" class="tk">argv</a>);</td></tr>
+<td>80</td><td>    <span class="ct">/* Get model outputs here */</span></td></tr>
 <tr name="81" id="81">
-<td>81</td><td></td></tr>
+<td>81</td><td>    <a id="81c5" class="tk">runModel</a> = (<a id="81c17" class="tk">rtmGetErrorStatus</a>(<a id="81c35" class="tk">ADC_M</a>) <a id="81c42" class="tk">==</a> (<a id="81c46" class="tk">NULL</a>)) <a id="81c53" class="tk">&amp;&amp;</a> <a id="81c56" class="tk">!</a><a id="81c57" class="tk">rtmGetStopRequested</a></td></tr>
 <tr name="82" id="82">
-<td>82</td><td>  <span class="ct">/* Initialize model */</span></td></tr>
+<td>82</td><td>      (<a id="82c8" class="tk">ADC_M</a>);</td></tr>
 <tr name="83" id="83">
-<td>83</td><td>  <a id="83c3" class="tk">ADC_initialize</a>();</td></tr>
+<td>83</td><td>  <span class="br">}</span></td></tr>
 <tr name="84" id="84">
 <td>84</td><td></td></tr>
 <tr name="85" id="85">
-<td>85</td><td>  <span class="ct">/* Simulating the model step behavior (in non real-time) to</span></td></tr>
+<td>85</td><td>  <a id="85c3" class="tk">runModel</a> = 0;</td></tr>
 <tr name="86" id="86">
-<td>86</td><td><span class="ct">   *  simulate model behavior at stop time.</span></td></tr>
+<td>86</td><td>  <a id="86c3" class="tk">terminateTask</a>(<a id="86c17" class="tk">arg</a>);</td></tr>
 <tr name="87" id="87">
-<td>87</td><td><span class="ct">   */</span></td></tr>
+<td>87</td><td>  <a id="87c3" class="tk">pthread_exit</a>((<span class="kw">void</span> <a id="87c22" class="tk">*</a>)0);</td></tr>
 <tr name="88" id="88">
-<td>88</td><td>  <span class="kw">while</span> ((<a id="88c11" class="tk">rtmGetErrorStatus</a>(<a id="88c29" class="tk">ADC_M</a>) == (<a id="88c40" class="tk">NULL</a>)) &amp;&amp; !<a id="88c51" class="tk">rtmGetStopRequested</a>(<a id="88c71" class="tk">ADC_M</a>)) <span class="br">{</span></td></tr>
+<td>88</td><td><span class="br">}</span></td></tr>
 <tr name="89" id="89">
-<td>89</td><td>    <a id="89c5" class="tk">rt_OneStep</a>();</td></tr>
+<td>89</td><td></td></tr>
 <tr name="90" id="90">
-<td>90</td><td>  <span class="br">}</span></td></tr>
+<td>90</td><td><span class="kw">void</span> <a id="90c6" class="tk">exitTask</a>(<span class="kw">int</span> <a id="90c19" class="tk">sig</a>)</td></tr>
 <tr name="91" id="91">
-<td>91</td><td></td></tr>
+<td>91</td><td><span class="br">{</span></td></tr>
 <tr name="92" id="92">
-<td>92</td><td>  <span class="ct">/* Disable rt_OneStep() here */</span></td></tr>
+<td>92</td><td>  <a id="92c3" class="tk">rtmSetErrorStatus</a>(<a id="92c21" class="tk">ADC_M</a>, "stopping the model");</td></tr>
 <tr name="93" id="93">
-<td>93</td><td></td></tr>
+<td>93</td><td><span class="br">}</span></td></tr>
 <tr name="94" id="94">
-<td>94</td><td>  <span class="ct">/* Terminate model */</span></td></tr>
+<td>94</td><td></td></tr>
 <tr name="95" id="95">
-<td>95</td><td>  <a id="95c3" class="tk">ADC_terminate</a>();</td></tr>
+<td>95</td><td><span class="kw">void</span> <a id="95c6" class="tk">terminateTask</a>(<span class="kw">void</span> <a id="95c25" class="tk">*</a><a id="95c26" class="tk">arg</a>)</td></tr>
 <tr name="96" id="96">
-<td>96</td><td>  <span class="kw">return</span> 0;</td></tr>
+<td>96</td><td><span class="br">{</span></td></tr>
 <tr name="97" id="97">
-<td>97</td><td><span class="br">}</span></td></tr>
+<td>97</td><td>  <a id="97c3" class="tk">terminatingmodel</a> = 1;</td></tr>
 <tr name="98" id="98">
-<td>98</td><td></td></tr>
+<td>98</td><td>  <a id="98c3" class="tk">printf</a>("**terminating the model**\n");</td></tr>
 <tr name="99" id="99">
-<td>99</td><td><span class="ct">/*</span></td></tr>
+<td>99</td><td>  <a id="99c3" class="tk">fflush</a>(<a id="99c10" class="tk">stdout</a>);</td></tr>
 <tr name="100" id="100">
-<td>100</td><td><span class="ct"> * File trailer for generated code.</span></td></tr>
+<td>100</td><td></td></tr>
 <tr name="101" id="101">
-<td>101</td><td><span class="ct"> *</span></td></tr>
+<td>101</td><td>  <span class="br">{</span></td></tr>
 <tr name="102" id="102">
-<td>102</td><td><span class="ct"> * [EOF]</span></td></tr>
+<td>102</td><td>    <span class="kw">int</span> <a id="102c9" class="tk">ret</a>;</td></tr>
 <tr name="103" id="103">
-<td>103</td><td><span class="ct"> */</span></td></tr>
+<td>103</td><td>    <a id="103c5" class="tk">runModel</a> = 0;</td></tr>
 <tr name="104" id="104">
-<td>104</td><td></td></tr>
+<td>104</td><td>  <span class="br">}</span></td></tr>
+<tr name="105" id="105">
+<td>105</td><td></td></tr>
+<tr name="106" id="106">
+<td>106</td><td>  <span class="ct">/* Disable rt_OneStep() here */</span></td></tr>
+<tr name="107" id="107">
+<td>107</td><td></td></tr>
+<tr name="108" id="108">
+<td>108</td><td>  <span class="ct">/* Terminate model */</span></td></tr>
+<tr name="109" id="109">
+<td>109</td><td>  <a id="109c3" class="tk">ADC_terminate</a>();</td></tr>
+<tr name="110" id="110">
+<td>110</td><td>  <a id="110c3" class="tk">sem_post</a>(<a id="110c12" class="tk">&amp;</a><a id="110c13" class="tk">stopSem</a>);</td></tr>
+<tr name="111" id="111">
+<td>111</td><td><span class="br">}</span></td></tr>
+<tr name="112" id="112">
+<td>112</td><td></td></tr>
+<tr name="113" id="113">
+<td>113</td><td><span class="kw">int</span> <a id="113c5" class="tk">main</a>(<span class="kw">int</span> <a id="113c14" class="tk">argc</a>, <span class="kw">char</span> <a id="113c25" class="tk">*</a><a id="113c26" class="tk">*</a><a id="113c27" class="tk">argv</a>)</td></tr>
+<tr name="114" id="114">
+<td>114</td><td><span class="br">{</span></td></tr>
+<tr name="115" id="115">
+<td>115</td><td>  <a id="115c3" class="tk">printf</a>("**starting the model**\n");</td></tr>
+<tr name="116" id="116">
+<td>116</td><td>  <a id="116c3" class="tk">fflush</a>(<a id="116c10" class="tk">stdout</a>);</td></tr>
+<tr name="117" id="117">
+<td>117</td><td>  <a id="117c3" class="tk">rtmSetErrorStatus</a>(<a id="117c21" class="tk">ADC_M</a>, 0);</td></tr>
+<tr name="118" id="118">
+<td>118</td><td></td></tr>
+<tr name="119" id="119">
+<td>119</td><td>  <span class="ct">/* Initialize model */</span></td></tr>
+<tr name="120" id="120">
+<td>120</td><td>  <a id="120c3" class="tk">ADC_initialize</a>();</td></tr>
+<tr name="121" id="121">
+<td>121</td><td></td></tr>
+<tr name="122" id="122">
+<td>122</td><td>  <span class="ct">/* Call RTOS Initialization funcation */</span></td></tr>
+<tr name="123" id="123">
+<td>123</td><td>  <a id="123c3" class="tk">myRTOSInit</a>(0.1, 0);</td></tr>
+<tr name="124" id="124">
+<td>124</td><td></td></tr>
+<tr name="125" id="125">
+<td>125</td><td>  <span class="ct">/* Wait for stop semaphore */</span></td></tr>
+<tr name="126" id="126">
+<td>126</td><td>  <a id="126c3" class="tk">sem_wait</a>(<a id="126c12" class="tk">&amp;</a><a id="126c13" class="tk">stopSem</a>);</td></tr>
+<tr name="127" id="127">
+<td>127</td><td>  <span class="kw">return</span> 0;</td></tr>
+<tr name="128" id="128">
+<td>128</td><td><span class="br">}</span></td></tr>
+<tr name="129" id="129">
+<td>129</td><td></td></tr>
+<tr name="130" id="130">
+<td>130</td><td><span class="ct">/*</span></td></tr>
+<tr name="131" id="131">
+<td>131</td><td><span class="ct"> * File trailer for generated code.</span></td></tr>
+<tr name="132" id="132">
+<td>132</td><td><span class="ct"> *</span></td></tr>
+<tr name="133" id="133">
+<td>133</td><td><span class="ct"> * [EOF]</span></td></tr>
+<tr name="134" id="134">
+<td>134</td><td><span class="ct"> */</span></td></tr>
+<tr name="135" id="135">
+<td>135</td><td></td></tr>
 </table>
 </pre>
 </body>

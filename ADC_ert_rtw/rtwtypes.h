@@ -7,20 +7,20 @@
  *
  * Code generated for Simulink model 'ADC'.
  *
- * Model version                  : 1.1151
- * Simulink Coder version         : 8.8 (R2015a) 09-Feb-2015
- * C/C++ source code generated on : Fri Oct 28 16:14:12 2016
+ * Model version                  : 1.1170
+ * Simulink Coder version         : 8.10 (R2016a) 10-Feb-2016
+ * C/C++ source code generated on : Wed Jan 18 14:57:52 2017
  *
  * Target selection: ert.tlc
- * Embedded hardware selection: 32-bit Generic
+ * Embedded hardware selection: ARM Compatible->ARM Cortex
  * Emulation hardware selection:
  *    Differs from embedded hardware (MATLAB Host)
  * Code generation objectives: Unspecified
  * Validation result: Not run
  */
 
-#ifndef __RTWTYPES_H__
-#define __RTWTYPES_H__
+#ifndef RTWTYPES_H
+#define RTWTYPES_H
 
 /* Logical type definitions */
 #if (!defined(__cplusplus))
@@ -37,7 +37,7 @@
  * Target hardware information
  *   Device type: MATLAB Host
  *   Number of bits:     char:   8    short:   16    int:  32
- *                       long:  64    long long:  64
+ *                       long:  32    long long:  64
  *                       native word size:  64
  *   Byte ordering: LittleEndian
  *   Signed integer division rounds to: Zero
@@ -56,14 +56,14 @@ typedef short int16_T;
 typedef unsigned short uint16_T;
 typedef int int32_T;
 typedef unsigned int uint32_T;
-typedef long int64_T;
-typedef unsigned long uint64_T;
+typedef long long int64_T;
+typedef unsigned long long uint64_T;
 typedef float real32_T;
 typedef double real64_T;
 
 /*===========================================================================*
- * Generic type definitions: real_T, time_T, boolean_T, int_T, uint_T,       *
- *                           ulong_T, char_T , ulonglong_T and byte_T.       *
+ * Generic type definitions: boolean_T, char_T, byte_T, int_T, uint_T,       *
+ *                           real_T, time_T, ulong_T, ulonglong_T.           *
  *===========================================================================*/
 typedef double real_T;
 typedef double time_T;
@@ -166,14 +166,14 @@ typedef struct {
 #define MAX_int32_T                    ((int32_T)(2147483647))
 #define MIN_int32_T                    ((int32_T)(-2147483647-1))
 #define MAX_uint32_T                   ((uint32_T)(0xFFFFFFFFU))
-#define MAX_int64_T                    ((int64_T)(9223372036854775807L))
-#define MIN_int64_T                    ((int64_T)(-9223372036854775807L-1L))
-#define MAX_uint64_T                   ((uint64_T)(0xFFFFFFFFFFFFFFFFUL))
+#define MAX_int64_T                    ((int64_T)(9223372036854775807LL))
+#define MIN_int64_T                    ((int64_T)(-9223372036854775807LL-1LL))
+#define MAX_uint64_T                   ((uint64_T)(0xFFFFFFFFFFFFFFFFULL))
 
 /* Block D-Work pointer type */
 typedef void * pointer_T;
 
-#endif                                 /* __RTWTYPES_H__ */
+#endif                                 /* RTWTYPES_H */
 
 /*
  * File trailer for generated code.

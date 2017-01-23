@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="./js/coder_app.js"></script>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="./rtwreport_utils.js"></script>
+<script type="text/javascript" src="./rtwannotate.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/coder_app.css"/>
+</head>
+<body onload="srcFileOnload();">
+<pre id="code">
+<table class="code" id="codeTbl">
+<tr name="1" id="1">
+<td>1</td><td><span class="ct">/*</span></td></tr>
+<tr name="2" id="2">
+<td>2</td><td><span class="ct"> * Academic License - for use in teaching, academic research, and meeting</span></td></tr>
+<tr name="3" id="3">
+<td>3</td><td><span class="ct"> * course requirements at degree granting institutions only.  Not for</span></td></tr>
+<tr name="4" id="4">
+<td>4</td><td><span class="ct"> * government, commercial, or other organizational use.</span></td></tr>
+<tr name="5" id="5">
+<td>5</td><td><span class="ct"> *</span></td></tr>
+<tr name="6" id="6">
+<td>6</td><td><span class="ct"> * File: ADC_capi.c</span></td></tr>
+<tr name="7" id="7">
+<td>7</td><td><span class="ct"> *</span></td></tr>
+<tr name="8" id="8">
+<td>8</td><td><span class="ct"> * Code generated for Simulink model 'ADC'.</span></td></tr>
+<tr name="9" id="9">
+<td>9</td><td><span class="ct"> *</span></td></tr>
+<tr name="10" id="10">
+<td>10</td><td><span class="ct"> * Model version                  : 1.1170</span></td></tr>
+<tr name="11" id="11">
+<td>11</td><td><span class="ct"> * Simulink Coder version         : 8.10 (R2016a) 10-Feb-2016</span></td></tr>
+<tr name="12" id="12">
+<td>12</td><td><span class="ct"> * C/C++ source code generated on : Wed Jan 18 14:57:52 2017</span></td></tr>
+<tr name="13" id="13">
+<td>13</td><td><span class="ct"> *</span></td></tr>
+<tr name="14" id="14">
+<td>14</td><td><span class="ct"> * Target selection: ert.tlc</span></td></tr>
+<tr name="15" id="15">
+<td>15</td><td><span class="ct"> * Embedded hardware selection: ARM Compatible-&gt;ARM Cortex</span></td></tr>
+<tr name="16" id="16">
+<td>16</td><td><span class="ct"> * Emulation hardware selection:</span></td></tr>
+<tr name="17" id="17">
+<td>17</td><td><span class="ct"> *    Differs from embedded hardware (MATLAB Host)</span></td></tr>
+<tr name="18" id="18">
+<td>18</td><td><span class="ct"> * Code generation objectives: Unspecified</span></td></tr>
+<tr name="19" id="19">
+<td>19</td><td><span class="ct"> * Validation result: Not run</span></td></tr>
+<tr name="20" id="20">
+<td>20</td><td><span class="ct"> */</span></td></tr>
+<tr name="21" id="21">
+<td>21</td><td></td></tr>
+<tr name="22" id="22">
+<td>22</td><td><span class="pp">#include &lt;stddef.h&gt;</span></td></tr>
+<tr name="23" id="23">
+<td>23</td><td><span class="pp">#include "rtw_capi.h"</span></td></tr>
+<tr name="24" id="24">
+<td>24</td><td><span class="pp">#ifdef</span> <a id="24c8" class="tk">HOST_CAPI_BUILD</a></td></tr>
+<tr name="25" id="25">
+<td>25</td><td><span class="pp">#include "ADC_capi_host.h"</span></td></tr>
+<tr name="26" id="26">
+<td>26</td><td><span class="pp">#define</span> <span class="kw">sizeof</span>(<a id="26c16" class="tk">s</a>)                      ((<a id="26c42" class="tk">size_t</a>)(0xFFFF))</td></tr>
+<tr name="27" id="27">
+<td>27</td><td><span class="pp">#undef</span> <a id="27c8" class="tk">rt_offsetof</a></td></tr>
+<tr name="28" id="28">
+<td>28</td><td><span class="pp">#define</span> <a id="28c9" class="tk">rt_offsetof</a>(<a id="28c21" class="tk">s</a>,<a id="28c23" class="tk">el</a>)              ((<a id="28c42" class="tk">uint16_T</a>)(0xFFFF))</td></tr>
+<tr name="29" id="29">
+<td>29</td><td><span class="pp">#define</span> <a id="29c9" class="tk">TARGET_CONST</a></td></tr>
+<tr name="30" id="30">
+<td>30</td><td><span class="pp">#define</span> <a id="30c9" class="tk">TARGET_STRING</a>(<a id="30c23" class="tk">s</a>)               (<a id="30c41" class="tk">s</a>)</td></tr>
+<tr name="31" id="31">
+<td>31</td><td><span class="pp">#else</span>                                  <span class="ct">/* HOST_CAPI_BUILD */</span></td></tr>
+<tr name="32" id="32">
+<td>32</td><td><span class="pp">#include "builtin_typeid_types.h"</span></td></tr>
+<tr name="33" id="33">
+<td>33</td><td><span class="pp">#include "ADC.h"</span></td></tr>
+<tr name="34" id="34">
+<td>34</td><td><span class="pp">#include "ADC_capi.h"</span></td></tr>
+<tr name="35" id="35">
+<td>35</td><td><span class="pp">#include "ADC_private.h"</span></td></tr>
+<tr name="36" id="36">
+<td>36</td><td><span class="pp">#ifdef</span> <a id="36c8" class="tk">LIGHT_WEIGHT_CAPI</a></td></tr>
+<tr name="37" id="37">
+<td>37</td><td><span class="pp">#define</span> <a id="37c9" class="tk">TARGET_CONST</a></td></tr>
+<tr name="38" id="38">
+<td>38</td><td><span class="pp">#define</span> <a id="38c9" class="tk">TARGET_STRING</a>(<a id="38c23" class="tk">s</a>)               (<a id="38c41" class="tk">NULL</a>)</td></tr>
+<tr name="39" id="39">
+<td>39</td><td><span class="pp">#else</span></td></tr>
+<tr name="40" id="40">
+<td>40</td><td><span class="pp">#define</span> <a id="40c9" class="tk">TARGET_CONST</a>                   <span class="kw">const</span></td></tr>
+<tr name="41" id="41">
+<td>41</td><td><span class="pp">#define</span> <a id="41c9" class="tk">TARGET_STRING</a>(<a id="41c23" class="tk">s</a>)               (<a id="41c41" class="tk">s</a>)</td></tr>
+<tr name="42" id="42">
+<td>42</td><td><span class="pp">#endif</span></td></tr>
+<tr name="43" id="43">
+<td>43</td><td><span class="pp">#endif</span>                                 <span class="ct">/* HOST_CAPI_BUILD */</span></td></tr>
+<tr name="44" id="44">
+<td>44</td><td></td></tr>
+<tr name="45" id="45">
+<td>45</td><td><span class="ct">/* Block output signal information */</span></td></tr>
+<tr name="46" id="46">
+<td>46</td><td><span class="kw">static</span> <span class="kw">const</span> <a id="46c14" class="tk">rtwCAPI_Signals</a> <a id="46c30" class="tk">rtBlockSignals</a>[] = <span class="br">{</span></td></tr>
+<tr name="47" id="47">
+<td>47</td><td>  <span class="ct">/* addrMapIndex, sysNum, blockPath,</span></td></tr>
+<tr name="48" id="48">
+<td>48</td><td><span class="ct">   * signalName, portNumber, dataTypeIndex, dimIndex, fxpIndex, sTimeIndex</span></td></tr>
+<tr name="49" id="49">
+<td>49</td><td><span class="ct">   */</span></td></tr>
+<tr name="50" id="50">
+<td>50</td><td>  <span class="br">{</span> 0, 16, <a id="50c12" class="tk">TARGET_STRING</a>("ADC/lla2eci"),</td></tr>
+<tr name="51" id="51">
+<td>51</td><td>    <a id="51c5" class="tk">TARGET_STRING</a>(""), 0, 0, 0, 0, 0 <span class="br">}</span>,</td></tr>
+<tr name="52" id="52">
+<td>52</td><td></td></tr>
+<tr name="53" id="53">
+<td>53</td><td>  <span class="br">{</span> 1, 0, <a id="53c11" class="tk">TARGET_STRING</a>("ADC/Controller/Memory"),</td></tr>
+<tr name="54" id="54">
+<td>54</td><td>    <a id="54c5" class="tk">TARGET_STRING</a>(""), 0, 0, 0, 0, 1 <span class="br">}</span>,</td></tr>
+<tr name="55" id="55">
+<td>55</td><td></td></tr>
+<tr name="56" id="56">
+<td>56</td><td>  <span class="br">{</span> 2, 0, <a id="56c11" class="tk">TARGET_STRING</a>("ADC/Estimator/Math Function1"),</td></tr>
+<tr name="57" id="57">
+<td>57</td><td>    <a id="57c5" class="tk">TARGET_STRING</a>(""), 0, 0, 1, 0, 1 <span class="br">}</span>,</td></tr>
+<tr name="58" id="58">
+<td>58</td><td></td></tr>
+<tr name="59" id="59">
+<td>59</td><td>  <span class="br">{</span> 3, 3, <a id="59c11" class="tk">TARGET_STRING</a>("ADC/Controller/Detumble /saturator and power monitor"),</td></tr>
+<tr name="60" id="60">
+<td>60</td><td>    <a id="60c5" class="tk">TARGET_STRING</a>(""), 0, 0, 0, 0, 1 <span class="br">}</span>,</td></tr>
+<tr name="61" id="61">
+<td>61</td><td></td></tr>
+<tr name="62" id="62">
+<td>62</td><td>  <span class="br">{</span> 4, 0, <a id="62c11" class="tk">TARGET_STRING</a>("ADC/Estimator/Kalman Filter/X0"),</td></tr>
+<tr name="63" id="63">
+<td>63</td><td>    <a id="63c5" class="tk">TARGET_STRING</a>(""), 0, 0, 2, 0, 1 <span class="br">}</span>,</td></tr>
+<tr name="64" id="64">
+<td>64</td><td></td></tr>
+<tr name="65" id="65">
+<td>65</td><td>  <span class="br">{</span> 5, 11, <a id="65c12" class="tk">TARGET_STRING</a>(</td></tr>
+<tr name="66" id="66">
+<td>66</td><td>    "ADC/Estimator/Kalman Filter/Observer/MeasurementUpdate"),</td></tr>
+<tr name="67" id="67">
+<td>67</td><td>    <a id="67c5" class="tk">TARGET_STRING</a>(""), 0, 0, 3, 0, 0 <span class="br">}</span>,</td></tr>
+<tr name="68" id="68">
+<td>68</td><td></td></tr>
+<tr name="69" id="69">
+<td>69</td><td>  <span class="br">{</span> 6, 0, <a id="69c11" class="tk">TARGET_STRING</a>("ADC/Estimator/Kalman Filter/Observer/Add"),</td></tr>
+<tr name="70" id="70">
+<td>70</td><td>    <a id="70c5" class="tk">TARGET_STRING</a>(""), 0, 0, 3, 0, 0 <span class="br">}</span>,</td></tr>
+<tr name="71" id="71">
+<td>71</td><td></td></tr>
+<tr name="72" id="72">
+<td>72</td><td>  <span class="br">{</span> 7, 11, <a id="72c12" class="tk">TARGET_STRING</a>(</td></tr>
+<tr name="73" id="73">
+<td>73</td><td>    "ADC/Estimator/Kalman Filter/Observer/MeasurementUpdate/Product3"),</td></tr>
+<tr name="74" id="74">
+<td>74</td><td>    <a id="74c5" class="tk">TARGET_STRING</a>(""), 0, 0, 3, 0, 0 <span class="br">}</span>,</td></tr>
+<tr name="75" id="75">
+<td>75</td><td></td></tr>
+<tr name="76" id="76">
+<td>76</td><td>  <span class="br">{</span></td></tr>
+<tr name="77" id="77">
+<td>77</td><td>    0, 0, (<a id="77c12" class="tk">NULL</a>), (<a id="77c20" class="tk">NULL</a>), 0, 0, 0, 0, 0</td></tr>
+<tr name="78" id="78">
+<td>78</td><td>  <span class="br">}</span></td></tr>
+<tr name="79" id="79">
+<td>79</td><td><span class="br">}</span>;</td></tr>
+<tr name="80" id="80">
+<td>80</td><td></td></tr>
+<tr name="81" id="81">
+<td>81</td><td><span class="kw">static</span> <span class="kw">const</span> <a id="81c14" class="tk">rtwCAPI_BlockParameters</a> <a id="81c38" class="tk">rtBlockParameters</a>[] = <span class="br">{</span></td></tr>
+<tr name="82" id="82">
+<td>82</td><td>  <span class="ct">/* addrMapIndex, blockPath,</span></td></tr>
+<tr name="83" id="83">
+<td>83</td><td><span class="ct">   * paramName, dataTypeIndex, dimIndex, fixPtIdx</span></td></tr>
+<tr name="84" id="84">
+<td>84</td><td><span class="ct">   */</span></td></tr>
+<tr name="85" id="85">
+<td>85</td><td>  <span class="br">{</span> 8, <a id="85c8" class="tk">TARGET_STRING</a>("ADC/Controller/Memory"),</td></tr>
+<tr name="86" id="86">
+<td>86</td><td>    <a id="86c5" class="tk">TARGET_STRING</a>("X0"), 0, 4, 0 <span class="br">}</span>,</td></tr>
+<tr name="87" id="87">
+<td>87</td><td></td></tr>
+<tr name="88" id="88">
+<td>88</td><td>  <span class="br">{</span> 9, <a id="88c8" class="tk">TARGET_STRING</a>("ADC/Estimator/Memory"),</td></tr>
+<tr name="89" id="89">
+<td>89</td><td>    <a id="89c5" class="tk">TARGET_STRING</a>("X0"), 0, 4, 0 <span class="br">}</span>,</td></tr>
+<tr name="90" id="90">
+<td>90</td><td></td></tr>
+<tr name="91" id="91">
+<td>91</td><td>  <span class="br">{</span> 10, <a id="91c9" class="tk">TARGET_STRING</a>("ADC/Estimator/Memory1"),</td></tr>
+<tr name="92" id="92">
+<td>92</td><td>    <a id="92c5" class="tk">TARGET_STRING</a>("X0"), 0, 4, 0 <span class="br">}</span>,</td></tr>
+<tr name="93" id="93">
+<td>93</td><td></td></tr>
+<tr name="94" id="94">
+<td>94</td><td>  <span class="br">{</span> 11, <a id="94c9" class="tk">TARGET_STRING</a>("ADC/Estimator/Normalization"),</td></tr>
+<tr name="95" id="95">
+<td>95</td><td>    <a id="95c5" class="tk">TARGET_STRING</a>("Bias"), 0, 4, 0 <span class="br">}</span>,</td></tr>
+<tr name="96" id="96">
+<td>96</td><td></td></tr>
+<tr name="97" id="97">
+<td>97</td><td>  <span class="br">{</span> 12, <a id="97c9" class="tk">TARGET_STRING</a>("ADC/Controller/Detumble /Discrete Derivative"),</td></tr>
+<tr name="98" id="98">
+<td>98</td><td>    <a id="98c5" class="tk">TARGET_STRING</a>("ICPrevScaledInput"), 0, 4, 0 <span class="br">}</span>,</td></tr>
+<tr name="99" id="99">
+<td>99</td><td></td></tr>
+<tr name="100" id="100">
+<td>100</td><td>  <span class="br">{</span> 13, <a id="100c9" class="tk">TARGET_STRING</a>("ADC/Controller/Detumble /voltage"),</td></tr>
+<tr name="101" id="101">
+<td>101</td><td>    <a id="101c5" class="tk">TARGET_STRING</a>("Value"), 0, 4, 0 <span class="br">}</span>,</td></tr>
+<tr name="102" id="102">
+<td>102</td><td></td></tr>
+<tr name="103" id="103">
+<td>103</td><td>  <span class="br">{</span> 14, <a id="103c9" class="tk">TARGET_STRING</a>("ADC/Controller/Detumble /Gain"),</td></tr>
+<tr name="104" id="104">
+<td>104</td><td>    <a id="104c5" class="tk">TARGET_STRING</a>("Gain"), 0, 4, 0 <span class="br">}</span>,</td></tr>
+<tr name="105" id="105">
+<td>105</td><td></td></tr>
+<tr name="106" id="106">
+<td>106</td><td>  <span class="br">{</span> 15, <a id="106c9" class="tk">TARGET_STRING</a>("ADC/Controller/Pointing/voltage"),</td></tr>
+<tr name="107" id="107">
+<td>107</td><td>    <a id="107c5" class="tk">TARGET_STRING</a>("Value"), 0, 4, 0 <span class="br">}</span>,</td></tr>
+<tr name="108" id="108">
+<td>108</td><td></td></tr>
+<tr name="109" id="109">
+<td>109</td><td>  <span class="br">{</span> 16, <a id="109c9" class="tk">TARGET_STRING</a>("ADC/Controller/Pointing/Switch"),</td></tr>
+<tr name="110" id="110">
+<td>110</td><td>    <a id="110c5" class="tk">TARGET_STRING</a>("Threshold"), 0, 4, 0 <span class="br">}</span>,</td></tr>
+<tr name="111" id="111">
+<td>111</td><td></td></tr>
+<tr name="112" id="112">
+<td>112</td><td>  <span class="br">{</span> 17, <a id="112c9" class="tk">TARGET_STRING</a>("ADC/Controller/Pointing/Switch2"),</td></tr>
+<tr name="113" id="113">
+<td>113</td><td>    <a id="113c5" class="tk">TARGET_STRING</a>("Threshold"), 0, 4, 0 <span class="br">}</span>,</td></tr>
+<tr name="114" id="114">
+<td>114</td><td></td></tr>
+<tr name="115" id="115">
+<td>115</td><td>  <span class="br">{</span> 18, <a id="115c9" class="tk">TARGET_STRING</a>("ADC/Estimator/Kalman Filter/A"),</td></tr>
+<tr name="116" id="116">
+<td>116</td><td>    <a id="116c5" class="tk">TARGET_STRING</a>("Value"), 0, 5, 0 <span class="br">}</span>,</td></tr>
+<tr name="117" id="117">
+<td>117</td><td></td></tr>
+<tr name="118" id="118">
+<td>118</td><td>  <span class="br">{</span> 19, <a id="118c9" class="tk">TARGET_STRING</a>("ADC/Estimator/Kalman Filter/B"),</td></tr>
+<tr name="119" id="119">
+<td>119</td><td>    <a id="119c5" class="tk">TARGET_STRING</a>("Value"), 0, 6, 0 <span class="br">}</span>,</td></tr>
+<tr name="120" id="120">
+<td>120</td><td></td></tr>
+<tr name="121" id="121">
+<td>121</td><td>  <span class="br">{</span> 20, <a id="121c9" class="tk">TARGET_STRING</a>("ADC/Estimator/Kalman Filter/C"),</td></tr>
+<tr name="122" id="122">
+<td>122</td><td>    <a id="122c5" class="tk">TARGET_STRING</a>("Value"), 0, 5, 0 <span class="br">}</span>,</td></tr>
+<tr name="123" id="123">
+<td>123</td><td></td></tr>
+<tr name="124" id="124">
+<td>124</td><td>  <span class="br">{</span> 21, <a id="124c9" class="tk">TARGET_STRING</a>("ADC/Estimator/Kalman Filter/D"),</td></tr>
+<tr name="125" id="125">
+<td>125</td><td>    <a id="125c5" class="tk">TARGET_STRING</a>("Value"), 0, 6, 0 <span class="br">}</span>,</td></tr>
+<tr name="126" id="126">
+<td>126</td><td></td></tr>
+<tr name="127" id="127">
+<td>127</td><td>  <span class="br">{</span> 22, <a id="127c9" class="tk">TARGET_STRING</a>("ADC/Estimator/Kalman Filter/Enable"),</td></tr>
+<tr name="128" id="128">
+<td>128</td><td>    <a id="128c5" class="tk">TARGET_STRING</a>("Value"), 1, 4, 0 <span class="br">}</span>,</td></tr>
+<tr name="129" id="129">
+<td>129</td><td></td></tr>
+<tr name="130" id="130">
+<td>130</td><td>  <span class="br">{</span> 23, <a id="130c9" class="tk">TARGET_STRING</a>("ADC/Estimator/Kalman Filter/X0"),</td></tr>
+<tr name="131" id="131">
+<td>131</td><td>    <a id="131c5" class="tk">TARGET_STRING</a>("Value"), 0, 3, 0 <span class="br">}</span>,</td></tr>
+<tr name="132" id="132">
+<td>132</td><td></td></tr>
+<tr name="133" id="133">
+<td>133</td><td>  <span class="br">{</span> 24, <a id="133c9" class="tk">TARGET_STRING</a>("ADC/Controller/Detumble /Discrete Derivative/TSamp"),</td></tr>
+<tr name="134" id="134">
+<td>134</td><td>    <a id="134c5" class="tk">TARGET_STRING</a>("WtEt"), 0, 4, 0 <span class="br">}</span>,</td></tr>
+<tr name="135" id="135">
+<td>135</td><td></td></tr>
+<tr name="136" id="136">
+<td>136</td><td>  <span class="br">{</span> 25, <a id="136c9" class="tk">TARGET_STRING</a>("ADC/Estimator/Kalman Filter/CalculatePL/KalmanGainL"),</td></tr>
+<tr name="137" id="137">
+<td>137</td><td>    <a id="137c5" class="tk">TARGET_STRING</a>("Value"), 0, 5, 0 <span class="br">}</span>,</td></tr>
+<tr name="138" id="138">
+<td>138</td><td></td></tr>
+<tr name="139" id="139">
+<td>139</td><td>  <span class="br">{</span></td></tr>
+<tr name="140" id="140">
+<td>140</td><td>    0, (<a id="140c9" class="tk">NULL</a>), (<a id="140c17" class="tk">NULL</a>), 0, 0, 0</td></tr>
+<tr name="141" id="141">
+<td>141</td><td>  <span class="br">}</span></td></tr>
+<tr name="142" id="142">
+<td>142</td><td><span class="br">}</span>;</td></tr>
+<tr name="143" id="143">
+<td>143</td><td></td></tr>
+<tr name="144" id="144">
+<td>144</td><td><span class="ct">/* Block states information */</span></td></tr>
+<tr name="145" id="145">
+<td>145</td><td><span class="kw">static</span> <span class="kw">const</span> <a id="145c14" class="tk">rtwCAPI_States</a> <a id="145c29" class="tk">rtBlockStates</a>[] = <span class="br">{</span></td></tr>
+<tr name="146" id="146">
+<td>146</td><td>  <span class="ct">/* addrMapIndex, contStateStartIndex, blockPath,</span></td></tr>
+<tr name="147" id="147">
+<td>147</td><td><span class="ct">   * stateName, pathAlias, dWorkIndex, dataTypeIndex, dimIndex,</span></td></tr>
+<tr name="148" id="148">
+<td>148</td><td><span class="ct">   * fixPtIdx, sTimeIndex, isContinuous, hierInfoIdx, flatElemIdx</span></td></tr>
+<tr name="149" id="149">
+<td>149</td><td><span class="ct">   */</span></td></tr>
+<tr name="150" id="150">
+<td>150</td><td>  <span class="br">{</span> 26, 0, <a id="150c12" class="tk">TARGET_STRING</a>("ADC/Estimator/Kalman Filter/MemoryX"),</td></tr>
+<tr name="151" id="151">
+<td>151</td><td>    <a id="151c5" class="tk">TARGET_STRING</a>(""),</td></tr>
+<tr name="152" id="152">
+<td>152</td><td>    <a id="152c5" class="tk">TARGET_STRING</a>(""),</td></tr>
+<tr name="153" id="153">
+<td>153</td><td>    0, 0, 3, 0, 0, 1, <a id="153c23" class="tk">-</a>1, 0 <span class="br">}</span>,</td></tr>
+<tr name="154" id="154">
+<td>154</td><td></td></tr>
+<tr name="155" id="155">
+<td>155</td><td>  <span class="br">{</span> 27, <a id="155c9" class="tk">-</a>1, <a id="155c13" class="tk">TARGET_STRING</a>("ADC/Controller/Detumble\n/Discrete Derivative/UD"),</td></tr>
+<tr name="156" id="156">
+<td>156</td><td>    <a id="156c5" class="tk">TARGET_STRING</a>(""), "", 0, 0, 0, 0, 1, 0, <a id="156c46" class="tk">-</a>1, 0 <span class="br">}</span>,</td></tr>
+<tr name="157" id="157">
+<td>157</td><td></td></tr>
+<tr name="158" id="158">
+<td>158</td><td>  <span class="br">{</span></td></tr>
+<tr name="159" id="159">
+<td>159</td><td>    0, <a id="159c8" class="tk">-</a>1, (<a id="159c13" class="tk">NULL</a>), (<a id="159c21" class="tk">NULL</a>), (<a id="159c29" class="tk">NULL</a>), 0, 0, 0, 0, 0, 0, <a id="159c54" class="tk">-</a>1, 0</td></tr>
+<tr name="160" id="160">
+<td>160</td><td>  <span class="br">}</span></td></tr>
+<tr name="161" id="161">
+<td>161</td><td><span class="br">}</span>;</td></tr>
+<tr name="162" id="162">
+<td>162</td><td></td></tr>
+<tr name="163" id="163">
+<td>163</td><td><span class="ct">/* Tunable variable parameters */</span></td></tr>
+<tr name="164" id="164">
+<td>164</td><td><span class="kw">static</span> <span class="kw">const</span> <a id="164c14" class="tk">rtwCAPI_ModelParameters</a> <a id="164c38" class="tk">rtModelParameters</a>[] = <span class="br">{</span></td></tr>
+<tr name="165" id="165">
+<td>165</td><td>  <span class="ct">/* addrMapIndex, varName, dataTypeIndex, dimIndex, fixPtIndex */</span></td></tr>
+<tr name="166" id="166">
+<td>166</td><td>  <span class="br">{</span> 0, (<a id="166c9" class="tk">NULL</a>), 0, 0, 0 <span class="br">}</span></td></tr>
+<tr name="167" id="167">
+<td>167</td><td><span class="br">}</span>;</td></tr>
+<tr name="168" id="168">
+<td>168</td><td></td></tr>
+<tr name="169" id="169">
+<td>169</td><td><span class="pp">#ifndef</span> <a id="169c9" class="tk">HOST_CAPI_BUILD</a></td></tr>
+<tr name="170" id="170">
+<td>170</td><td></td></tr>
+<tr name="171" id="171">
+<td>171</td><td><span class="ct">/* Declare Data Addresses statically */</span></td></tr>
+<tr name="172" id="172">
+<td>172</td><td><span class="kw">static</span> <span class="kw">void</span><a id="172c12" class="tk">*</a> <a id="172c14" class="tk">rtDataAddrMap</a>[] = <span class="br">{</span></td></tr>
+<tr name="173" id="173">
+<td>173</td><td>  <a id="173c3" class="tk">&amp;</a><a id="173c4" class="tk">ADC_B</a>.<a id="173c10" class="tk">r_ECI</a>[0],                     <span class="ct">/* 0: Signal */</span></td></tr>
+<tr name="174" id="174">
+<td>174</td><td>  <a id="174c3" class="tk">&amp;</a><a id="174c4" class="tk">ADC_B</a>.<a id="174c10" class="tk">Memory</a>[0],                    <span class="ct">/* 1: Signal */</span></td></tr>
+<tr name="175" id="175">
+<td>175</td><td>  <a id="175c3" class="tk">&amp;</a><a id="175c4" class="tk">ADC_B</a>.<a id="175c10" class="tk">MathFunction1</a>[0],             <span class="ct">/* 2: Signal */</span></td></tr>
+<tr name="176" id="176">
+<td>176</td><td>  <a id="176c3" class="tk">&amp;</a><a id="176c4" class="tk">ADC_B</a>.<a id="176c10" class="tk">m</a>[0],                         <span class="ct">/* 3: Signal */</span></td></tr>
+<tr name="177" id="177">
+<td>177</td><td>  <a id="177c3" class="tk">&amp;</a><a id="177c4" class="tk">ADC_B</a>.<a id="177c10" class="tk">X0</a>[0],                        <span class="ct">/* 4: Signal */</span></td></tr>
+<tr name="178" id="178">
+<td>178</td><td>  <a id="178c3" class="tk">&amp;</a><a id="178c4" class="tk">ADC_B</a>.<a id="178c10" class="tk">Product3</a>[0],                  <span class="ct">/* 5: Signal */</span></td></tr>
+<tr name="179" id="179">
+<td>179</td><td>  <a id="179c3" class="tk">&amp;</a><a id="179c4" class="tk">ADC_B</a>.<a id="179c10" class="tk">Add</a>[0],                       <span class="ct">/* 6: Signal */</span></td></tr>
+<tr name="180" id="180">
+<td>180</td><td>  <a id="180c3" class="tk">&amp;</a><a id="180c4" class="tk">ADC_B</a>.<a id="180c10" class="tk">Product3</a>[0],                  <span class="ct">/* 7: Signal */</span></td></tr>
+<tr name="181" id="181">
+<td>181</td><td>  <a id="181c3" class="tk">&amp;</a><a id="181c4" class="tk">ADC_P</a>.<a id="181c10" class="tk">Memory_X0</a>,                    <span class="ct">/* 8: Block Parameter */</span></td></tr>
+<tr name="182" id="182">
+<td>182</td><td>  <a id="182c3" class="tk">&amp;</a><a id="182c4" class="tk">ADC_P</a>.<a id="182c10" class="tk">Memory_X0_d</a>,                  <span class="ct">/* 9: Block Parameter */</span></td></tr>
+<tr name="183" id="183">
+<td>183</td><td>  <a id="183c3" class="tk">&amp;</a><a id="183c4" class="tk">ADC_P</a>.<a id="183c10" class="tk">Memory1_X0</a>,                   <span class="ct">/* 10: Block Parameter */</span></td></tr>
+<tr name="184" id="184">
+<td>184</td><td>  <a id="184c3" class="tk">&amp;</a><a id="184c4" class="tk">ADC_P</a>.<a id="184c10" class="tk">Normalization_Bias</a>,           <span class="ct">/* 11: Block Parameter */</span></td></tr>
+<tr name="185" id="185">
+<td>185</td><td>  <a id="185c3" class="tk">&amp;</a><a id="185c4" class="tk">ADC_P</a>.<a id="185c10" class="tk">DiscreteDerivative_ICPrevScaledInput</a>,<span class="ct">/* 12: Mask Parameter */</span></td></tr>
+<tr name="186" id="186">
+<td>186</td><td>  <a id="186c3" class="tk">&amp;</a><a id="186c4" class="tk">ADC_P</a>.<a id="186c10" class="tk">voltage_Value</a>,                <span class="ct">/* 13: Block Parameter */</span></td></tr>
+<tr name="187" id="187">
+<td>187</td><td>  <a id="187c3" class="tk">&amp;</a><a id="187c4" class="tk">ADC_P</a>.<a id="187c10" class="tk">Gain_Gain</a>,                    <span class="ct">/* 14: Block Parameter */</span></td></tr>
+<tr name="188" id="188">
+<td>188</td><td>  <a id="188c3" class="tk">&amp;</a><a id="188c4" class="tk">ADC_P</a>.<a id="188c10" class="tk">voltage_Value_b</a>,              <span class="ct">/* 15: Block Parameter */</span></td></tr>
+<tr name="189" id="189">
+<td>189</td><td>  <a id="189c3" class="tk">&amp;</a><a id="189c4" class="tk">ADC_P</a>.<a id="189c10" class="tk">Switch_Threshold</a>,             <span class="ct">/* 16: Block Parameter */</span></td></tr>
+<tr name="190" id="190">
+<td>190</td><td>  <a id="190c3" class="tk">&amp;</a><a id="190c4" class="tk">ADC_P</a>.<a id="190c10" class="tk">Switch2_Threshold</a>,            <span class="ct">/* 17: Block Parameter */</span></td></tr>
+<tr name="191" id="191">
+<td>191</td><td>  <a id="191c3" class="tk">&amp;</a><a id="191c4" class="tk">ADC_P</a>.<a id="191c10" class="tk">A_Value</a>[0],                   <span class="ct">/* 18: Block Parameter */</span></td></tr>
+<tr name="192" id="192">
+<td>192</td><td>  <a id="192c3" class="tk">&amp;</a><a id="192c4" class="tk">ADC_P</a>.<a id="192c10" class="tk">B_Value</a>[0],                   <span class="ct">/* 19: Block Parameter */</span></td></tr>
+<tr name="193" id="193">
+<td>193</td><td>  <a id="193c3" class="tk">&amp;</a><a id="193c4" class="tk">ADC_P</a>.<a id="193c10" class="tk">C_Value</a>[0],                   <span class="ct">/* 20: Block Parameter */</span></td></tr>
+<tr name="194" id="194">
+<td>194</td><td>  <a id="194c3" class="tk">&amp;</a><a id="194c4" class="tk">ADC_P</a>.<a id="194c10" class="tk">D_Value</a>[0],                   <span class="ct">/* 21: Block Parameter */</span></td></tr>
+<tr name="195" id="195">
+<td>195</td><td>  <a id="195c3" class="tk">&amp;</a><a id="195c4" class="tk">ADC_P</a>.<a id="195c10" class="tk">Enable_Value</a>,                 <span class="ct">/* 22: Block Parameter */</span></td></tr>
+<tr name="196" id="196">
+<td>196</td><td>  <a id="196c3" class="tk">&amp;</a><a id="196c4" class="tk">ADC_P</a>.<a id="196c10" class="tk">X0_Value</a>[0],                  <span class="ct">/* 23: Block Parameter */</span></td></tr>
+<tr name="197" id="197">
+<td>197</td><td>  <a id="197c3" class="tk">&amp;</a><a id="197c4" class="tk">ADC_P</a>.<a id="197c10" class="tk">TSamp_WtEt</a>,                   <span class="ct">/* 24: Block Parameter */</span></td></tr>
+<tr name="198" id="198">
+<td>198</td><td>  <a id="198c3" class="tk">&amp;</a><a id="198c4" class="tk">ADC_P</a>.<a id="198c10" class="tk">KalmanGainL_Value</a>[0],         <span class="ct">/* 25: Block Parameter */</span></td></tr>
+<tr name="199" id="199">
+<td>199</td><td>  <a id="199c3" class="tk">&amp;</a><a id="199c4" class="tk">ADC_X</a>.<a id="199c10" class="tk">MemoryX_CSTATE</a>[0],            <span class="ct">/* 26: Continuous State */</span></td></tr>
+<tr name="200" id="200">
+<td>200</td><td>  <a id="200c3" class="tk">&amp;</a><a id="200c4" class="tk">ADC_DW</a>.<a id="200c11" class="tk">UD_DSTATE</a>[0],                <span class="ct">/* 27: Discrete State */</span></td></tr>
+<tr name="201" id="201">
+<td>201</td><td><span class="br">}</span>;</td></tr>
+<tr name="202" id="202">
+<td>202</td><td></td></tr>
+<tr name="203" id="203">
+<td>203</td><td><span class="ct">/* Declare Data Run-Time Dimension Buffer Addresses statically */</span></td></tr>
+<tr name="204" id="204">
+<td>204</td><td><span class="kw">static</span> <a id="204c8" class="tk">int32_T</a><a id="204c15" class="tk">*</a> <a id="204c17" class="tk">rtVarDimsAddrMap</a>[] = <span class="br">{</span></td></tr>
+<tr name="205" id="205">
+<td>205</td><td>  (<a id="205c4" class="tk">NULL</a>)</td></tr>
+<tr name="206" id="206">
+<td>206</td><td><span class="br">}</span>;</td></tr>
+<tr name="207" id="207">
+<td>207</td><td></td></tr>
+<tr name="208" id="208">
+<td>208</td><td><span class="pp">#endif</span></td></tr>
+<tr name="209" id="209">
+<td>209</td><td></td></tr>
+<tr name="210" id="210">
+<td>210</td><td><span class="ct">/* Data Type Map - use dataTypeMapIndex to access this structure */</span></td></tr>
+<tr name="211" id="211">
+<td>211</td><td><span class="kw">static</span> <a id="211c8" class="tk">TARGET_CONST</a> <a id="211c21" class="tk">rtwCAPI_DataTypeMap</a> <a id="211c41" class="tk">rtDataTypeMap</a>[] = <span class="br">{</span></td></tr>
+<tr name="212" id="212">
+<td>212</td><td>  <span class="ct">/* cName, mwName, numElements, elemMapIndex, dataSize, slDataId, *</span></td></tr>
+<tr name="213" id="213">
+<td>213</td><td><span class="ct">   * isComplex, isPointer */</span></td></tr>
+<tr name="214" id="214">
+<td>214</td><td>  <span class="br">{</span> "double", "real_T", 0, 0, <span class="kw">sizeof</span>(<a id="214c38" class="tk">real_T</a>), <a id="214c47" class="tk">SS_DOUBLE</a>, 0, 0 <span class="br">}</span>,</td></tr>
+<tr name="215" id="215">
+<td>215</td><td></td></tr>
+<tr name="216" id="216">
+<td>216</td><td>  <span class="br">{</span> "unsigned char", "boolean_T", 0, 0, <span class="kw">sizeof</span>(<a id="216c48" class="tk">boolean_T</a>), <a id="216c60" class="tk">SS_BOOLEAN</a>, 0, 0 <span class="br">}</span></td></tr>
+<tr name="217" id="217">
+<td>217</td><td><span class="br">}</span>;</td></tr>
+<tr name="218" id="218">
+<td>218</td><td></td></tr>
+<tr name="219" id="219">
+<td>219</td><td><span class="pp">#ifdef</span> <a id="219c8" class="tk">HOST_CAPI_BUILD</a></td></tr>
+<tr name="220" id="220">
+<td>220</td><td><span class="pp">#undef</span> <span class="kw">sizeof</span></td></tr>
+<tr name="221" id="221">
+<td>221</td><td><span class="pp">#endif</span></td></tr>
+<tr name="222" id="222">
+<td>222</td><td></td></tr>
+<tr name="223" id="223">
+<td>223</td><td><span class="ct">/* Structure Element Map - use elemMapIndex to access this structure */</span></td></tr>
+<tr name="224" id="224">
+<td>224</td><td><span class="kw">static</span> <a id="224c8" class="tk">TARGET_CONST</a> <a id="224c21" class="tk">rtwCAPI_ElementMap</a> <a id="224c40" class="tk">rtElementMap</a>[] = <span class="br">{</span></td></tr>
+<tr name="225" id="225">
+<td>225</td><td>  <span class="ct">/* elementName, elementOffset, dataTypeIndex, dimIndex, fxpIndex */</span></td></tr>
+<tr name="226" id="226">
+<td>226</td><td>  <span class="br">{</span> (<a id="226c6" class="tk">NULL</a>), 0, 0, 0, 0 <span class="br">}</span>,</td></tr>
+<tr name="227" id="227">
+<td>227</td><td><span class="br">}</span>;</td></tr>
+<tr name="228" id="228">
+<td>228</td><td></td></tr>
+<tr name="229" id="229">
+<td>229</td><td><span class="ct">/* Dimension Map - use dimensionMapIndex to access elements of ths structure*/</span></td></tr>
+<tr name="230" id="230">
+<td>230</td><td><span class="kw">static</span> <span class="kw">const</span> <a id="230c14" class="tk">rtwCAPI_DimensionMap</a> <a id="230c35" class="tk">rtDimensionMap</a>[] = <span class="br">{</span></td></tr>
+<tr name="231" id="231">
+<td>231</td><td>  <span class="ct">/* dataOrientation, dimArrayIndex, numDims, vardimsIndex */</span></td></tr>
+<tr name="232" id="232">
+<td>232</td><td>  <span class="br">{</span> <a id="232c5" class="tk">rtwCAPI_VECTOR</a>, 0, 2, 0 <span class="br">}</span>,</td></tr>
+<tr name="233" id="233">
+<td>233</td><td></td></tr>
+<tr name="234" id="234">
+<td>234</td><td>  <span class="br">{</span> <a id="234c5" class="tk">rtwCAPI_MATRIX_COL_MAJOR</a>, 2, 2, 0 <span class="br">}</span>,</td></tr>
+<tr name="235" id="235">
+<td>235</td><td></td></tr>
+<tr name="236" id="236">
+<td>236</td><td>  <span class="br">{</span> <a id="236c5" class="tk">rtwCAPI_MATRIX_COL_MAJOR</a>, 4, 2, 0 <span class="br">}</span>,</td></tr>
+<tr name="237" id="237">
+<td>237</td><td></td></tr>
+<tr name="238" id="238">
+<td>238</td><td>  <span class="br">{</span> <a id="238c5" class="tk">rtwCAPI_VECTOR</a>, 4, 2, 0 <span class="br">}</span>,</td></tr>
+<tr name="239" id="239">
+<td>239</td><td></td></tr>
+<tr name="240" id="240">
+<td>240</td><td>  <span class="br">{</span> <a id="240c5" class="tk">rtwCAPI_SCALAR</a>, 6, 2, 0 <span class="br">}</span>,</td></tr>
+<tr name="241" id="241">
+<td>241</td><td></td></tr>
+<tr name="242" id="242">
+<td>242</td><td>  <span class="br">{</span> <a id="242c5" class="tk">rtwCAPI_MATRIX_COL_MAJOR</a>, 8, 2, 0 <span class="br">}</span>,</td></tr>
+<tr name="243" id="243">
+<td>243</td><td></td></tr>
+<tr name="244" id="244">
+<td>244</td><td>  <span class="br">{</span> <a id="244c5" class="tk">rtwCAPI_MATRIX_COL_MAJOR</a>, 10, 2, 0 <span class="br">}</span></td></tr>
+<tr name="245" id="245">
+<td>245</td><td><span class="br">}</span>;</td></tr>
+<tr name="246" id="246">
+<td>246</td><td></td></tr>
+<tr name="247" id="247">
+<td>247</td><td><span class="ct">/* Dimension Array- use dimArrayIndex to access elements of this array */</span></td></tr>
+<tr name="248" id="248">
+<td>248</td><td><span class="kw">static</span> <span class="kw">const</span> <a id="248c14" class="tk">uint_T</a> <a id="248c21" class="tk">rtDimensionArray</a>[] = <span class="br">{</span></td></tr>
+<tr name="249" id="249">
+<td>249</td><td>  3,                                   <span class="ct">/* 0 */</span></td></tr>
+<tr name="250" id="250">
+<td>250</td><td>  1,                                   <span class="ct">/* 1 */</span></td></tr>
+<tr name="251" id="251">
+<td>251</td><td>  3,                                   <span class="ct">/* 2 */</span></td></tr>
+<tr name="252" id="252">
+<td>252</td><td>  3,                                   <span class="ct">/* 3 */</span></td></tr>
+<tr name="253" id="253">
+<td>253</td><td>  6,                                   <span class="ct">/* 4 */</span></td></tr>
+<tr name="254" id="254">
+<td>254</td><td>  1,                                   <span class="ct">/* 5 */</span></td></tr>
+<tr name="255" id="255">
+<td>255</td><td>  1,                                   <span class="ct">/* 6 */</span></td></tr>
+<tr name="256" id="256">
+<td>256</td><td>  1,                                   <span class="ct">/* 7 */</span></td></tr>
+<tr name="257" id="257">
+<td>257</td><td>  6,                                   <span class="ct">/* 8 */</span></td></tr>
+<tr name="258" id="258">
+<td>258</td><td>  6,                                   <span class="ct">/* 9 */</span></td></tr>
+<tr name="259" id="259">
+<td>259</td><td>  6,                                   <span class="ct">/* 10 */</span></td></tr>
+<tr name="260" id="260">
+<td>260</td><td>  3                                    <span class="ct">/* 11 */</span></td></tr>
+<tr name="261" id="261">
+<td>261</td><td><span class="br">}</span>;</td></tr>
+<tr name="262" id="262">
+<td>262</td><td></td></tr>
+<tr name="263" id="263">
+<td>263</td><td><span class="ct">/* C-API stores floating point values in an array. The elements of this  *</span></td></tr>
+<tr name="264" id="264">
+<td>264</td><td><span class="ct"> * are unique. This ensures that values which are shared across the model*</span></td></tr>
+<tr name="265" id="265">
+<td>265</td><td><span class="ct"> * are stored in the most efficient way. These values are referenced by  *</span></td></tr>
+<tr name="266" id="266">
+<td>266</td><td><span class="ct"> *           - rtwCAPI_FixPtMap.fracSlopePtr,                            *</span></td></tr>
+<tr name="267" id="267">
+<td>267</td><td><span class="ct"> *           - rtwCAPI_FixPtMap.biasPtr,                                 *</span></td></tr>
+<tr name="268" id="268">
+<td>268</td><td><span class="ct"> *           - rtwCAPI_SampleTimeMap.samplePeriodPtr,                    *</span></td></tr>
+<tr name="269" id="269">
+<td>269</td><td><span class="ct"> *           - rtwCAPI_SampleTimeMap.sampleOffsetPtr                     */</span></td></tr>
+<tr name="270" id="270">
+<td>270</td><td><span class="kw">static</span> <span class="kw">const</span> <a id="270c14" class="tk">real_T</a> <a id="270c21" class="tk">rtcapiStoredFloats</a>[] = <span class="br">{</span></td></tr>
+<tr name="271" id="271">
+<td>271</td><td>  0.0, 0.1</td></tr>
+<tr name="272" id="272">
+<td>272</td><td><span class="br">}</span>;</td></tr>
+<tr name="273" id="273">
+<td>273</td><td></td></tr>
+<tr name="274" id="274">
+<td>274</td><td><span class="ct">/* Fixed Point Map */</span></td></tr>
+<tr name="275" id="275">
+<td>275</td><td><span class="kw">static</span> <span class="kw">const</span> <a id="275c14" class="tk">rtwCAPI_FixPtMap</a> <a id="275c31" class="tk">rtFixPtMap</a>[] = <span class="br">{</span></td></tr>
+<tr name="276" id="276">
+<td>276</td><td>  <span class="ct">/* fracSlopePtr, biasPtr, scaleType, wordLength, exponent, isSigned */</span></td></tr>
+<tr name="277" id="277">
+<td>277</td><td>  <span class="br">{</span> (<a id="277c6" class="tk">NULL</a>), (<a id="277c14" class="tk">NULL</a>), <a id="277c21" class="tk">rtwCAPI_FIX_RESERVED</a>, 0, 0, 0 <span class="br">}</span>,</td></tr>
+<tr name="278" id="278">
+<td>278</td><td><span class="br">}</span>;</td></tr>
+<tr name="279" id="279">
+<td>279</td><td></td></tr>
+<tr name="280" id="280">
+<td>280</td><td><span class="ct">/* Sample Time Map - use sTimeIndex to access elements of ths structure */</span></td></tr>
+<tr name="281" id="281">
+<td>281</td><td><span class="kw">static</span> <span class="kw">const</span> <a id="281c14" class="tk">rtwCAPI_SampleTimeMap</a> <a id="281c36" class="tk">rtSampleTimeMap</a>[] = <span class="br">{</span></td></tr>
+<tr name="282" id="282">
+<td>282</td><td>  <span class="ct">/* samplePeriodPtr, sampleOffsetPtr, tid, samplingMode */</span></td></tr>
+<tr name="283" id="283">
+<td>283</td><td>  <span class="br">{</span> (<span class="kw">const</span> <span class="kw">void</span> <a id="283c17" class="tk">*</a>) <a id="283c20" class="tk">&amp;</a><a id="283c21" class="tk">rtcapiStoredFloats</a>[0], (<span class="kw">const</span> <span class="kw">void</span> <a id="283c56" class="tk">*</a>) <a id="283c59" class="tk">&amp;</a><a id="283c60" class="tk">rtcapiStoredFloats</a>[0],</td></tr>
+<tr name="284" id="284">
+<td>284</td><td>    0, 0 <span class="br">}</span>,</td></tr>
+<tr name="285" id="285">
+<td>285</td><td></td></tr>
+<tr name="286" id="286">
+<td>286</td><td>  <span class="br">{</span> (<span class="kw">const</span> <span class="kw">void</span> <a id="286c17" class="tk">*</a>) <a id="286c20" class="tk">&amp;</a><a id="286c21" class="tk">rtcapiStoredFloats</a>[1], (<span class="kw">const</span> <span class="kw">void</span> <a id="286c56" class="tk">*</a>) <a id="286c59" class="tk">&amp;</a><a id="286c60" class="tk">rtcapiStoredFloats</a>[0],</td></tr>
+<tr name="287" id="287">
+<td>287</td><td>    1, 0 <span class="br">}</span></td></tr>
+<tr name="288" id="288">
+<td>288</td><td><span class="br">}</span>;</td></tr>
+<tr name="289" id="289">
+<td>289</td><td></td></tr>
+<tr name="290" id="290">
+<td>290</td><td><span class="kw">static</span> <a id="290c8" class="tk">rtwCAPI_ModelMappingStaticInfo</a> <a id="290c39" class="tk">mmiStatic</a> = <span class="br">{</span></td></tr>
+<tr name="291" id="291">
+<td>291</td><td>  <span class="ct">/* Signals:{signals, numSignals,</span></td></tr>
+<tr name="292" id="292">
+<td>292</td><td><span class="ct">   *           rootInputs, numRootInputs,</span></td></tr>
+<tr name="293" id="293">
+<td>293</td><td><span class="ct">   *           rootOutputs, numRootOutputs},</span></td></tr>
+<tr name="294" id="294">
+<td>294</td><td><span class="ct">   * Params: {blockParameters, numBlockParameters,</span></td></tr>
+<tr name="295" id="295">
+<td>295</td><td><span class="ct">   *          modelParameters, numModelParameters},</span></td></tr>
+<tr name="296" id="296">
+<td>296</td><td><span class="ct">   * States: {states, numStates},</span></td></tr>
+<tr name="297" id="297">
+<td>297</td><td><span class="ct">   * Maps:   {dataTypeMap, dimensionMap, fixPtMap,</span></td></tr>
+<tr name="298" id="298">
+<td>298</td><td><span class="ct">   *          elementMap, sampleTimeMap, dimensionArray},</span></td></tr>
+<tr name="299" id="299">
+<td>299</td><td><span class="ct">   * TargetType: targetType</span></td></tr>
+<tr name="300" id="300">
+<td>300</td><td><span class="ct">   */</span></td></tr>
+<tr name="301" id="301">
+<td>301</td><td>  <span class="br">{</span> <a id="301c5" class="tk">rtBlockSignals</a>, 8,</td></tr>
+<tr name="302" id="302">
+<td>302</td><td>    (<a id="302c6" class="tk">NULL</a>), 0,</td></tr>
+<tr name="303" id="303">
+<td>303</td><td>    (<a id="303c6" class="tk">NULL</a>), 0 <span class="br">}</span>,</td></tr>
+<tr name="304" id="304">
+<td>304</td><td></td></tr>
+<tr name="305" id="305">
+<td>305</td><td>  <span class="br">{</span> <a id="305c5" class="tk">rtBlockParameters</a>, 18,</td></tr>
+<tr name="306" id="306">
+<td>306</td><td>    <a id="306c5" class="tk">rtModelParameters</a>, 0 <span class="br">}</span>,</td></tr>
+<tr name="307" id="307">
+<td>307</td><td></td></tr>
+<tr name="308" id="308">
+<td>308</td><td>  <span class="br">{</span> <a id="308c5" class="tk">rtBlockStates</a>, 2 <span class="br">}</span>,</td></tr>
+<tr name="309" id="309">
+<td>309</td><td></td></tr>
+<tr name="310" id="310">
+<td>310</td><td>  <span class="br">{</span> <a id="310c5" class="tk">rtDataTypeMap</a>, <a id="310c20" class="tk">rtDimensionMap</a>, <a id="310c36" class="tk">rtFixPtMap</a>,</td></tr>
+<tr name="311" id="311">
+<td>311</td><td>    <a id="311c5" class="tk">rtElementMap</a>, <a id="311c19" class="tk">rtSampleTimeMap</a>, <a id="311c36" class="tk">rtDimensionArray</a> <span class="br">}</span>,</td></tr>
+<tr name="312" id="312">
+<td>312</td><td>  "float",</td></tr>
+<tr name="313" id="313">
+<td>313</td><td></td></tr>
+<tr name="314" id="314">
+<td>314</td><td>  <span class="br">{</span> 3130816418U,</td></tr>
+<tr name="315" id="315">
+<td>315</td><td>    768533048U,</td></tr>
+<tr name="316" id="316">
+<td>316</td><td>    3321396817U,</td></tr>
+<tr name="317" id="317">
+<td>317</td><td>    3591879445U <span class="br">}</span>,</td></tr>
+<tr name="318" id="318">
+<td>318</td><td>  (<a id="318c4" class="tk">NULL</a>), 0,</td></tr>
+<tr name="319" id="319">
+<td>319</td><td>  0</td></tr>
+<tr name="320" id="320">
+<td>320</td><td><span class="br">}</span>;</td></tr>
+<tr name="321" id="321">
+<td>321</td><td></td></tr>
+<tr name="322" id="322">
+<td>322</td><td><span class="ct">/* Function to get C API Model Mapping Static Info */</span></td></tr>
+<tr name="323" id="323">
+<td>323</td><td><span class="kw">const</span> <a id="323c7" class="tk">rtwCAPI_ModelMappingStaticInfo</a><a id="323c37" class="tk">*</a></td></tr>
+<tr name="324" id="324">
+<td>324</td><td>  <a id="324c3" class="tk">ADC_GetCAPIStaticMap</a>()</td></tr>
+<tr name="325" id="325">
+<td>325</td><td><span class="br">{</span></td></tr>
+<tr name="326" id="326">
+<td>326</td><td>  <span class="kw">return</span> <a id="326c10" class="tk">&amp;</a><a id="326c11" class="tk">mmiStatic</a>;</td></tr>
+<tr name="327" id="327">
+<td>327</td><td><span class="br">}</span></td></tr>
+<tr name="328" id="328">
+<td>328</td><td></td></tr>
+<tr name="329" id="329">
+<td>329</td><td><span class="ct">/* Cache pointers into DataMapInfo substructure of RTModel */</span></td></tr>
+<tr name="330" id="330">
+<td>330</td><td><span class="pp">#ifndef</span> <a id="330c9" class="tk">HOST_CAPI_BUILD</a></td></tr>
+<tr name="331" id="331">
+<td>331</td><td></td></tr>
+<tr name="332" id="332">
+<td>332</td><td><span class="kw">void</span> <a id="332c6" class="tk">ADC_InitializeDataMapInfo</a>(<a id="332c32" class="tk">RT_MODEL_ADC_T</a> <a id="332c47" class="tk">*</a><span class="kw">const</span> <a id="332c54" class="tk">ADC_M</a>)</td></tr>
+<tr name="333" id="333">
+<td>333</td><td><span class="br">{</span></td></tr>
+<tr name="334" id="334">
+<td>334</td><td>  <span class="ct">/* Set C-API version */</span></td></tr>
+<tr name="335" id="335">
+<td>335</td><td>  <a id="335c3" class="tk">rtwCAPI_SetVersion</a>(<a id="335c22" class="tk">ADC_M</a>-&gt;<a id="335c29" class="tk">DataMapInfo</a>.<a id="335c41" class="tk">mmi</a>, 1);</td></tr>
+<tr name="336" id="336">
+<td>336</td><td></td></tr>
+<tr name="337" id="337">
+<td>337</td><td>  <span class="ct">/* Cache static C-API data into the Real-time Model Data structure */</span></td></tr>
+<tr name="338" id="338">
+<td>338</td><td>  <a id="338c3" class="tk">rtwCAPI_SetStaticMap</a>(<a id="338c24" class="tk">ADC_M</a>-&gt;<a id="338c31" class="tk">DataMapInfo</a>.<a id="338c43" class="tk">mmi</a>, <a id="338c48" class="tk">&amp;</a><a id="338c49" class="tk">mmiStatic</a>);</td></tr>
+<tr name="339" id="339">
+<td>339</td><td></td></tr>
+<tr name="340" id="340">
+<td>340</td><td>  <span class="ct">/* Cache static C-API logging data into the Real-time Model Data structure */</span></td></tr>
+<tr name="341" id="341">
+<td>341</td><td>  <a id="341c3" class="tk">rtwCAPI_SetLoggingStaticMap</a>(<a id="341c31" class="tk">ADC_M</a>-&gt;<a id="341c38" class="tk">DataMapInfo</a>.<a id="341c50" class="tk">mmi</a>, (<a id="341c56" class="tk">NULL</a>));</td></tr>
+<tr name="342" id="342">
+<td>342</td><td></td></tr>
+<tr name="343" id="343">
+<td>343</td><td>  <span class="ct">/* Cache C-API Data Addresses into the Real-Time Model Data structure */</span></td></tr>
+<tr name="344" id="344">
+<td>344</td><td>  <a id="344c3" class="tk">rtwCAPI_SetDataAddressMap</a>(<a id="344c29" class="tk">ADC_M</a>-&gt;<a id="344c36" class="tk">DataMapInfo</a>.<a id="344c48" class="tk">mmi</a>, <a id="344c53" class="tk">rtDataAddrMap</a>);</td></tr>
+<tr name="345" id="345">
+<td>345</td><td></td></tr>
+<tr name="346" id="346">
+<td>346</td><td>  <span class="ct">/* Cache C-API Data Run-Time Dimension Buffer Addresses into the Real-Time Model Data structure */</span></td></tr>
+<tr name="347" id="347">
+<td>347</td><td>  <a id="347c3" class="tk">rtwCAPI_SetVarDimsAddressMap</a>(<a id="347c32" class="tk">ADC_M</a>-&gt;<a id="347c39" class="tk">DataMapInfo</a>.<a id="347c51" class="tk">mmi</a>, <a id="347c56" class="tk">rtVarDimsAddrMap</a>);</td></tr>
+<tr name="348" id="348">
+<td>348</td><td></td></tr>
+<tr name="349" id="349">
+<td>349</td><td>  <span class="ct">/* Cache the instance C-API logging pointer */</span></td></tr>
+<tr name="350" id="350">
+<td>350</td><td>  <a id="350c3" class="tk">rtwCAPI_SetInstanceLoggingInfo</a>(<a id="350c34" class="tk">ADC_M</a>-&gt;<a id="350c41" class="tk">DataMapInfo</a>.<a id="350c53" class="tk">mmi</a>, (<a id="350c59" class="tk">NULL</a>));</td></tr>
+<tr name="351" id="351">
+<td>351</td><td></td></tr>
+<tr name="352" id="352">
+<td>352</td><td>  <span class="ct">/* Set reference to submodels */</span></td></tr>
+<tr name="353" id="353">
+<td>353</td><td>  <a id="353c3" class="tk">rtwCAPI_SetChildMMIArray</a>(<a id="353c28" class="tk">ADC_M</a>-&gt;<a id="353c35" class="tk">DataMapInfo</a>.<a id="353c47" class="tk">mmi</a>, (<a id="353c53" class="tk">NULL</a>));</td></tr>
+<tr name="354" id="354">
+<td>354</td><td>  <a id="354c3" class="tk">rtwCAPI_SetChildMMIArrayLen</a>(<a id="354c31" class="tk">ADC_M</a>-&gt;<a id="354c38" class="tk">DataMapInfo</a>.<a id="354c50" class="tk">mmi</a>, 0);</td></tr>
+<tr name="355" id="355">
+<td>355</td><td><span class="br">}</span></td></tr>
+<tr name="356" id="356">
+<td>356</td><td></td></tr>
+<tr name="357" id="357">
+<td>357</td><td><span class="pp">#else</span>                                  <span class="ct">/* HOST_CAPI_BUILD */</span></td></tr>
+<tr name="358" id="358">
+<td>358</td><td><span class="pp">#ifdef</span> <a id="358c8" class="tk">__cplusplus</a></td></tr>
+<tr name="359" id="359">
+<td>359</td><td></td></tr>
+<tr name="360" id="360">
+<td>360</td><td><span class="kw">extern</span> "C" <span class="br">{</span></td></tr>
+<tr name="361" id="361">
+<td>361</td><td></td></tr>
+<tr name="362" id="362">
+<td>362</td><td><span class="pp">#endif</span></td></tr>
+<tr name="363" id="363">
+<td>363</td><td></td></tr>
+<tr name="364" id="364">
+<td>364</td><td>  <span class="kw">void</span> <a id="364c8" class="tk">ADC_host_InitializeDataMapInfo</a>(<a id="364c39" class="tk">ADC_host_DataMapInfo_T</a> <a id="364c62" class="tk">*</a><a id="364c63" class="tk">dataMap</a>, <span class="kw">const</span></td></tr>
+<tr name="365" id="365">
+<td>365</td><td>    <span class="kw">char</span> <a id="365c10" class="tk">*</a><a id="365c11" class="tk">path</a>)</td></tr>
+<tr name="366" id="366">
+<td>366</td><td>  <span class="br">{</span></td></tr>
+<tr name="367" id="367">
+<td>367</td><td>    <span class="ct">/* Set C-API version */</span></td></tr>
+<tr name="368" id="368">
+<td>368</td><td>    <a id="368c5" class="tk">rtwCAPI_SetVersion</a>(<a id="368c24" class="tk">dataMap</a>-&gt;<a id="368c33" class="tk">mmi</a>, 1);</td></tr>
+<tr name="369" id="369">
+<td>369</td><td></td></tr>
+<tr name="370" id="370">
+<td>370</td><td>    <span class="ct">/* Cache static C-API data into the Real-time Model Data structure */</span></td></tr>
+<tr name="371" id="371">
+<td>371</td><td>    <a id="371c5" class="tk">rtwCAPI_SetStaticMap</a>(<a id="371c26" class="tk">dataMap</a>-&gt;<a id="371c35" class="tk">mmi</a>, <a id="371c40" class="tk">&amp;</a><a id="371c41" class="tk">mmiStatic</a>);</td></tr>
+<tr name="372" id="372">
+<td>372</td><td></td></tr>
+<tr name="373" id="373">
+<td>373</td><td>    <span class="ct">/* host data address map is NULL */</span></td></tr>
+<tr name="374" id="374">
+<td>374</td><td>    <a id="374c5" class="tk">rtwCAPI_SetDataAddressMap</a>(<a id="374c31" class="tk">dataMap</a>-&gt;<a id="374c40" class="tk">mmi</a>, <a id="374c45" class="tk">NULL</a>);</td></tr>
+<tr name="375" id="375">
+<td>375</td><td></td></tr>
+<tr name="376" id="376">
+<td>376</td><td>    <span class="ct">/* host vardims address map is NULL */</span></td></tr>
+<tr name="377" id="377">
+<td>377</td><td>    <a id="377c5" class="tk">rtwCAPI_SetVarDimsAddressMap</a>(<a id="377c34" class="tk">dataMap</a>-&gt;<a id="377c43" class="tk">mmi</a>, <a id="377c48" class="tk">NULL</a>);</td></tr>
+<tr name="378" id="378">
+<td>378</td><td></td></tr>
+<tr name="379" id="379">
+<td>379</td><td>    <span class="ct">/* Set Instance specific path */</span></td></tr>
+<tr name="380" id="380">
+<td>380</td><td>    <a id="380c5" class="tk">rtwCAPI_SetPath</a>(<a id="380c21" class="tk">dataMap</a>-&gt;<a id="380c30" class="tk">mmi</a>, <a id="380c35" class="tk">path</a>);</td></tr>
+<tr name="381" id="381">
+<td>381</td><td>    <a id="381c5" class="tk">rtwCAPI_SetFullPath</a>(<a id="381c25" class="tk">dataMap</a>-&gt;<a id="381c34" class="tk">mmi</a>, <a id="381c39" class="tk">NULL</a>);</td></tr>
+<tr name="382" id="382">
+<td>382</td><td></td></tr>
+<tr name="383" id="383">
+<td>383</td><td>    <span class="ct">/* Set reference to submodels */</span></td></tr>
+<tr name="384" id="384">
+<td>384</td><td>    <a id="384c5" class="tk">rtwCAPI_SetChildMMIArray</a>(<a id="384c30" class="tk">dataMap</a>-&gt;<a id="384c39" class="tk">mmi</a>, (<a id="384c45" class="tk">NULL</a>));</td></tr>
+<tr name="385" id="385">
+<td>385</td><td>    <a id="385c5" class="tk">rtwCAPI_SetChildMMIArrayLen</a>(<a id="385c33" class="tk">dataMap</a>-&gt;<a id="385c42" class="tk">mmi</a>, 0);</td></tr>
+<tr name="386" id="386">
+<td>386</td><td>  <span class="br">}</span></td></tr>
+<tr name="387" id="387">
+<td>387</td><td></td></tr>
+<tr name="388" id="388">
+<td>388</td><td><span class="pp">#ifdef</span> <a id="388c8" class="tk">__cplusplus</a></td></tr>
+<tr name="389" id="389">
+<td>389</td><td></td></tr>
+<tr name="390" id="390">
+<td>390</td><td><span class="br">}</span></td></tr>
+<tr name="391" id="391">
+<td>391</td><td><span class="pp">#endif</span></td></tr>
+<tr name="392" id="392">
+<td>392</td><td><span class="pp">#endif</span>                                 <span class="ct">/* HOST_CAPI_BUILD */</span></td></tr>
+<tr name="393" id="393">
+<td>393</td><td></td></tr>
+<tr name="394" id="394">
+<td>394</td><td><span class="ct">/*</span></td></tr>
+<tr name="395" id="395">
+<td>395</td><td><span class="ct"> * File trailer for generated code.</span></td></tr>
+<tr name="396" id="396">
+<td>396</td><td><span class="ct"> *</span></td></tr>
+<tr name="397" id="397">
+<td>397</td><td><span class="ct"> * [EOF]</span></td></tr>
+<tr name="398" id="398">
+<td>398</td><td><span class="ct"> */</span></td></tr>
+<tr name="399" id="399">
+<td>399</td><td></td></tr>
+</table>
+</pre>
+</body>
+</html>

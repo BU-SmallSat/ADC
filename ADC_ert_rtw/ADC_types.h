@@ -7,12 +7,12 @@
  *
  * Code generated for Simulink model 'ADC'.
  *
- * Model version                  : 1.1151
- * Simulink Coder version         : 8.8 (R2015a) 09-Feb-2015
- * C/C++ source code generated on : Fri Oct 28 16:14:12 2016
+ * Model version                  : 1.1170
+ * Simulink Coder version         : 8.10 (R2016a) 10-Feb-2016
+ * C/C++ source code generated on : Wed Jan 18 14:57:52 2017
  *
  * Target selection: ert.tlc
- * Embedded hardware selection: 32-bit Generic
+ * Embedded hardware selection: ARM Compatible->ARM Cortex
  * Emulation hardware selection:
  *    Differs from embedded hardware (MATLAB Host)
  * Code generation objectives: Unspecified
@@ -22,6 +22,7 @@
 #ifndef RTW_HEADER_ADC_types_h_
 #define RTW_HEADER_ADC_types_h_
 #include "rtwtypes.h"
+#include "builtin_typeid_types.h"
 
 /* Parameters (auto storage) */
 typedef struct P_ADC_T_ P_ADC_T;

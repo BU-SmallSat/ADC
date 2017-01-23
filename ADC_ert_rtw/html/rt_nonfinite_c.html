@@ -29,17 +29,17 @@
 <tr name="9" id="9">
 <td>9</td><td><span class="ct"> *</span></td></tr>
 <tr name="10" id="10">
-<td>10</td><td><span class="ct"> * Model version                  : 1.1151</span></td></tr>
+<td>10</td><td><span class="ct"> * Model version                  : 1.1170</span></td></tr>
 <tr name="11" id="11">
-<td>11</td><td><span class="ct"> * Simulink Coder version         : 8.8 (R2015a) 09-Feb-2015</span></td></tr>
+<td>11</td><td><span class="ct"> * Simulink Coder version         : 8.10 (R2016a) 10-Feb-2016</span></td></tr>
 <tr name="12" id="12">
-<td>12</td><td><span class="ct"> * C/C++ source code generated on : Fri Oct 28 16:14:12 2016</span></td></tr>
+<td>12</td><td><span class="ct"> * C/C++ source code generated on : Wed Jan 18 14:57:52 2017</span></td></tr>
 <tr name="13" id="13">
 <td>13</td><td><span class="ct"> *</span></td></tr>
 <tr name="14" id="14">
 <td>14</td><td><span class="ct"> * Target selection: ert.tlc</span></td></tr>
 <tr name="15" id="15">
-<td>15</td><td><span class="ct"> * Embedded hardware selection: 32-bit Generic</span></td></tr>
+<td>15</td><td><span class="ct"> * Embedded hardware selection: ARM Compatible-&gt;ARM Cortex</span></td></tr>
 <tr name="16" id="16">
 <td>16</td><td><span class="ct"> * Emulation hardware selection:</span></td></tr>
 <tr name="17" id="17">
@@ -121,7 +121,7 @@
 <tr name="55" id="55">
 <td>55</td><td><span class="br">{</span></td></tr>
 <tr name="56" id="56">
-<td>56</td><td>  <span class="kw">return</span> (<a id="56c11" class="tk">boolean_T</a>)((<a id="56c23" class="tk">value</a>==<a id="56c30" class="tk">rtInf</a> || <a id="56c39" class="tk">value</a>==<a id="56c46" class="tk">rtMinusInf</a>) ? 1U : 0U);</td></tr>
+<td>56</td><td>  <span class="kw">return</span> (<a id="56c11" class="tk">boolean_T</a>)((<a id="56c23" class="tk">value</a><a id="56c28" class="tk">==</a><a id="56c30" class="tk">rtInf</a> <a id="56c36" class="tk">||</a> <a id="56c39" class="tk">value</a><a id="56c44" class="tk">==</a><a id="56c46" class="tk">rtMinusInf</a>) <a id="56c58" class="tk">?</a> 1U <a id="56c63" class="tk">:</a> 0U);</td></tr>
 <tr name="57" id="57">
 <td>57</td><td><span class="br">}</span></td></tr>
 <tr name="58" id="58">
@@ -133,7 +133,7 @@
 <tr name="61" id="61">
 <td>61</td><td><span class="br">{</span></td></tr>
 <tr name="62" id="62">
-<td>62</td><td>  <span class="kw">return</span> (<a id="62c11" class="tk">boolean_T</a>)(((<a id="62c24" class="tk">value</a>)==<a id="62c32" class="tk">rtInfF</a> || (<a id="62c43" class="tk">value</a>)==<a id="62c51" class="tk">rtMinusInfF</a>) ? 1U : 0U);</td></tr>
+<td>62</td><td>  <span class="kw">return</span> (<a id="62c11" class="tk">boolean_T</a>)(((<a id="62c24" class="tk">value</a>)<a id="62c30" class="tk">==</a><a id="62c32" class="tk">rtInfF</a> <a id="62c39" class="tk">||</a> (<a id="62c43" class="tk">value</a>)<a id="62c49" class="tk">==</a><a id="62c51" class="tk">rtMinusInfF</a>) <a id="62c64" class="tk">?</a> 1U <a id="62c69" class="tk">:</a> 0U);</td></tr>
 <tr name="63" id="63">
 <td>63</td><td><span class="br">}</span></td></tr>
 <tr name="64" id="64">
@@ -145,7 +145,7 @@
 <tr name="67" id="67">
 <td>67</td><td><span class="br">{</span></td></tr>
 <tr name="68" id="68">
-<td>68</td><td>  <span class="kw">return</span> (<a id="68c11" class="tk">boolean_T</a>)((<a id="68c23" class="tk">value</a>!=<a id="68c30" class="tk">value</a>) ? 1U : 0U);</td></tr>
+<td>68</td><td>  <span class="kw">return</span> (<a id="68c11" class="tk">boolean_T</a>)((<a id="68c23" class="tk">value</a><a id="68c28" class="tk">!=</a><a id="68c30" class="tk">value</a>) <a id="68c37" class="tk">?</a> 1U <a id="68c42" class="tk">:</a> 0U);</td></tr>
 <tr name="69" id="69">
 <td>69</td><td><span class="br">}</span></td></tr>
 <tr name="70" id="70">
@@ -157,7 +157,7 @@
 <tr name="73" id="73">
 <td>73</td><td><span class="br">{</span></td></tr>
 <tr name="74" id="74">
-<td>74</td><td>  <span class="kw">return</span> (<a id="74c11" class="tk">boolean_T</a>)(((<a id="74c24" class="tk">value</a>!=<a id="74c31" class="tk">value</a>) ? 1U : 0U));</td></tr>
+<td>74</td><td>  <span class="kw">return</span> (<a id="74c11" class="tk">boolean_T</a>)(((<a id="74c24" class="tk">value</a><a id="74c29" class="tk">!=</a><a id="74c31" class="tk">value</a>) <a id="74c38" class="tk">?</a> 1U <a id="74c43" class="tk">:</a> 0U));</td></tr>
 <tr name="75" id="75">
 <td>75</td><td><span class="br">}</span></td></tr>
 <tr name="76" id="76">

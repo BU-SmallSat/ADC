@@ -1,0 +1,47 @@
+ADC_capi.c.o: ADC_capi.c C:/PROGRA~1/MATLAB/R2016a/rtw/c/src/rtw_capi.h \
+ C:/Projects/HardwareCompatible/ADC_ert_rtw/rtwtypes.h \
+ builtin_typeid_types.h rtwtypes.h ADC.h \
+ C:/PROGRA~1/MATLAB/R2016a/rtw/c/src/rtw_modelmap.h \
+ C:/PROGRA~1/MATLAB/R2016a/rtw/c/src/rtw_capi.h \
+ C:/PROGRA~1/MATLAB/R2016a/rtw/c/src/rtw_modelmap_logging.h \
+ C:/PROGRA~1/MATLAB/R2016a/simulink/include/sysran_types.h \
+ C:/PROGRA~1/MATLAB/R2016a/simulink/include/rtw_continuous.h \
+ C:/PROGRA~1/MATLAB/R2016a/simulink/include/rtw_solver.h ADC_types.h \
+ rtGetNaN.h rt_nonfinite.h rt_defines.h rtGetInf.h ADC_capi.h \
+ ADC_private.h
+
+C:/PROGRA~1/MATLAB/R2016a/rtw/c/src/rtw_capi.h:
+
+C:/Projects/HardwareCompatible/ADC_ert_rtw/rtwtypes.h:
+
+builtin_typeid_types.h:
+
+rtwtypes.h:
+
+ADC.h:
+
+C:/PROGRA~1/MATLAB/R2016a/rtw/c/src/rtw_modelmap.h:
+
+C:/PROGRA~1/MATLAB/R2016a/rtw/c/src/rtw_capi.h:
+
+C:/PROGRA~1/MATLAB/R2016a/rtw/c/src/rtw_modelmap_logging.h:
+
+C:/PROGRA~1/MATLAB/R2016a/simulink/include/sysran_types.h:
+
+C:/PROGRA~1/MATLAB/R2016a/simulink/include/rtw_continuous.h:
+
+C:/PROGRA~1/MATLAB/R2016a/simulink/include/rtw_solver.h:
+
+ADC_types.h:
+
+rtGetNaN.h:
+
+rt_nonfinite.h:
+
+rt_defines.h:
+
+rtGetInf.h:
+
+ADC_capi.h:
+
+ADC_private.h:

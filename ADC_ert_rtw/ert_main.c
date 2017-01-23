@@ -7,92 +7,131 @@
  *
  * Code generated for Simulink model 'ADC'.
  *
- * Model version                  : 1.1151
- * Simulink Coder version         : 8.8 (R2015a) 09-Feb-2015
- * C/C++ source code generated on : Fri Oct 28 16:14:12 2016
+ * Model version                  : 1.1170
+ * Simulink Coder version         : 8.10 (R2016a) 10-Feb-2016
+ * C/C++ source code generated on : Wed Jan 18 14:57:52 2017
  *
  * Target selection: ert.tlc
- * Embedded hardware selection: 32-bit Generic
+ * Embedded hardware selection: ARM Compatible->ARM Cortex
  * Emulation hardware selection:
  *    Differs from embedded hardware (MATLAB Host)
  * Code generation objectives: Unspecified
  * Validation result: Not run
  */
 
-#include <stddef.h>
-#include <stdio.h>                     /* This ert_main.c example uses printf/fflush */
-#include "ADC.h"                       /* Model's header file */
+#include <stdio.h>
+#include <stdlib.h>
+#include "ADC.h"
+#include "ADC_private.h"
 #include "rtwtypes.h"
+#include "limits.h"
+#include "rt_nonfinite.h"
+#include "linuxinitialize.h"
+#include "pythonInterface.c"
 
-/*
- * Associating rt_OneStep with a real-time clock or interrupt service routine
- * is what makes the generated code "real-time".  The function rt_OneStep is
- * always associated with the base rate of the model.  Subrates are managed
- * by the base rate from inside the generated code.  Enabling/disabling
- * interrupts and floating point context switches are target specific.  This
- * example code indicates where these should take place relative to executing
- * the generated code step function.  Overrun behavior should be tailored to
- * your application needs.  This example simply sets an error status in the
- * real-time model and returns from rt_OneStep.
- */
-void rt_OneStep(void);
-void rt_OneStep(void)
+/* '<Root>/Magnetic Measure' */
+static real_T arg_Magnetic_Measure[3] = { 0.0, 0.0, 0.0 };
+
+/* '<Root>/Euler Angle Measure' */
+static real_T arg_Euler_Angle_Measure[3] = { 0.0, 0.0, 0.0 };
+
+/* '<Root>/Sun Measure' */
+static real_T arg_Sun_Measure[3] = { 0.0, 0.0, 0.0 };
+
+/* '<Root>/epoch' */
+static real_T arg_epoch[6] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+
+/* '<Root>/lla' */
+static real_T arg_lla[3] = { 0.0, 0.0, 0.0 };
+
+/* '<Root>/v ' */
+static real_T arg_v_[3] = { 0.0, 0.0, 0.0 };
+
+/* '<Root>/S_flag' */
+static real_T local_arg_S_flag = 0.0;
+static real_T * arg_S_flag = &local_arg_S_flag;
+
+/* '<Root>/Magnetic Dipole Moment' */
+static real_T arg_Magnetic_Dipole_Moment[3];
+
+/* '<Root>/q_est1' */
+static real_T arg_q_est1[4];
+
+/* Function prototype declaration*/
+void exitTask(int sig);
+void terminateTask(void *arg);
+void baseRateTask(void *arg);
+void subrateTask(void *arg);
+volatile boolean_T runModel = true;
+sem_t stopSem;
+sem_t baserateTaskSem;
+pthread_t schedulerThread;
+pthread_t baseRateThread;
+unsigned long threadJoinStatus[8];
+int terminatingmodel = 0;
+
+void baseRateTask(void *arg)
 {
-  static boolean_T OverrunFlag = false;
-
-  /* Disable interrupts here */
-
-  /* Check for overrun */
-  if (OverrunFlag) {
-    rtmSetErrorStatus(ADC_M, "Overrun");
-    return;
+  runModel = (rtmGetErrorStatus(ADC_M) == (NULL)) && !rtmGetStopRequested(ADC_M);
+  INPUT_ARGS *args = malloc(sizeof(INPUT_ARGS));
+  INPUT_ARGS *result = NULL;
+  while (runModel) {
+    sem_wait(&baserateTaskSem);
+    result = pageForValues(args);
+    if (result != NULL){
+      ADC_custom(args->arg_Magnetic_Measure, args->arg_Euler_Angle_Measure, args->arg_Sun_Measure,
+                args->arg_epoch, args->arg_lla, arg_v_, &args->local_arg_S_flag,
+                arg_Magnetic_Dipole_Moment, arg_q_est1);
+      printf("%f, %f, %f, %f, %f, %f, %f\n", arg_Magnetic_Dipole_Moment[0], arg_Magnetic_Dipole_Moment[1],arg_Magnetic_Dipole_Moment[2],
+      arg_q_est1[0],arg_q_est1[1],arg_q_est1[2],arg_q_est1[3]);
+      
+    }
+    runModel = (rtmGetErrorStatus(ADC_M) == (NULL)) && !rtmGetStopRequested
+      (ADC_M);
   }
 
-  OverrunFlag = true;
-
-  /* Save FPU context here (if necessary) */
-  /* Re-enable timer or interrupt here */
-  /* Set model inputs here */
-
-  /* Step the model for base rate */
-  ADC_step();
-
-  /* Get model outputs here */
-
-  /* Indicate task complete */
-  OverrunFlag = false;
-
-  /* Disable interrupts here */
-  /* Restore FPU context here (if necessary) */
-  /* Enable interrupts here */
+  runModel = 0;
+  terminateTask(arg);
+  pthread_exit((void *)0);
 }
 
-/*
- * The example "main" function illustrates what is required by your
- * application code to initialize, execute, and terminate the generated code.
- * Attaching rt_OneStep to a real-time clock is target specific.  This example
- * illustates how you do this relative to initializing the model.
- */
-int_T main(int_T argc, const char *argv[])
+void exitTask(int sig)
 {
-  /* Unused arguments */
-  (void)(argc);
-  (void)(argv);
+  rtmSetErrorStatus(ADC_M, "stopping the model");
+}
 
-  /* Initialize model */
-  ADC_initialize();
+void terminateTask(void *arg)
+{
+  terminatingmodel = 1;
+  printf("**terminating the model**\n");
+  fflush(stdout);
 
-  /* Simulating the model step behavior (in non real-time) to
-   *  simulate model behavior at stop time.
-   */
-  while ((rtmGetErrorStatus(ADC_M) == (NULL)) && !rtmGetStopRequested(ADC_M)) {
-    rt_OneStep();
+  {
+    int ret;
+    runModel = 0;
   }
 
   /* Disable rt_OneStep() here */
 
   /* Terminate model */
   ADC_terminate();
+  sem_post(&stopSem);
+}
+
+int main(int argc, char **argv)
+{
+  //printf("**starting the model**\n");
+
+  fflush(stdout);
+  rtmSetErrorStatus(ADC_M, 0);
+
+  /* Initialize model */
+  ADC_initialize();  
+  /* Call RTOS Initialization funcation */
+  myRTOSInit(0.1, 0);
+
+  /* Wait for stop semaphore */
+  sem_wait(&stopSem);
   return 0;
 }
 
