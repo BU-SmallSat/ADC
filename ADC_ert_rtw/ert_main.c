@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'ADC'.
  *
- * Model version                  : 1.1171
+ * Model version                  : 1.1170
  * Simulink Coder version         : 8.10 (R2016a) 10-Feb-2016
- * C/C++ source code generated on : Wed Feb 01 13:48:56 2017
+ * C/C++ source code generated on : Wed Jan 18 14:57:52 2017
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -27,6 +27,7 @@
 #include "limits.h"
 #include "rt_nonfinite.h"
 #include "linuxinitialize.h"
+#include "pythonInterface.c"
 
 /* '<Root>/Magnetic Measure' */
 static real_T arg_Magnetic_Measure[3] = { 0.0, 0.0, 0.0 };
@@ -68,16 +69,23 @@ pthread_t schedulerThread;
 pthread_t baseRateThread;
 unsigned long threadJoinStatus[8];
 int terminatingmodel = 0;
+
 void baseRateTask(void *arg)
 {
   runModel = (rtmGetErrorStatus(ADC_M) == (NULL)) && !rtmGetStopRequested(ADC_M);
+  INPUT_ARGS *args = malloc(sizeof(INPUT_ARGS));
+  INPUT_ARGS *result = NULL;
   while (runModel) {
     sem_wait(&baserateTaskSem);
-    ADC_custom(arg_Magnetic_Measure, arg_Euler_Angle_Measure, arg_Sun_Measure,
-               arg_epoch, arg_lla, arg_v_, &arg_S_flag,
-               arg_Magnetic_Dipole_Moment, arg_q_est1);
-
-    /* Get model outputs here */
+    result = pageForValues(args);
+    if (result != NULL){
+      ADC_custom(args->arg_Magnetic_Measure, args->arg_Euler_Angle_Measure, args->arg_Sun_Measure,
+                args->arg_epoch, args->arg_lla, arg_v_, &args->local_arg_S_flag,
+                arg_Magnetic_Dipole_Moment, arg_q_est1);
+      printf("%f, %f, %f, %f, %f, %f, %f\n", arg_Magnetic_Dipole_Moment[0], arg_Magnetic_Dipole_Moment[1],arg_Magnetic_Dipole_Moment[2],
+      arg_q_est1[0],arg_q_est1[1],arg_q_est1[2],arg_q_est1[3]);
+      
+    }
     runModel = (rtmGetErrorStatus(ADC_M) == (NULL)) && !rtmGetStopRequested
       (ADC_M);
   }
@@ -112,13 +120,13 @@ void terminateTask(void *arg)
 
 int main(int argc, char **argv)
 {
-  printf("**starting the model**\n");
+  //printf("**starting the model**\n");
+
   fflush(stdout);
   rtmSetErrorStatus(ADC_M, 0);
 
   /* Initialize model */
-  ADC_initialize();
-
+  ADC_initialize();  
   /* Call RTOS Initialization funcation */
   myRTOSInit(0.1, 0);
 
