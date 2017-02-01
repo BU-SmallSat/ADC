@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'ADC'.
  *
- * Model version                  : 1.1170
+ * Model version                  : 1.1171
  * Simulink Coder version         : 8.10 (R2016a) 10-Feb-2016
- * C/C++ source code generated on : Wed Jan 18 14:57:52 2017
+ * C/C++ source code generated on : Wed Feb 01 13:48:56 2017
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -165,6 +165,7 @@ typedef struct {
   real_T dv0[18];
   real_T rtb_Normalization_m[12];
   real_T dv1[12];
+  real_T MathFunction1[9];             /* '<S2>/Math Function1' */
   real_T R_LVLH2b[9];                  /* '<S2>/Matrix Multiply' */
   real_T dv2[9];
   real_T u[9];
@@ -172,7 +173,6 @@ typedef struct {
   real_T u_k[9];
   real_T dv3[9];
   real_T X0[6];                        /* '<S17>/X0' */
-  real_T MathFunction1[9];             /* '<S2>/Math Function1' */
   real_T Add[6];                       /* '<S40>/Add' */
   real_T x[6];                         /* '<S2>/State1' */
   real_T dv4[6];
@@ -180,7 +180,6 @@ typedef struct {
   real_T rtb_x_c[6];
   real_T dv6[4];
   int32_T b_data[6];
-  real_T Memory[3];                    /* '<S1>/Memory' */
   real_T r_ECI[3];                     /* '<Root>/lla2eci' */
   real_T Product3[6];                  /* '<S65>/Product3' */
   real_T m[3];                         /* '<S5>/saturator and power monitor' */
@@ -188,7 +187,6 @@ typedef struct {
   real_T y_tmp[3];
   real_T B_e[3];                       /* '<S1>/Decision' */
   real_T m_g[3];                       /* '<S6>/LQR Controller' */
-  real_T B1[3];                        /* '<S1>/Decision' */
   real_T Sum_c[3];                     /* '<S2>/Sum' */
   real_T u_p[3];
   real_T u_cv[3];
@@ -200,14 +198,14 @@ typedef struct {
   real_T rtb_m_g_p[3];
   real_T rtb_m_l[3];
   real_T TSamp[3];                     /* '<S7>/TSamp' */
-  real_T Memory_j[3];                  /* '<S2>/Memory' */
+  real_T Memory[3];                    /* '<S2>/Memory' */
   real_T time_diff;
   real_T scale;
   real_T G0;
   real_T f;
   real_T M;
   real_T E;
-  real_T rtb_B_e_d;
+  real_T rtb_B_e_j;
   real_T a;
   real_T rtb_m_idx_0;
   real_T rtb_m_idx_1;
@@ -228,7 +226,6 @@ typedef struct {
 /* Block states (auto storage) for system '<Root>' */
 typedef struct {
   real_T UD_DSTATE[3];                 /* '<S7>/UD' */
-  real_T Memory_PreviousInput[3];      /* '<S1>/Memory' */
   real_T Memory1_PreviousInput[3];     /* '<S2>/Memory1' */
   real_T Memory_PreviousInput_h[3];    /* '<S2>/Memory' */
   real_T counter;                      /* '<S5>/MATLAB Function' */

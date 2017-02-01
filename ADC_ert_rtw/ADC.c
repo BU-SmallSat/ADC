@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'ADC'.
  *
- * Model version                  : 1.1170
+ * Model version                  : 1.1171
  * Simulink Coder version         : 8.10 (R2016a) 10-Feb-2016
- * C/C++ source code generated on : Wed Jan 18 14:57:52 2017
+ * C/C++ source code generated on : Wed Feb 01 13:48:56 2017
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -80,9 +80,6 @@
              static real_T ADC_norm(const real_T x[3]);
       
     
-             static real_T ADC_norm_l(const real_T x[3]);
-      
-    
              static void ADC_sind(real_T *x);
       
     
@@ -92,7 +89,7 @@
              static real_T ADC_norm_j(const real_T x[3]);
       
     
-             static real_T ADC_norm_lw(const real_T x[3]);
+             static real_T ADC_norm_l(const real_T x[3]);
       
     
              static real_T ADC_norm_p(const real_T x[3]);
@@ -231,60 +228,11 @@
               
     
         
-    /* Function for MATLAB Function: '<S1>/Decision' */
-
-    
-        
-    static real_T ADC_norm(const real_T x[3])
-    {
-          real_T y;
-real_T scale;
-real_T absxk;
-real_T t;
-scale = 2.2250738585072014E-308;
-absxk = fabs(x[0]);
-if (absxk > 2.2250738585072014E-308) {
-    y = 1.0;
-    scale = absxk;
-} else {
-    t = absxk / 2.2250738585072014E-308;
-    y = t * t;
-}
-absxk = fabs(x[1]);
-if (absxk > scale) {
-    t = scale / absxk;
-    y = 1.0 + y * t * t;
-    scale = absxk;
-} else {
-    t = absxk / scale;
-    y += t * t;
-}
-absxk = fabs(x[2]);
-if (absxk > scale) {
-    t = scale / absxk;
-    y = 1.0 + y * t * t;
-    scale = absxk;
-} else {
-    t = absxk / scale;
-    y += t * t;
-}
-return scale * sqrt(y);
-
-
-    }
-    
-
-    
-
-        
-              
-    
-        
     /* Function for MATLAB Function: '<S6>/PD Controler' */
 
     
         
-    static real_T ADC_norm_l(const real_T x[3])
+    static real_T ADC_norm(const real_T x[3])
     {
           real_T y;
 real_T scale;
@@ -644,7 +592,7 @@ return scale * sqrt(y);
 
     
         
-    static real_T ADC_norm_lw(const real_T x[3])
+    static real_T ADC_norm_l(const real_T x[3])
     {
           real_T y;
 real_T scale;
@@ -759,8 +707,7 @@ return scale * sqrt(y);
 	
 
 
-        boolean_T guard1 = false;
-int32_T k;
+        int32_T k;
 static const real_T a[9] = { 1.57407015004541E-8, 0.0, 0.0, 0.0, 1.18055261253406E-8, 0.0, 0.0, 0.0, 1.68650373219151E-9 };
 static const real_T b[18] = { 1015.8163712302, 7.60272150440681E-14, 453.958044168675, 8.04611892244142E-14, 1186.23970592244, -1.67413778929006E-14, -453.958044168676, -2.35978593865247E-13, 600.766687834337, 384003.046505704, 1.08705332006039E-11, -20043.8129028358, 1.44940442674718E-11, 448289.486640409, 1.35573181939759E-11, -187075.587093135, 9.49012273578315E-11, 795987.850800695 };
 static const real_T b_a[18] = { -1015.8163712302, -7.60272150440681E-14, -453.958044168675, -8.04611892244142E-14, -1186.23970592244, 1.67413778929006E-14, 453.958044168676, 2.35978593865247E-13, -600.766687834337, -384003.046505704, -1.08705332006039E-11, 20043.8129028358, -1.44940442674718E-11, -448289.486640409, -1.35573181939759E-11, 187075.587093135, -9.49012273578315E-11, -795987.850800695 };
@@ -770,6 +717,7 @@ static const int8_T b_0[9] = { 1, 0, 0, 0, 1, 0, 0, 0, 1 };
 boolean_T c[6];
 int32_T i;
 int32_T b_sizes;
+boolean_T c_0;
 real_T z_idx_0;
 
         
@@ -829,127 +777,28 @@ real_T z_idx_0;
 
                           
                 
-
       
 /* Clock: '<S5>/Clock' */          rtb_Clock = ADC_M->Timing.t[0];
 
    
         
-if (rtmIsMajorTimeStep(ADC_M)) {
-    /* Memory: '<S1>/Memory' */
-    ADC_B.Memory[0] = ADC_DW.Memory_PreviousInput[0];
-    ADC_B.Memory[1] = ADC_DW.Memory_PreviousInput[1];
-    ADC_B.Memory[2] = ADC_DW.Memory_PreviousInput[2];
-}
-/* MATLAB Function: '<S1>/Decision' incorporates:
- *  Inport: '<Root>/Euler Angle Measure'
- *  Inport: '<Root>/Magnetic Measure'
- */
+/* MATLAB Function: '<S1>/Decision' */
 /* MATLAB Function 'Controller/Decision': '<S4>:1' */
 /* B is output to Detumbler, B1 is output to Pointing Control */
-/* '<S4>:1:3' */
-
-
-if (fabs(ADC_norm(arg_Euler_Angle_Measure)) >= 0.01) {
-    /* '<S4>:1:4' */
-    guard1 = true;
-} else {
-    ADC_B.u_b[0] = arg_Magnetic_Measure[0] - ADC_B.Memory[0];
-    ADC_B.u_b[1] = arg_Magnetic_Measure[1] - ADC_B.Memory[1];
-    ADC_B.u_b[2] = arg_Magnetic_Measure[2] - ADC_B.Memory[2];
-
-
-    if (ADC_norm(ADC_B.u_b) / ADC_norm(arg_Magnetic_Measure) > 0.05) {
-        /* '<S4>:1:4' */
-        guard1 = true;
-    } else {
-        /* '<S4>:1:8' */
-        /* '<S4>:1:9' */
-        ADC_B.B_e[0] = 0.0;
-        ADC_B.B1[0] = arg_Magnetic_Measure[0];
-        ADC_B.B_e[1] = 0.0;
-        ADC_B.B1[1] = arg_Magnetic_Measure[1];
-        ADC_B.B_e[2] = 0.0;
-        ADC_B.B1[2] = arg_Magnetic_Measure[2];
-        /* '<S4>:1:10' */
-    }
-}
-if (guard1) {
-    /* '<S4>:1:5' */
-    /* '<S4>:1:6' */
-    ADC_B.B_e[0] = arg_Magnetic_Measure[0];
-    ADC_B.B1[0] = 0.0;
-    ADC_B.B_e[1] = arg_Magnetic_Measure[1];
-    ADC_B.B1[1] = 0.0;
-    ADC_B.B_e[2] = arg_Magnetic_Measure[2];
-    ADC_B.B1[2] = 0.0;
-}
-/* End of MATLAB Function: '<S1>/Decision' */
-
-/* MATLAB Function: '<S5>/MATLAB Function' */
+/*  if (abs(norm(w)) >= 0.01) || (norm(B_meas-B_old)/norm(B_meas)>0.05 ) */
+/*      B = B_meas; */
+/*      B1 = [0;0;0]; */
+/*  else */
+/* '<S4>:1:8' */
+/* '<S4>:1:9' */
+/* '<S4>:1:10' */
+/*  end */
 /* MATLAB Function 'Controller/Detumble /MATLAB Function': '<S8>:1' */
 /* '<S8>:1:5' */
-ADC_B.time_diff = 1.0;
-ADC_B.scale = 2.2250738585072014E-308;
-ADC_B.M = fabs(ADC_B.B_e[0]);
-if (ADC_B.M > 2.2250738585072014E-308) {
-    ADC_B.G0 = 1.0;
-    ADC_B.scale = ADC_B.M;
-} else {
-    ADC_B.E = ADC_B.M / 2.2250738585072014E-308;
-    ADC_B.G0 = ADC_B.E * ADC_B.E;
-}
-ADC_B.M = fabs(ADC_B.B_e[1]);
-if (ADC_B.M > ADC_B.scale) {
-    ADC_B.E = ADC_B.scale / ADC_B.M;
-    ADC_B.G0 = 1.0 + ADC_B.G0 * ADC_B.E * ADC_B.E;
-    ADC_B.scale = ADC_B.M;
-} else {
-    ADC_B.E = ADC_B.M / ADC_B.scale;
-    ADC_B.G0 += ADC_B.E * ADC_B.E;
-}
-ADC_B.M = fabs(ADC_B.B_e[2]);
-if (ADC_B.M > ADC_B.scale) {
-    ADC_B.E = ADC_B.scale / ADC_B.M;
-    ADC_B.G0 = 1.0 + ADC_B.G0 * ADC_B.E * ADC_B.E;
-    ADC_B.scale = ADC_B.M;
-} else {
-    ADC_B.E = ADC_B.M / ADC_B.scale;
-    ADC_B.G0 += ADC_B.E * ADC_B.E;
-}
-ADC_B.G0 = ADC_B.scale * sqrt(ADC_B.G0);
-if (ADC_B.G0 > 0.0) {
-    /* '<S8>:1:12' */
-    /* '<S8>:1:13' */
-    ADC_DW.times[(int32_T)ADC_DW.counter - 1] = rtb_Clock;
-    if (ADC_DW.counter > 1.0) {
-        /* '<S8>:1:14' */
-        /* '<S8>:1:15' */
-        ADC_B.time_diff = ADC_DW.times[(int32_T)ADC_DW.counter - 1] - ADC_DW.times[(int32_T)(ADC_DW.counter - 1.0) - 1];
-    }
-    if (ADC_B.time_diff >= 1.0) {
-        /* '<S8>:1:17' */
-        /* '<S8>:1:18' */
-        ADC_B.time_diff = 0.0;
-    } else {
-        /* '<S8>:1:20' */
-        ADC_B.time_diff = 1.0;
-        /*          counter=1; */
-        if (ADC_DW.counter == 1.0E+6) {
-            /* '<S8>:1:23' */
-            /* '<S8>:1:24' */
-            ADC_DW.counter = 1.0;
-            /* '<S8>:1:25' */
-            memset(&ADC_DW.times[0], 0, 1000000U * sizeof(real_T));
-        }
-    }
-    /* '<S8>:1:29' */
-    ADC_DW.counter++;
-} else {
-    /* '<S8>:1:31' */
-    ADC_B.time_diff = 0.0;
-}
-/* End of MATLAB Function: '<S5>/MATLAB Function' */
+ADC_B.B_e[0] = 0.0;
+ADC_B.B_e[1] = 0.0;
+ADC_B.B_e[2] = 0.0;
+/* '<S8>:1:31' */
 if (rtmIsMajorTimeStep(ADC_M)) {
     /* SampleTimeMath: '<S7>/TSamp' incorporates:
  *  Product: '<S5>/Product4'
@@ -957,7 +806,7 @@ if (rtmIsMajorTimeStep(ADC_M)) {
  * About '<S7>/TSamp':
  *  y = u * K where K = 1 / ( w * Ts )
  */
-    ADC_B.TSamp[0] = ADC_B.time_diff * ADC_B.B_e[0] * ADC_P.TSamp_WtEt;
+    ADC_B.TSamp[0] = 0.0 * ADC_P.TSamp_WtEt;
     /* Gain: '<S5>/Gain' incorporates:
  *  Sum: '<S7>/Diff'
  *  UnitDelay: '<S7>/UD'
@@ -969,7 +818,7 @@ if (rtmIsMajorTimeStep(ADC_M)) {
  * About '<S7>/TSamp':
  *  y = u * K where K = 1 / ( w * Ts )
  */
-    ADC_B.TSamp[1] = ADC_B.time_diff * ADC_B.B_e[1] * ADC_P.TSamp_WtEt;
+    ADC_B.TSamp[1] = 0.0 * ADC_P.TSamp_WtEt;
     /* Gain: '<S5>/Gain' incorporates:
  *  Sum: '<S7>/Diff'
  *  UnitDelay: '<S7>/UD'
@@ -981,12 +830,12 @@ if (rtmIsMajorTimeStep(ADC_M)) {
  * About '<S7>/TSamp':
  *  y = u * K where K = 1 / ( w * Ts )
  */
-    ADC_B.TSamp[2] = ADC_B.time_diff * ADC_B.B_e[2] * ADC_P.TSamp_WtEt;
+    ADC_B.TSamp[2] = 0.0 * ADC_P.TSamp_WtEt;
     /* Gain: '<S5>/Gain' incorporates:
  *  Sum: '<S7>/Diff'
  *  UnitDelay: '<S7>/UD'
  */
-    ADC_B.rtb_B_e_d = ADC_P.Gain_Gain * (ADC_B.TSamp[2] - ADC_DW.UD_DSTATE[2]);
+    ADC_B.rtb_B_e_j = ADC_P.Gain_Gain * (ADC_B.TSamp[2] - ADC_DW.UD_DSTATE[2]);
     ADC_B.B_e[2] = ADC_P.Gain_Gain * (ADC_B.TSamp[2] - ADC_DW.UD_DSTATE[2]);
     /* MATLAB Function: '<S5>/saturator and power monitor' */
     /* MATLAB Function 'Controller/Detumble /saturator and power monitor': '<S9>:1' */
@@ -1029,22 +878,22 @@ if (rtmIsMajorTimeStep(ADC_M)) {
         /* '<S9>:1:20' */
         ADC_B.m[1] = ADC_B.B_e[1];
     }
-    if (fabs(ADC_B.rtb_B_e_d) > 0.2) {
+    if (fabs(ADC_B.rtb_B_e_j) > 0.2) {
         /* '<S9>:1:23' */
         /* '<S9>:1:24' */
-        if (ADC_B.rtb_B_e_d < 0.0) {
-            ADC_B.rtb_B_e_d = -1.0;
-        } else if (ADC_B.rtb_B_e_d > 0.0) {
-            ADC_B.rtb_B_e_d = 1.0;
+        if (ADC_B.rtb_B_e_j < 0.0) {
+            ADC_B.rtb_B_e_j = -1.0;
+        } else if (ADC_B.rtb_B_e_j > 0.0) {
+            ADC_B.rtb_B_e_j = 1.0;
         } else {
-            if (ADC_B.rtb_B_e_d == 0.0) {
-                ADC_B.rtb_B_e_d = 0.0;
+            if (ADC_B.rtb_B_e_j == 0.0) {
+                ADC_B.rtb_B_e_j = 0.0;
             }
         }
-        ADC_B.m[2] = 0.2 * ADC_B.rtb_B_e_d;
+        ADC_B.m[2] = 0.2 * ADC_B.rtb_B_e_j;
     } else {
         /* '<S9>:1:26' */
-        ADC_B.m[2] = ADC_B.rtb_B_e_d;
+        ADC_B.m[2] = ADC_B.rtb_B_e_j;
     }
     /* End of MATLAB Function: '<S5>/saturator and power monitor' */
 
@@ -1064,7 +913,9 @@ if (ADC_DW.MemoryX_IWORK != 0) {
     }
 }
 /* MATLAB Function: '<S6>/LQR Controller' incorporates:
+ *  Inport: '<Root>/Magnetic Measure'
  *  Integrator: '<S17>/MemoryX'
+ *  MATLAB Function: '<S1>/Decision'
  */
 /* MATLAB Function 'Controller/Pointing/LQR Controller': '<S10>:1' */
 /* '<S10>:1:4' */
@@ -1080,13 +931,13 @@ if (ADC_DW.MemoryX_IWORK != 0) {
 /* '<S10>:1:9' */
 /* '<S10>:1:39' */
 ADC_B.u[0] = 0.0;
-ADC_B.u[3] = -ADC_B.B1[2];
-ADC_B.u[6] = ADC_B.B1[1];
-ADC_B.u[1] = ADC_B.B1[2];
+ADC_B.u[3] = -arg_Magnetic_Measure[2];
+ADC_B.u[6] = arg_Magnetic_Measure[1];
+ADC_B.u[1] = arg_Magnetic_Measure[2];
 ADC_B.u[4] = 0.0;
-ADC_B.u[7] = -ADC_B.B1[0];
-ADC_B.u[2] = -ADC_B.B1[1];
-ADC_B.u[5] = ADC_B.B1[0];
+ADC_B.u[7] = -arg_Magnetic_Measure[0];
+ADC_B.u[2] = -arg_Magnetic_Measure[1];
+ADC_B.u[5] = arg_Magnetic_Measure[0];
 ADC_B.u[8] = 0.0;
 for (i = 0; i < 3; i++) {
     ADC_B.u_c[3 * i] = -ADC_B.u[3 * i];
@@ -1114,15 +965,15 @@ if (fabs(ADC_B.B_e[0]) > 0.2) {
     /* '<S10>:1:14' */
     /* '<S10>:1:15' */
     if (ADC_B.B_e[0] < 0.0) {
-        ADC_B.rtb_B_e_d = -1.0;
+        ADC_B.rtb_B_e_j = -1.0;
     } else if (ADC_B.B_e[0] > 0.0) {
-        ADC_B.rtb_B_e_d = 1.0;
+        ADC_B.rtb_B_e_j = 1.0;
     } else if (ADC_B.B_e[0] == 0.0) {
-        ADC_B.rtb_B_e_d = 0.0;
+        ADC_B.rtb_B_e_j = 0.0;
     } else {
-        ADC_B.rtb_B_e_d = ADC_B.B_e[0];
+        ADC_B.rtb_B_e_j = ADC_B.B_e[0];
     }
-    ADC_B.m_g[0] = 0.2 * ADC_B.rtb_B_e_d;
+    ADC_B.m_g[0] = 0.2 * ADC_B.rtb_B_e_j;
 } else {
     /* '<S10>:1:17' */
     ADC_B.m_g[0] = ADC_B.B_e[0];
@@ -1131,15 +982,15 @@ if (fabs(ADC_B.B_e[1]) > 0.2) {
     /* '<S10>:1:20' */
     /* '<S10>:1:21' */
     if (ADC_B.B_e[1] < 0.0) {
-        ADC_B.rtb_B_e_d = -1.0;
+        ADC_B.rtb_B_e_j = -1.0;
     } else if (ADC_B.B_e[1] > 0.0) {
-        ADC_B.rtb_B_e_d = 1.0;
+        ADC_B.rtb_B_e_j = 1.0;
     } else if (ADC_B.B_e[1] == 0.0) {
-        ADC_B.rtb_B_e_d = 0.0;
+        ADC_B.rtb_B_e_j = 0.0;
     } else {
-        ADC_B.rtb_B_e_d = ADC_B.B_e[1];
+        ADC_B.rtb_B_e_j = ADC_B.B_e[1];
     }
-    ADC_B.m_g[1] = 0.2 * ADC_B.rtb_B_e_d;
+    ADC_B.m_g[1] = 0.2 * ADC_B.rtb_B_e_j;
 } else {
     /* '<S10>:1:23' */
     ADC_B.m_g[1] = ADC_B.B_e[1];
@@ -1148,22 +999,24 @@ if (fabs(ADC_B.B_e[2]) > 0.2) {
     /* '<S10>:1:26' */
     /* '<S10>:1:27' */
     if (ADC_B.B_e[2] < 0.0) {
-        ADC_B.rtb_B_e_d = -1.0;
+        ADC_B.rtb_B_e_j = -1.0;
     } else if (ADC_B.B_e[2] > 0.0) {
-        ADC_B.rtb_B_e_d = 1.0;
+        ADC_B.rtb_B_e_j = 1.0;
     } else if (ADC_B.B_e[2] == 0.0) {
-        ADC_B.rtb_B_e_d = 0.0;
+        ADC_B.rtb_B_e_j = 0.0;
     } else {
-        ADC_B.rtb_B_e_d = ADC_B.B_e[2];
+        ADC_B.rtb_B_e_j = ADC_B.B_e[2];
     }
-    ADC_B.m_g[2] = 0.2 * ADC_B.rtb_B_e_d;
+    ADC_B.m_g[2] = 0.2 * ADC_B.rtb_B_e_j;
 } else {
     /* '<S10>:1:29' */
     ADC_B.m_g[2] = ADC_B.B_e[2];
 }
 /* MATLAB Function: '<S6>/PD Controler' incorporates:
  *  Inport: '<Root>/Euler Angle Measure'
+ *  Inport: '<Root>/Magnetic Measure'
  *  Integrator: '<S17>/MemoryX'
+ *  MATLAB Function: '<S1>/Decision'
  */
 /* Power Monitor */
 /* '<S10>:1:32' */
@@ -1214,14 +1067,18 @@ for (i = 0; i < 3; i++) {
 for (i = 0; i < 3; i++) {
     ADC_B.u_b[i] = (((ADC_B.u_c[i] * ADC_B.B_e[0] + ADC_B.u_c[i + 3] * ADC_B.B_e[1]) + ADC_B.u_c[i + 6] * ADC_B.B_e[2]) - ((b_a_0[i] * ADC_B.B_e[0] + b_a_0[i + 3] * ADC_B.B_e[1]) + b_a_0[i + 6] * ADC_B.B_e[2])) - ((0.0 * ADC_X.MemoryX_CSTATE[0] + 0.0 * ADC_X.MemoryX_CSTATE[1]) + 0.0 * ADC_X.MemoryX_CSTATE[2]);
 }
-if (ADC_norm_l(ADC_B.B1) > 0.0) {
+
+
+if (ADC_norm(arg_Magnetic_Measure) > 0.0) {
     /* '<S11>:1:28' */
     /* '<S11>:1:29' */
-    ADC_B.time_diff = ADC_norm_l(ADC_B.B1);
+
+
+    ADC_B.time_diff = ADC_norm(arg_Magnetic_Measure);
     ADC_B.time_diff *= ADC_B.time_diff;
-    ADC_B.B_e[0] = (ADC_B.B1[1] * ADC_B.u_b[2] - ADC_B.B1[2] * ADC_B.u_b[1]) / ADC_B.time_diff;
-    ADC_B.B_e[1] = (ADC_B.B1[2] * ADC_B.u_b[0] - ADC_B.B1[0] * ADC_B.u_b[2]) / ADC_B.time_diff;
-    ADC_B.B_e[2] = (ADC_B.B1[0] * ADC_B.u_b[1] - ADC_B.B1[1] * ADC_B.u_b[0]) / ADC_B.time_diff;
+    ADC_B.B_e[0] = (arg_Magnetic_Measure[1] * ADC_B.u_b[2] - arg_Magnetic_Measure[2] * ADC_B.u_b[1]) / ADC_B.time_diff;
+    ADC_B.B_e[1] = (arg_Magnetic_Measure[2] * ADC_B.u_b[0] - arg_Magnetic_Measure[0] * ADC_B.u_b[2]) / ADC_B.time_diff;
+    ADC_B.B_e[2] = (arg_Magnetic_Measure[0] * ADC_B.u_b[1] - arg_Magnetic_Measure[1] * ADC_B.u_b[0]) / ADC_B.time_diff;
 } else {
     /* '<S11>:1:31' */
     ADC_B.B_e[0] = 0.0;
@@ -1233,15 +1090,15 @@ if (fabs(ADC_B.B_e[0]) > 0.2) {
     /* '<S11>:1:35' */
     /* '<S11>:1:36' */
     if (ADC_B.B_e[0] < 0.0) {
-        ADC_B.rtb_B_e_d = -1.0;
+        ADC_B.rtb_B_e_j = -1.0;
     } else if (ADC_B.B_e[0] > 0.0) {
-        ADC_B.rtb_B_e_d = 1.0;
+        ADC_B.rtb_B_e_j = 1.0;
     } else if (ADC_B.B_e[0] == 0.0) {
-        ADC_B.rtb_B_e_d = 0.0;
+        ADC_B.rtb_B_e_j = 0.0;
     } else {
-        ADC_B.rtb_B_e_d = ADC_B.B_e[0];
+        ADC_B.rtb_B_e_j = ADC_B.B_e[0];
     }
-    ADC_B.rtb_m_idx_0 = 0.2 * ADC_B.rtb_B_e_d;
+    ADC_B.rtb_m_idx_0 = 0.2 * ADC_B.rtb_B_e_j;
 } else {
     /* '<S11>:1:38' */
     ADC_B.rtb_m_idx_0 = ADC_B.B_e[0];
@@ -1250,15 +1107,15 @@ if (fabs(ADC_B.B_e[1]) > 0.2) {
     /* '<S11>:1:41' */
     /* '<S11>:1:42' */
     if (ADC_B.B_e[1] < 0.0) {
-        ADC_B.rtb_B_e_d = -1.0;
+        ADC_B.rtb_B_e_j = -1.0;
     } else if (ADC_B.B_e[1] > 0.0) {
-        ADC_B.rtb_B_e_d = 1.0;
+        ADC_B.rtb_B_e_j = 1.0;
     } else if (ADC_B.B_e[1] == 0.0) {
-        ADC_B.rtb_B_e_d = 0.0;
+        ADC_B.rtb_B_e_j = 0.0;
     } else {
-        ADC_B.rtb_B_e_d = ADC_B.B_e[1];
+        ADC_B.rtb_B_e_j = ADC_B.B_e[1];
     }
-    ADC_B.rtb_m_idx_1 = 0.2 * ADC_B.rtb_B_e_d;
+    ADC_B.rtb_m_idx_1 = 0.2 * ADC_B.rtb_B_e_j;
 } else {
     /* '<S11>:1:44' */
     ADC_B.rtb_m_idx_1 = ADC_B.B_e[1];
@@ -1267,15 +1124,15 @@ if (fabs(ADC_B.B_e[2]) > 0.2) {
     /* '<S11>:1:47' */
     /* '<S11>:1:48' */
     if (ADC_B.B_e[2] < 0.0) {
-        ADC_B.rtb_B_e_d = -1.0;
+        ADC_B.rtb_B_e_j = -1.0;
     } else if (ADC_B.B_e[2] > 0.0) {
-        ADC_B.rtb_B_e_d = 1.0;
+        ADC_B.rtb_B_e_j = 1.0;
     } else if (ADC_B.B_e[2] == 0.0) {
-        ADC_B.rtb_B_e_d = 0.0;
+        ADC_B.rtb_B_e_j = 0.0;
     } else {
-        ADC_B.rtb_B_e_d = ADC_B.B_e[2];
+        ADC_B.rtb_B_e_j = ADC_B.B_e[2];
     }
-    ADC_B.rtb_m_idx_2 = 0.2 * ADC_B.rtb_B_e_d;
+    ADC_B.rtb_m_idx_2 = 0.2 * ADC_B.rtb_B_e_j;
 } else {
     /* '<S11>:1:50' */
     ADC_B.rtb_m_idx_2 = ADC_B.B_e[2];
@@ -1387,11 +1244,11 @@ ADC_B.M = arg_lla[0];
 ADC_cosd(&ADC_B.M);
 ADC_B.f = arg_lla[1];
 ADC_sind(&ADC_B.f);
-ADC_B.rtb_B_e_d = arg_lla[0];
-ADC_sind(&ADC_B.rtb_B_e_d);
+ADC_B.rtb_B_e_j = arg_lla[0];
+ADC_sind(&ADC_B.rtb_B_e_j);
 ADC_B.time_diff = (ADC_B.scale + arg_lla[2]) * ADC_B.time_diff * ADC_B.E;
 ADC_B.M = (ADC_B.scale + arg_lla[2]) * ADC_B.M * ADC_B.f;
-ADC_B.scale = (0.99330562000985856 * ADC_B.scale + arg_lla[2]) * ADC_B.rtb_B_e_d;
+ADC_B.scale = (0.99330562000985856 * ADC_B.scale + arg_lla[2]) * ADC_B.rtb_B_e_j;
 ADC_B.dv2[0] = cos(ADC_B.G0);
 ADC_B.dv2[1] = sin(ADC_B.G0);
 ADC_B.dv2[2] = 0.0;
@@ -1501,45 +1358,45 @@ ADC_B.m_g[2] = ADC_B.G0 * (ADC_B.time_diff * ADC_B.m_g[2] - -0.98485254947677181
 /* '<S19>:1:3' */
 
 
-ADC_B.time_diff = ADC_norm_lw(arg_Magnetic_Measure);
+ADC_B.time_diff = ADC_norm_l(arg_Magnetic_Measure);
 ADC_B.u_b[0] = arg_Magnetic_Measure[0] / ADC_B.time_diff;
 ADC_B.u_b[1] = arg_Magnetic_Measure[1] / ADC_B.time_diff;
 ADC_B.u_b[2] = arg_Magnetic_Measure[2] / ADC_B.time_diff;
 /* '<S19>:1:4' */
 
 
-ADC_B.time_diff = ADC_norm_lw(arg_Sun_Measure);
+ADC_B.time_diff = ADC_norm_l(arg_Sun_Measure);
 ADC_B.W2_idx_0 = arg_Sun_Measure[0] / ADC_B.time_diff;
 ADC_B.W2_idx_1 = arg_Sun_Measure[1] / ADC_B.time_diff;
 ADC_B.W2_idx_2 = arg_Sun_Measure[2] / ADC_B.time_diff;
 /* '<S19>:1:5' */
-ADC_B.time_diff = ADC_norm_lw(ADC_B.m_g);
+ADC_B.time_diff = ADC_norm_l(ADC_B.m_g);
 ADC_B.m_g[0] /= ADC_B.time_diff;
 ADC_B.m_g[1] /= ADC_B.time_diff;
 ADC_B.f /= ADC_B.time_diff;
 /* '<S19>:1:6' */
-ADC_B.time_diff = ADC_norm_lw(ADC_B.B_e);
+ADC_B.time_diff = ADC_norm_l(ADC_B.B_e);
 ADC_B.B_e[0] /= ADC_B.time_diff;
 ADC_B.B_e[1] /= ADC_B.time_diff;
-ADC_B.rtb_B_e_d = ADC_B.B_e[2] / ADC_B.time_diff;
+ADC_B.rtb_B_e_j = ADC_B.B_e[2] / ADC_B.time_diff;
 /* '<S19>:1:9' */
-ADC_B.rtb_m_g_g[0] = ADC_B.m_g[1] * ADC_B.rtb_B_e_d - ADC_B.f * ADC_B.B_e[1];
-ADC_B.rtb_m_g_g[1] = ADC_B.f * ADC_B.B_e[0] - ADC_B.m_g[0] * ADC_B.rtb_B_e_d;
+ADC_B.rtb_m_g_g[0] = ADC_B.m_g[1] * ADC_B.rtb_B_e_j - ADC_B.f * ADC_B.B_e[1];
+ADC_B.rtb_m_g_g[1] = ADC_B.f * ADC_B.B_e[0] - ADC_B.m_g[0] * ADC_B.rtb_B_e_j;
 ADC_B.rtb_m_g_g[2] = ADC_B.m_g[0] * ADC_B.B_e[1] - ADC_B.m_g[1] * ADC_B.B_e[0];
-ADC_B.G0 = ADC_norm_lw(ADC_B.rtb_m_g_g);
+ADC_B.G0 = ADC_norm_l(ADC_B.rtb_m_g_g);
 /* '<S19>:1:10' */
-ADC_B.c_idx_0 = ADC_B.m_g[1] * ADC_B.rtb_B_e_d - ADC_B.f * ADC_B.B_e[1];
-ADC_B.c_idx_1 = ADC_B.f * ADC_B.B_e[0] - ADC_B.m_g[0] * ADC_B.rtb_B_e_d;
+ADC_B.c_idx_0 = ADC_B.m_g[1] * ADC_B.rtb_B_e_j - ADC_B.f * ADC_B.B_e[1];
+ADC_B.c_idx_1 = ADC_B.f * ADC_B.B_e[0] - ADC_B.m_g[0] * ADC_B.rtb_B_e_j;
 ADC_B.c_idx_2 = ADC_B.m_g[0] * ADC_B.B_e[1] - ADC_B.m_g[1] * ADC_B.B_e[0];
-ADC_B.rtb_m_g_f[0] = ADC_B.m_g[1] * ADC_B.rtb_B_e_d - ADC_B.f * ADC_B.B_e[1];
-ADC_B.rtb_m_g_f[1] = ADC_B.f * ADC_B.B_e[0] - ADC_B.m_g[0] * ADC_B.rtb_B_e_d;
+ADC_B.rtb_m_g_f[0] = ADC_B.m_g[1] * ADC_B.rtb_B_e_j - ADC_B.f * ADC_B.B_e[1];
+ADC_B.rtb_m_g_f[1] = ADC_B.f * ADC_B.B_e[0] - ADC_B.m_g[0] * ADC_B.rtb_B_e_j;
 ADC_B.rtb_m_g_f[2] = ADC_B.m_g[0] * ADC_B.B_e[1] - ADC_B.m_g[1] * ADC_B.B_e[0];
-ADC_B.scale = ADC_norm_lw(ADC_B.rtb_m_g_f);
+ADC_B.scale = ADC_norm_l(ADC_B.rtb_m_g_f);
 /* '<S19>:1:13' */
 ADC_B.u_cv[0] = ADC_B.u_b[1] * ADC_B.W2_idx_2 - ADC_B.u_b[2] * ADC_B.W2_idx_1;
 ADC_B.u_cv[1] = ADC_B.u_b[2] * ADC_B.W2_idx_0 - ADC_B.u_b[0] * ADC_B.W2_idx_2;
 ADC_B.u_cv[2] = ADC_B.u_b[0] * ADC_B.W2_idx_1 - ADC_B.u_b[1] * ADC_B.W2_idx_0;
-ADC_B.E = ADC_norm_lw(ADC_B.u_cv);
+ADC_B.E = ADC_norm_l(ADC_B.u_cv);
 /* '<S19>:1:14' */
 ADC_B.b_c_idx_0 = ADC_B.u_b[1] * ADC_B.W2_idx_2 - ADC_B.u_b[2] * ADC_B.W2_idx_1;
 ADC_B.b_c_idx_1 = ADC_B.u_b[2] * ADC_B.W2_idx_0 - ADC_B.u_b[0] * ADC_B.W2_idx_2;
@@ -1547,7 +1404,7 @@ ADC_B.b_c_idx_2 = ADC_B.u_b[0] * ADC_B.W2_idx_1 - ADC_B.u_b[1] * ADC_B.W2_idx_0;
 ADC_B.u_p[0] = ADC_B.u_b[1] * ADC_B.W2_idx_2 - ADC_B.u_b[2] * ADC_B.W2_idx_1;
 ADC_B.u_p[1] = ADC_B.u_b[2] * ADC_B.W2_idx_0 - ADC_B.u_b[0] * ADC_B.W2_idx_2;
 ADC_B.u_p[2] = ADC_B.u_b[0] * ADC_B.W2_idx_1 - ADC_B.u_b[1] * ADC_B.W2_idx_0;
-ADC_B.M = ADC_norm_lw(ADC_B.u_p);
+ADC_B.M = ADC_norm_l(ADC_B.u_p);
 /* '<S19>:1:16' */
 if (rtmIsMajorTimeStep(ADC_M)) {
     /* MATLAB Function: '<S2>/ LVLH ' */
@@ -1643,8 +1500,8 @@ if (rtmIsMajorTimeStep(ADC_M)) {
 ADC_B.u_g[0] = ADC_B.u_b[1] * ADC_B.W2_idx_2 - ADC_B.u_b[2] * ADC_B.W2_idx_1;
 ADC_B.u_g[1] = ADC_B.u_b[2] * ADC_B.W2_idx_0 - ADC_B.u_b[0] * ADC_B.W2_idx_2;
 ADC_B.u_g[2] = ADC_B.u_b[0] * ADC_B.W2_idx_1 - ADC_B.u_b[1] * ADC_B.W2_idx_0;
-ADC_B.rtb_m_g_m[0] = ADC_B.m_g[1] * ADC_B.rtb_B_e_d - ADC_B.f * ADC_B.B_e[1];
-ADC_B.rtb_m_g_m[1] = ADC_B.f * ADC_B.B_e[0] - ADC_B.m_g[0] * ADC_B.rtb_B_e_d;
+ADC_B.rtb_m_g_m[0] = ADC_B.m_g[1] * ADC_B.rtb_B_e_j - ADC_B.f * ADC_B.B_e[1];
+ADC_B.rtb_m_g_m[1] = ADC_B.f * ADC_B.B_e[0] - ADC_B.m_g[0] * ADC_B.rtb_B_e_j;
 ADC_B.rtb_m_g_m[2] = ADC_B.m_g[0] * ADC_B.B_e[1] - ADC_B.m_g[1] * ADC_B.B_e[0];
 for (i = 0; i < 3; i++) {
     ADC_B.u_cv[i] = ADC_B.u_g[i] / ADC_B.E;
@@ -1710,7 +1567,7 @@ arg_q_est1[3] = ADC_B.time_diff;
 /* Switch: '<S6>/Switch2' incorporates:
  *  Inport: '<Root>/S_flag'
  */
-guard1 = (*arg_S_flag > ADC_P.Switch2_Threshold);
+c_0 = (*arg_S_flag > ADC_P.Switch2_Threshold);
 /* MATLAB Function: '<S6>/LQR Controller' incorporates:
  *  Integrator: '<S17>/MemoryX'
  */
@@ -1720,10 +1577,13 @@ for (i = 0; i < 3; i++) {
         ADC_B.B_e[i] += b_a[i + 3 * b_sizes] * ADC_X.MemoryX_CSTATE[b_sizes];
     }
 }
-/* MATLAB Function: '<S6>/PD Controler' */
-ADC_B.rtb_m_l[0] = ADC_B.rtb_m_idx_1 * ADC_B.B1[2] - ADC_B.rtb_m_idx_2 * ADC_B.B1[1];
-ADC_B.rtb_m_l[1] = ADC_B.rtb_m_idx_2 * ADC_B.B1[0] - ADC_B.rtb_m_idx_0 * ADC_B.B1[2];
-ADC_B.rtb_m_l[2] = ADC_B.rtb_m_idx_0 * ADC_B.B1[1] - ADC_B.rtb_m_idx_1 * ADC_B.B1[0];
+/* MATLAB Function: '<S6>/PD Controler' incorporates:
+ *  Inport: '<Root>/Magnetic Measure'
+ *  MATLAB Function: '<S1>/Decision'
+ */
+ADC_B.rtb_m_l[0] = ADC_B.rtb_m_idx_1 * arg_Magnetic_Measure[2] - ADC_B.rtb_m_idx_2 * arg_Magnetic_Measure[1];
+ADC_B.rtb_m_l[1] = ADC_B.rtb_m_idx_2 * arg_Magnetic_Measure[0] - ADC_B.rtb_m_idx_0 * arg_Magnetic_Measure[2];
+ADC_B.rtb_m_l[2] = ADC_B.rtb_m_idx_0 * arg_Magnetic_Measure[1] - ADC_B.rtb_m_idx_1 * arg_Magnetic_Measure[0];
 /* MATLAB Function: '<S2>/State1' */
 /* MATLAB Function 'Estimator/State1': '<S21>:1' */
 /* '<S21>:1:9' */
@@ -1758,7 +1618,7 @@ for (i = 0; i < 3; i++) {
     /* Switch: '<S6>/Switch2' incorporates:
  *  MATLAB Function: '<S6>/LQR Controller'
  */
-    if (guard1) {
+    if (c_0) {
         ADC_B.m_g[i] = (a[i] * ADC_B.B_e[0] + a[i + 3] * ADC_B.B_e[1]) + a[i + 6] * ADC_B.B_e[2];
     } else {
         ADC_B.m_g[i] = ADC_B.rtb_m_l[i];
@@ -1775,10 +1635,10 @@ for (i = 0; i < 3; i++) {
     ADC_B.dv1[1 + (i << 2)] = 0.5 * ADC_B.rtb_Normalization_m[1 + (i << 2)];
     ADC_B.dv1[2 + (i << 2)] = 0.5 * ADC_B.rtb_Normalization_m[2 + (i << 2)];
     ADC_B.dv1[3 + (i << 2)] = 0.5 * ADC_B.rtb_Normalization_m[3 + (i << 2)];
-    ADC_B.u_b[i] = arg_Euler_Angle_Measure[i] + ADC_B.R_LVLH2b[3 + i] * 0.0011;
+    ADC_B.rtb_m_l[i] = arg_Euler_Angle_Measure[i] + ADC_B.R_LVLH2b[3 + i] * 0.0011;
 }
 for (i = 0; i < 4; i++) {
-    ADC_B.dv6[i] = (ADC_B.dv1[i] * ADC_B.u_b[0] + ADC_B.dv1[i + 4] * ADC_B.u_b[1]) + ADC_B.dv1[i + 8] * ADC_B.u_b[2];
+    ADC_B.dv6[i] = (ADC_B.dv1[i] * ADC_B.rtb_m_l[0] + ADC_B.dv1[i + 4] * ADC_B.rtb_m_l[1]) + ADC_B.dv1[i + 8] * ADC_B.rtb_m_l[2];
 }
 ADC_B.x[0] = ADC_B.scale;
 ADC_B.x[1] = ADC_B.E;
@@ -1791,11 +1651,11 @@ ADC_B.x[5] = ADC_B.dv6[2];
 /* '<S12>:1:3' */
 k = 0;
 for (i = 0; i < 6; i++) {
-    guard1 = rtIsNaN(ADC_B.x[i]);
-    if (guard1) {
+    c_0 = rtIsNaN(ADC_B.x[i]);
+    if (c_0) {
         k++;
     }
-    c[i] = guard1;
+    c[i] = c_0;
 }
 b_sizes = k;
 i = 0;
@@ -1898,9 +1758,9 @@ for (i = 0; i < 6; i++) {
 /* '<S18>:1:3' */
 if (rtmIsMajorTimeStep(ADC_M)) {
     /* Memory: '<S2>/Memory' */
-    ADC_B.Memory_j[0] = ADC_DW.Memory_PreviousInput_h[0];
-    ADC_B.Memory_j[1] = ADC_DW.Memory_PreviousInput_h[1];
-    ADC_B.Memory_j[2] = ADC_DW.Memory_PreviousInput_h[2];
+    ADC_B.Memory[0] = ADC_DW.Memory_PreviousInput_h[0];
+    ADC_B.Memory[1] = ADC_DW.Memory_PreviousInput_h[1];
+    ADC_B.Memory[2] = ADC_DW.Memory_PreviousInput_h[2];
 }
 
 
@@ -1921,34 +1781,20 @@ if (rtmIsMajorTimeStep(ADC_M)) {
 
 
                                   if (rtmIsMajorTimeStep(ADC_M)) {
-    /* Update for Memory: '<S1>/Memory' incorporates:
- *  Update for Inport: '<Root>/Magnetic Measure'
- */
-    ADC_DW.Memory_PreviousInput[0] = arg_Magnetic_Measure[0];
     /* Update for UnitDelay: '<S7>/UD' */
     ADC_DW.UD_DSTATE[0] = ADC_B.TSamp[0];
-    /* Update for Memory: '<S1>/Memory' incorporates:
- *  Update for Inport: '<Root>/Magnetic Measure'
- */
-    ADC_DW.Memory_PreviousInput[1] = arg_Magnetic_Measure[1];
-    /* Update for UnitDelay: '<S7>/UD' */
     ADC_DW.UD_DSTATE[1] = ADC_B.TSamp[1];
-    /* Update for Memory: '<S1>/Memory' incorporates:
- *  Update for Inport: '<Root>/Magnetic Measure'
- */
-    ADC_DW.Memory_PreviousInput[2] = arg_Magnetic_Measure[2];
-    /* Update for UnitDelay: '<S7>/UD' */
     ADC_DW.UD_DSTATE[2] = ADC_B.TSamp[2];
     /* Update for Memory: '<S2>/Memory1' */
-    ADC_DW.Memory1_PreviousInput[0] = ADC_B.Memory_j[0];
+    ADC_DW.Memory1_PreviousInput[0] = ADC_B.Memory[0];
     /* Update for Memory: '<S2>/Memory' */
     ADC_DW.Memory_PreviousInput_h[0] = ADC_B.r_ECI[0];
     /* Update for Memory: '<S2>/Memory1' */
-    ADC_DW.Memory1_PreviousInput[1] = ADC_B.Memory_j[1];
+    ADC_DW.Memory1_PreviousInput[1] = ADC_B.Memory[1];
     /* Update for Memory: '<S2>/Memory' */
     ADC_DW.Memory_PreviousInput_h[1] = ADC_B.r_ECI[1];
     /* Update for Memory: '<S2>/Memory1' */
-    ADC_DW.Memory1_PreviousInput[2] = ADC_B.Memory_j[2];
+    ADC_DW.Memory1_PreviousInput[2] = ADC_B.Memory[2];
     /* Update for Memory: '<S2>/Memory' */
     ADC_DW.Memory_PreviousInput_h[2] = ADC_B.r_ECI[2];
 }
@@ -2261,17 +2107,9 @@ for (i = 0; i < 6; i++) {
 
     
  
-/* InitializeConditions for Memory: '<S1>/Memory' */
-ADC_DW.Memory_PreviousInput[0] = ADC_P.Memory_X0;
 /* InitializeConditions for UnitDelay: '<S7>/UD' */
 ADC_DW.UD_DSTATE[0] = ADC_P.DiscreteDerivative_ICPrevScaledInput;
-/* InitializeConditions for Memory: '<S1>/Memory' */
-ADC_DW.Memory_PreviousInput[1] = ADC_P.Memory_X0;
-/* InitializeConditions for UnitDelay: '<S7>/UD' */
 ADC_DW.UD_DSTATE[1] = ADC_P.DiscreteDerivative_ICPrevScaledInput;
-/* InitializeConditions for Memory: '<S1>/Memory' */
-ADC_DW.Memory_PreviousInput[2] = ADC_P.Memory_X0;
-/* InitializeConditions for UnitDelay: '<S7>/UD' */
 ADC_DW.UD_DSTATE[2] = ADC_P.DiscreteDerivative_ICPrevScaledInput;
 /* InitializeConditions for Integrator: '<S17>/MemoryX' */
 if (rtmIsFirstInitCond(ADC_M)) {

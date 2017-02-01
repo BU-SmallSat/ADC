@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'ADC'.
  *
- * Model version                  : 1.1170
+ * Model version                  : 1.1171
  * Simulink Coder version         : 8.10 (R2016a) 10-Feb-2016
- * C/C++ source code generated on : Wed Jan 18 14:57:52 2017
+ * C/C++ source code generated on : Wed Feb 01 13:48:56 2017
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -50,26 +50,23 @@ static const rtwCAPI_Signals rtBlockSignals[] = {
   { 0, 16, TARGET_STRING("ADC/lla2eci"),
     TARGET_STRING(""), 0, 0, 0, 0, 0 },
 
-  { 1, 0, TARGET_STRING("ADC/Controller/Memory"),
-    TARGET_STRING(""), 0, 0, 0, 0, 1 },
-
-  { 2, 0, TARGET_STRING("ADC/Estimator/Math Function1"),
+  { 1, 0, TARGET_STRING("ADC/Estimator/Math Function1"),
     TARGET_STRING(""), 0, 0, 1, 0, 1 },
 
-  { 3, 3, TARGET_STRING("ADC/Controller/Detumble /saturator and power monitor"),
+  { 2, 3, TARGET_STRING("ADC/Controller/Detumble /saturator and power monitor"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 4, 0, TARGET_STRING("ADC/Estimator/Kalman Filter/X0"),
+  { 3, 0, TARGET_STRING("ADC/Estimator/Kalman Filter/X0"),
     TARGET_STRING(""), 0, 0, 2, 0, 1 },
 
-  { 5, 11, TARGET_STRING(
+  { 4, 11, TARGET_STRING(
     "ADC/Estimator/Kalman Filter/Observer/MeasurementUpdate"),
     TARGET_STRING(""), 0, 0, 3, 0, 0 },
 
-  { 6, 0, TARGET_STRING("ADC/Estimator/Kalman Filter/Observer/Add"),
+  { 5, 0, TARGET_STRING("ADC/Estimator/Kalman Filter/Observer/Add"),
     TARGET_STRING(""), 0, 0, 3, 0, 0 },
 
-  { 7, 11, TARGET_STRING(
+  { 6, 11, TARGET_STRING(
     "ADC/Estimator/Kalman Filter/Observer/MeasurementUpdate/Product3"),
     TARGET_STRING(""), 0, 0, 3, 0, 0 },
 
@@ -82,58 +79,58 @@ static const rtwCAPI_BlockParameters rtBlockParameters[] = {
   /* addrMapIndex, blockPath,
    * paramName, dataTypeIndex, dimIndex, fixPtIdx
    */
-  { 8, TARGET_STRING("ADC/Controller/Memory"),
+  { 7, TARGET_STRING("ADC/Controller/Memory"),
     TARGET_STRING("X0"), 0, 4, 0 },
 
-  { 9, TARGET_STRING("ADC/Estimator/Memory"),
+  { 8, TARGET_STRING("ADC/Estimator/Memory"),
     TARGET_STRING("X0"), 0, 4, 0 },
 
-  { 10, TARGET_STRING("ADC/Estimator/Memory1"),
+  { 9, TARGET_STRING("ADC/Estimator/Memory1"),
     TARGET_STRING("X0"), 0, 4, 0 },
 
-  { 11, TARGET_STRING("ADC/Estimator/Normalization"),
+  { 10, TARGET_STRING("ADC/Estimator/Normalization"),
     TARGET_STRING("Bias"), 0, 4, 0 },
 
-  { 12, TARGET_STRING("ADC/Controller/Detumble /Discrete Derivative"),
+  { 11, TARGET_STRING("ADC/Controller/Detumble /Discrete Derivative"),
     TARGET_STRING("ICPrevScaledInput"), 0, 4, 0 },
 
-  { 13, TARGET_STRING("ADC/Controller/Detumble /voltage"),
+  { 12, TARGET_STRING("ADC/Controller/Detumble /voltage"),
     TARGET_STRING("Value"), 0, 4, 0 },
 
-  { 14, TARGET_STRING("ADC/Controller/Detumble /Gain"),
+  { 13, TARGET_STRING("ADC/Controller/Detumble /Gain"),
     TARGET_STRING("Gain"), 0, 4, 0 },
 
-  { 15, TARGET_STRING("ADC/Controller/Pointing/voltage"),
+  { 14, TARGET_STRING("ADC/Controller/Pointing/voltage"),
     TARGET_STRING("Value"), 0, 4, 0 },
 
-  { 16, TARGET_STRING("ADC/Controller/Pointing/Switch"),
+  { 15, TARGET_STRING("ADC/Controller/Pointing/Switch"),
     TARGET_STRING("Threshold"), 0, 4, 0 },
 
-  { 17, TARGET_STRING("ADC/Controller/Pointing/Switch2"),
+  { 16, TARGET_STRING("ADC/Controller/Pointing/Switch2"),
     TARGET_STRING("Threshold"), 0, 4, 0 },
 
-  { 18, TARGET_STRING("ADC/Estimator/Kalman Filter/A"),
+  { 17, TARGET_STRING("ADC/Estimator/Kalman Filter/A"),
     TARGET_STRING("Value"), 0, 5, 0 },
 
-  { 19, TARGET_STRING("ADC/Estimator/Kalman Filter/B"),
+  { 18, TARGET_STRING("ADC/Estimator/Kalman Filter/B"),
     TARGET_STRING("Value"), 0, 6, 0 },
 
-  { 20, TARGET_STRING("ADC/Estimator/Kalman Filter/C"),
+  { 19, TARGET_STRING("ADC/Estimator/Kalman Filter/C"),
     TARGET_STRING("Value"), 0, 5, 0 },
 
-  { 21, TARGET_STRING("ADC/Estimator/Kalman Filter/D"),
+  { 20, TARGET_STRING("ADC/Estimator/Kalman Filter/D"),
     TARGET_STRING("Value"), 0, 6, 0 },
 
-  { 22, TARGET_STRING("ADC/Estimator/Kalman Filter/Enable"),
+  { 21, TARGET_STRING("ADC/Estimator/Kalman Filter/Enable"),
     TARGET_STRING("Value"), 1, 4, 0 },
 
-  { 23, TARGET_STRING("ADC/Estimator/Kalman Filter/X0"),
+  { 22, TARGET_STRING("ADC/Estimator/Kalman Filter/X0"),
     TARGET_STRING("Value"), 0, 3, 0 },
 
-  { 24, TARGET_STRING("ADC/Controller/Detumble /Discrete Derivative/TSamp"),
+  { 23, TARGET_STRING("ADC/Controller/Detumble /Discrete Derivative/TSamp"),
     TARGET_STRING("WtEt"), 0, 4, 0 },
 
-  { 25, TARGET_STRING("ADC/Estimator/Kalman Filter/CalculatePL/KalmanGainL"),
+  { 24, TARGET_STRING("ADC/Estimator/Kalman Filter/CalculatePL/KalmanGainL"),
     TARGET_STRING("Value"), 0, 5, 0 },
 
   {
@@ -147,12 +144,12 @@ static const rtwCAPI_States rtBlockStates[] = {
    * stateName, pathAlias, dWorkIndex, dataTypeIndex, dimIndex,
    * fixPtIdx, sTimeIndex, isContinuous, hierInfoIdx, flatElemIdx
    */
-  { 26, 0, TARGET_STRING("ADC/Estimator/Kalman Filter/MemoryX"),
+  { 25, 0, TARGET_STRING("ADC/Estimator/Kalman Filter/MemoryX"),
     TARGET_STRING(""),
     TARGET_STRING(""),
     0, 0, 3, 0, 0, 1, -1, 0 },
 
-  { 27, -1, TARGET_STRING("ADC/Controller/Detumble\n/Discrete Derivative/UD"),
+  { 26, -1, TARGET_STRING("ADC/Controller/Detumble\n/Discrete Derivative/UD"),
     TARGET_STRING(""), "", 0, 0, 0, 0, 1, 0, -1, 0 },
 
   {
@@ -171,33 +168,32 @@ static const rtwCAPI_ModelParameters rtModelParameters[] = {
 /* Declare Data Addresses statically */
 static void* rtDataAddrMap[] = {
   &ADC_B.r_ECI[0],                     /* 0: Signal */
-  &ADC_B.Memory[0],                    /* 1: Signal */
-  &ADC_B.MathFunction1[0],             /* 2: Signal */
-  &ADC_B.m[0],                         /* 3: Signal */
-  &ADC_B.X0[0],                        /* 4: Signal */
-  &ADC_B.Product3[0],                  /* 5: Signal */
-  &ADC_B.Add[0],                       /* 6: Signal */
-  &ADC_B.Product3[0],                  /* 7: Signal */
-  &ADC_P.Memory_X0,                    /* 8: Block Parameter */
-  &ADC_P.Memory_X0_d,                  /* 9: Block Parameter */
-  &ADC_P.Memory1_X0,                   /* 10: Block Parameter */
-  &ADC_P.Normalization_Bias,           /* 11: Block Parameter */
-  &ADC_P.DiscreteDerivative_ICPrevScaledInput,/* 12: Mask Parameter */
-  &ADC_P.voltage_Value,                /* 13: Block Parameter */
-  &ADC_P.Gain_Gain,                    /* 14: Block Parameter */
-  &ADC_P.voltage_Value_b,              /* 15: Block Parameter */
-  &ADC_P.Switch_Threshold,             /* 16: Block Parameter */
-  &ADC_P.Switch2_Threshold,            /* 17: Block Parameter */
-  &ADC_P.A_Value[0],                   /* 18: Block Parameter */
-  &ADC_P.B_Value[0],                   /* 19: Block Parameter */
-  &ADC_P.C_Value[0],                   /* 20: Block Parameter */
-  &ADC_P.D_Value[0],                   /* 21: Block Parameter */
-  &ADC_P.Enable_Value,                 /* 22: Block Parameter */
-  &ADC_P.X0_Value[0],                  /* 23: Block Parameter */
-  &ADC_P.TSamp_WtEt,                   /* 24: Block Parameter */
-  &ADC_P.KalmanGainL_Value[0],         /* 25: Block Parameter */
-  &ADC_X.MemoryX_CSTATE[0],            /* 26: Continuous State */
-  &ADC_DW.UD_DSTATE[0],                /* 27: Discrete State */
+  &ADC_B.MathFunction1[0],             /* 1: Signal */
+  &ADC_B.m[0],                         /* 2: Signal */
+  &ADC_B.X0[0],                        /* 3: Signal */
+  &ADC_B.Product3[0],                  /* 4: Signal */
+  &ADC_B.Add[0],                       /* 5: Signal */
+  &ADC_B.Product3[0],                  /* 6: Signal */
+  &ADC_P.Memory_X0,                    /* 7: Block Parameter */
+  &ADC_P.Memory_X0_d,                  /* 8: Block Parameter */
+  &ADC_P.Memory1_X0,                   /* 9: Block Parameter */
+  &ADC_P.Normalization_Bias,           /* 10: Block Parameter */
+  &ADC_P.DiscreteDerivative_ICPrevScaledInput,/* 11: Mask Parameter */
+  &ADC_P.voltage_Value,                /* 12: Block Parameter */
+  &ADC_P.Gain_Gain,                    /* 13: Block Parameter */
+  &ADC_P.voltage_Value_b,              /* 14: Block Parameter */
+  &ADC_P.Switch_Threshold,             /* 15: Block Parameter */
+  &ADC_P.Switch2_Threshold,            /* 16: Block Parameter */
+  &ADC_P.A_Value[0],                   /* 17: Block Parameter */
+  &ADC_P.B_Value[0],                   /* 18: Block Parameter */
+  &ADC_P.C_Value[0],                   /* 19: Block Parameter */
+  &ADC_P.D_Value[0],                   /* 20: Block Parameter */
+  &ADC_P.Enable_Value,                 /* 21: Block Parameter */
+  &ADC_P.X0_Value[0],                  /* 22: Block Parameter */
+  &ADC_P.TSamp_WtEt,                   /* 23: Block Parameter */
+  &ADC_P.KalmanGainL_Value[0],         /* 24: Block Parameter */
+  &ADC_X.MemoryX_CSTATE[0],            /* 25: Continuous State */
+  &ADC_DW.UD_DSTATE[0],                /* 26: Discrete State */
 };
 
 /* Declare Data Run-Time Dimension Buffer Addresses statically */
@@ -298,7 +294,7 @@ static rtwCAPI_ModelMappingStaticInfo mmiStatic = {
    *          elementMap, sampleTimeMap, dimensionArray},
    * TargetType: targetType
    */
-  { rtBlockSignals, 8,
+  { rtBlockSignals, 7,
     (NULL), 0,
     (NULL), 0 },
 
@@ -311,10 +307,10 @@ static rtwCAPI_ModelMappingStaticInfo mmiStatic = {
     rtElementMap, rtSampleTimeMap, rtDimensionArray },
   "float",
 
-  { 3130816418U,
-    768533048U,
-    3321396817U,
-    3591879445U },
+  { 3931530435U,
+    1088133387U,
+    2458642832U,
+    1037310115U },
   (NULL), 0,
   0
 };

@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'ADC'.
  *
- * Model version                  : 1.1170
+ * Model version                  : 1.1171
  * Simulink Coder version         : 8.10 (R2016a) 10-Feb-2016
- * C/C++ source code generated on : Wed Jan 18 14:57:52 2017
+ * C/C++ source code generated on : Wed Feb 01 13:48:56 2017
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
